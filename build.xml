@@ -4,7 +4,7 @@
 /*
  * $RCSfile$
  *
- * Copyright (c) 2005 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (c) 2004 Sun Microsystems, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -69,6 +69,7 @@
     <ant dir="src/Appearance" target="${build.target}"/>
     <ant dir="src/AppearanceMixed" target="${build.target}"/>
     <ant dir="src/Background" target="${build.target}"/>
+    <ant dir="src/CgShaderTest" target="${build.target}"/>
     <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
     <ant dir="src/ConicWorld" target="${build.target}"/>
     <ant dir="src/FPSCounter" target="${build.target}"/>
@@ -76,6 +77,7 @@
     <ant dir="src/GearTest" target="${build.target}"/>
     <ant dir="src/GeometryByReference" target="${build.target}"/>
     <ant dir="src/GeometryCompression" target="${build.target}"/>
+    <ant dir="src/GLSLShaderTest" target="${build.target}"/>
     <ant dir="src/HelloUniverse" target="${build.target}"/>
     <ant dir="src/LOD" target="${build.target}"/>
     <ant dir="src/Lightwave" target="${build.target}"/>
