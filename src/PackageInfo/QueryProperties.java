@@ -42,27 +42,77 @@
  * $State$
  */
 
-import java.util.Map;
+import java.util.*;
 import javax.media.j3d.*;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsConfiguration;
 import com.sun.j3d.utils.universe.*;
 
 public class QueryProperties {
+    public static void printProps(Map map, String[] propList) {
+	// Create an alphabetical list of keys
+	List  keyList = new ArrayList(map.keySet());
+	Collections.sort(keyList);
+	Iterator it;
+
+	// Collection used to remember the properties we've already
+	// printed, so we don't print them twice
+	HashSet hs = new HashSet();
+
+	// Print out the values for the caller-specified properties
+	String key;
+	for (int i = 0; i < propList.length; i++) {
+	    int len = propList[i].length();
+	    int idxWild = propList[i].indexOf('*');
+	    if (idxWild < 0) {
+		key = propList[i];
+		if (!hs.contains(key)) {
+		    System.out.println(key + " = " + map.get(key));
+		    hs.add(key);
+		}
+	    }
+	    else if (idxWild == len-1) {
+		String pattern = propList[i].substring(0, len-1);
+		it = keyList.iterator();
+		while (it.hasNext()) {
+		    key = (String)it.next();
+		    if (key.startsWith(pattern) && !hs.contains(key)) {
+			System.out.println(key + " = " + map.get(key));
+			hs.add(key);
+		    }
+		}
+	    }
+	    else {
+		System.out.println(propList[i] +
+				   " = ERROR: KEY WITH EMBEDDED WILD CARD IGNORED");
+	    }
+	}
+
+	// Print out the values for those properties not already printed
+	it = keyList.iterator();
+	while (it.hasNext()) {
+	    key = (String)it.next();
+	    if (!hs.contains(key)) {
+		System.out.println(key + " = " + map.get(key));
+	    }
+	}
+
+    }
+
     public static void main(String[] args) {
         VirtualUniverse vu = new VirtualUniverse();
 	Map vuMap = vu.getProperties();
+	final String[] vuPropList = {
+	    "j3d.version",
+ 	    "j3d.vendor",
+ 	    "j3d.specification.version",
+ 	    "j3d.specification.vendor",
+	    "j3d.*"
+	    // Just print all other properties in alphabetical order
+	};
 
-	System.out.println("version = " +
-			   vuMap.get("j3d.version"));
-	System.out.println("vendor = " +
-			   vuMap.get("j3d.vendor"));
-	System.out.println("specification.version = " +
-			   vuMap.get("j3d.specification.version"));
-	System.out.println("specification.vendor = " +
-			   vuMap.get("j3d.specification.vendor"));
-	System.out.println("renderer = " +
-			   vuMap.get("j3d.renderer") + "\n");
+	printProps(vuMap, vuPropList);
+	System.out.println();
 
 	GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
 
@@ -77,61 +127,21 @@ public class QueryProperties {
                 getDefaultScreenDevice().getBestConfiguration(template);
 
 	Map c3dMap = new Canvas3D(config).queryProperties();
+	final String[] c3dPropList = {
+	    "native.*",
+	    "doubleBufferAvailable",
+	    "stereoAvailable",
+	    "sceneAntialiasing*",
+	    "compressedGeometry.majorVersionNumber",
+	    "compressedGeometry.minorVersionNumber",
+	    "compressedGeometry.*",
+	    "textureUnitStateMax",
+	    "textureWidthMax",
+	    "textureHeightMax",
+	    // Just print all other properties in alphabetical order
+	};
 
-	System.out.println("Renderer version = " +
-			   c3dMap.get("native.version"));
-	System.out.println("doubleBufferAvailable = " +
-			   c3dMap.get("doubleBufferAvailable"));
-	System.out.println("stereoAvailable = " +
-			   c3dMap.get("stereoAvailable"));
-	System.out.println("sceneAntialiasingAvailable = " +
-			   c3dMap.get("sceneAntialiasingAvailable"));
-	System.out.println("sceneAntialiasingNumPasses = " +
-			   c3dMap.get("sceneAntialiasingNumPasses"));
-	System.out.println("textureColorTableSize = " +
-			   c3dMap.get("textureColorTableSize"));
-	System.out.println("textureEnvCombineAvailable = " +
-			   c3dMap.get("textureEnvCombineAvailable"));
-	System.out.println("textureCombineDot3Available = " +
-			   c3dMap.get("textureCombineDot3Available"));
-	System.out.println("textureCombineSubtractAvailable = " +
-			   c3dMap.get("textureCombineSubtractAvailable"));
-	System.out.println("texture3DAvailable = " +
-			   c3dMap.get("texture3DAvailable"));
-	System.out.println("textureCubeMapAvailable = " +
-			   c3dMap.get("textureCubeMapAvailable"));
-	System.out.println("textureSharpenAvailable = " +
-			   c3dMap.get("textureSharpenAvailable"));
-	System.out.println("textureDetailAvailable = " +
-			   c3dMap.get("textureDetailAvailable"));
-	System.out.println("textureFilter4Available = " +
-			   c3dMap.get("textureFilter4Available"));
-	System.out.println("textureAnisotropicFilterDegreeMax = " +
-			   c3dMap.get("textureAnisotropicFilterDegreeMax"));
-	System.out.println("textureBoundaryWidthMax = " +
-			   c3dMap.get("textureBoundaryWidthMax"));
-	System.out.println("textureWidthMax = " +
-			   c3dMap.get("textureWidthMax"));
-	System.out.println("textureHeightMax = " +
-			   c3dMap.get("textureHeightMax"));
-	System.out.println("texture3DWidthMax = " +
-			   c3dMap.get("texture3DWidthMax"));
-	System.out.println("texture3DHeightMax = " +
-			   c3dMap.get("texture3DHeightMax"));
-	System.out.println("texture3DDepthMax = " +
-			   c3dMap.get("texture3DDepthMax"));
-	System.out.println("textureLodOffsetAvailable = " +
-			   c3dMap.get("textureLodOffsetAvailable"));
-	System.out.println("textureLodRangeAvailable = " +
-			   c3dMap.get("textureLodRangeAvailable"));
-	System.out.println("textureUnitStateMax = " +
-			   c3dMap.get("textureUnitStateMax"));
-	System.out.println("compressedGeometry.majorVersionNumber = " +
-			   c3dMap.get("compressedGeometry.majorVersionNumber"));
-	System.out.println("compressedGeometry.minorVersionNumber = " +
-			   c3dMap.get("compressedGeometry.minorVersionNumber"));
-	System.out.println("compressedGeometry.minorMinorVersionNumber = " +
-		c3dMap.get("compressedGeometry.minorMinorVersionNumber"));
+	printProps(c3dMap, c3dPropList);
 
 	System.exit(0);
     }
