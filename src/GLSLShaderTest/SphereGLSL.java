@@ -56,9 +56,9 @@ import java.net.URL;
 import java.net.MalformedURLException;
 
 /**
- * Simple CG Shader test program
+ * Simple GLSL Shader test program
  */
-public class SphereCg extends Applet {
+public class SphereGLSL extends Applet {
 
     // Constants for type of light to use
     private static final int DIRECTIONAL_LIGHT = 0;
@@ -114,16 +114,19 @@ public class SphereCg extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully("./simple_vp.cg");
-	    fragmentProgram = StringIO.readFully("./simple_fp.cg");
+	    vertexProgram = StringIO.readFully("./simple.vert");
+	    fragmentProgram = StringIO.readFully("./simple.frag");
 	}
 	catch (IOException e) {
+	    /*
 	    e.printStackTrace();
 	    System.exit(1);
+	    */
+	    System.err.println(e);
 	}
-	CgVertexShader vertexShader = new CgVertexShader(vertexProgram);
-	CgFragmentShader fragmentShader = new CgFragmentShader(fragmentProgram);
-	CgShaderProgram shaderProgram = new CgShaderProgram();
+	GLSLVertexShader vertexShader = new GLSLVertexShader(vertexProgram);
+	GLSLFragmentShader fragmentShader = new GLSLFragmentShader(fragmentProgram);
+	GLSLShaderProgram shaderProgram = new GLSLShaderProgram();
 	shaderProgram.setVertexShader(vertexShader);
 	shaderProgram.setFragmentShader(fragmentShader);
 
@@ -269,7 +272,7 @@ public class SphereCg extends Applet {
 	return objRoot;
     }
 
-    public SphereCg() {
+    public SphereGLSL() {
     }
 
     public void init() {
@@ -300,12 +303,12 @@ public class SphereCg extends Applet {
     }
 
     //
-    // The following allows SphereCg to be run as an application
+    // The following allows SphereGLSL to be run as an application
     // as well as an applet
     //
     public static void main(String[] args) {
         // Parse the Input Arguments
-	String usage = "Usage: java SphereCg [-point | -spot | -dir]";
+	String usage = "Usage: java SphereGLSL [-point | -spot | -dir]";
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("-")) {
                 if (args[i].equals("-point")) {
@@ -337,6 +340,6 @@ public class SphereCg extends Applet {
 	    }
         }
 
-	new MainFrame(new SphereCg(), 700, 700);
+	new MainFrame(new SphereGLSL(), 700, 700);
     }
 }

@@ -60,7 +60,7 @@ import com.sun.j3d.utils.behaviors.vp.*;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-public class ObjLoadCg extends Applet {
+public class ObjLoadGLSL extends Applet {
 
     private boolean spin = false;
     private boolean noTriangulate = false;
@@ -117,16 +117,16 @@ public class ObjLoadCg extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully("./simple_vp.cg");
-	    fragmentProgram = StringIO.readFully("./simple_fp.cg");
+	    vertexProgram = StringIO.readFully("./simple.vert");
+	    fragmentProgram = StringIO.readFully("./simple.frag");
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
 	    System.exit(1);
 	}
-	CgVertexShader vertexShader = new CgVertexShader(vertexProgram);
-	CgFragmentShader fragmentShader = new CgFragmentShader(fragmentProgram);
-	CgShaderProgram shaderProgram = new CgShaderProgram();
+	GLSLVertexShader vertexShader = new GLSLVertexShader(vertexProgram);
+	GLSLFragmentShader fragmentShader = new GLSLFragmentShader(fragmentProgram);
+	GLSLShaderProgram shaderProgram = new GLSLShaderProgram();
 	shaderProgram.setVertexShader(vertexShader);
 	shaderProgram.setFragmentShader(fragmentShader);
 	setShaderProgram(s.getSceneGroup(), shaderProgram);
@@ -161,7 +161,7 @@ public class ObjLoadCg extends Applet {
     private void usage()
     {
       System.out.println(
-	"Usage: java ObjLoadCg [-s] [-n] [-t] [-c degrees] <.obj file>");
+	"Usage: java ObjLoadGLSL [-s] [-n] [-t] [-c degrees] <.obj file>");
       System.out.println("  -s Spin (no user interaction)");
       System.out.println("  -n No triangulation");
       System.out.println("  -t No stripification");
@@ -278,7 +278,7 @@ public class ObjLoadCg extends Applet {
     }
 
     // Caled if running as a program
-    public ObjLoadCg(String[] args) {
+    public ObjLoadGLSL(String[] args) {
       if (args.length != 0) {
 	for (int i = 0 ; i < args.length ; i++) {
 	  if (args[i].startsWith("-")) {
@@ -320,7 +320,7 @@ public class ObjLoadCg extends Applet {
 
 
     // Running as an applet
-    public ObjLoadCg() {
+    public ObjLoadGLSL() {
     }
 
     public void destroy() {
@@ -330,10 +330,10 @@ public class ObjLoadCg extends Applet {
 
 
     //
-    // The following allows ObjLoadCg to be run as an application
+    // The following allows ObjLoadGLSL to be run as an application
     // as well as an applet
     //
     public static void main(String[] args) {
-      new MainFrame(new ObjLoadCg(args), 700, 700);
+      new MainFrame(new ObjLoadGLSL(args), 700, 700);
     }
 }
