@@ -495,11 +495,14 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
 					     12);
 	    tetra.setInterleavedVertexBuffer(indexedInterleavedBuffer);
 	    ((IndexedTriangleArray)tetra).setCoordinateIndices(0, indices);
+	    /*
+	    // Do not set color or texcoord indices in UCIO mode
 	    ((IndexedTriangleArray)tetra).setColorIndices(0, indices);
 	    ((IndexedTriangleArray)tetra).setTextureCoordinateIndices(
 					0, 0, indices);
 	    ((IndexedTriangleArray)tetra).setTextureCoordinateIndices(
 					1, 0, indices);
+	    */
 	}
 	else if (type == 4) { // Indexed strip geometry
 	    tetra = new IndexedTriangleStripArray(4,
