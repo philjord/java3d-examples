@@ -114,6 +114,12 @@ public class QueryProperties {
 			   c3dMap.get("textureWidthMax"));
 	System.out.println("textureHeightMax = " +
 			   c3dMap.get("textureHeightMax"));
+	System.out.println("texture3DWidthMax = " +
+			   c3dMap.get("texture3DWidthMax"));
+	System.out.println("texture3DHeightMax = " +
+			   c3dMap.get("texture3DHeightMax"));
+	System.out.println("texture3DDepthMax = " +
+			   c3dMap.get("texture3DDepthMax"));
 	System.out.println("textureLodOffsetAvailable = " +
 			   c3dMap.get("textureLodOffsetAvailable"));
 	System.out.println("textureLodRangeAvailable = " +
