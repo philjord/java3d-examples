@@ -447,7 +447,10 @@ GeometryUpdater {
 	    tetra.setCoordRefBuffer(indexedFloatBufferCoord);
 	    tetra.setColorRefBuffer(indexedFloatBufferColor);
 	    ((IndexedTriangleStripArray)tetra).setCoordinateIndices(0, indices);
+	    /*
+	    // Do not set color indices in UCIO mode
 	    ((IndexedTriangleStripArray)tetra).setColorIndices(0, indices);
+	    */
 	}
 
 	if (tetra != null)
