@@ -68,6 +68,7 @@ public class PrintCanvas3D extends JFrame implements ActionListener {
     private static final double creaseAngle = 60.0;
 
     private JMenuItem snapshotItem;
+    private JMenuItem freeBufferItem;
     private JMenuItem printItem;
     private JMenuItem quitItem;
 
@@ -261,6 +262,27 @@ public class PrintCanvas3D extends JFrame implements ActionListener {
 	}
     }
 
+    private void doExit() {
+	View view = u.getViewer().getView();
+
+	// Free offscreen buffer
+	try {
+	    offScreenCanvas3D.setOffScreenBuffer(null);
+	}
+	catch (NullPointerException npe) {
+	    //System.err.println(npe + " while freeing off-screen buffer");
+	}
+
+	// clear universe resources
+	u.removeAllLocales();
+
+	// remove all canvas3Ds from View
+	view.removeCanvas3D(offScreenCanvas3D);
+	view.removeCanvas3D(canvas3D);
+
+	System.exit(0);
+    }
+
     public void actionPerformed (ActionEvent event) {
 	Object target = event.getSource();
 
@@ -281,9 +303,16 @@ public class PrintCanvas3D extends JFrame implements ActionListener {
 		new ImagePrinter(bImage).print();
 	    }
 	}
+	else if (target == freeBufferItem) {
+	    try {
+		offScreenCanvas3D.setOffScreenBuffer(null);
+	    }
+	    catch (NullPointerException npe) {
+		//System.err.println(npe + " while freeing off-screen buffer");
+	    }
+	}
 	else if (target == quitItem) {
-	    u.removeAllLocales();
-	    System.exit(0);
+	    doExit();
 	}
     }
 
@@ -292,11 +321,14 @@ public class PrintCanvas3D extends JFrame implements ActionListener {
 	JMenu fileMenu = new JMenu("File");
 	snapshotItem = new JMenuItem("Snapshot");
 	snapshotItem.addActionListener(this);
+	freeBufferItem = new JMenuItem("Free OffScreen Buffer");
+	freeBufferItem.addActionListener(this);
 	printItem = new JMenuItem("Print...");
 	printItem.addActionListener(this);
 	quitItem = new JMenuItem("Quit");
 	quitItem.addActionListener(this);
 	fileMenu.add(snapshotItem);
+	fileMenu.add(freeBufferItem);
 	fileMenu.add(printItem);
 	fileMenu.add(new JSeparator());
 	fileMenu.add(quitItem);
@@ -314,7 +346,7 @@ public class PrintCanvas3D extends JFrame implements ActionListener {
 	// Handle the close event
 	this.addWindowListener(new WindowAdapter() {
 	    public void windowClosing(WindowEvent winEvent) {
-		System.exit(0);
+		doExit();
 	    }
 	});
 

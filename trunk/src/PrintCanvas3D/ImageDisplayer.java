@@ -70,6 +70,12 @@ class ImageDisplayer extends JFrame implements ActionListener {
     private JMenuItem printItem;
     private JMenuItem closeItem;
 
+    private void freeResources() {
+	this.removeAll();
+	this.setVisible(false);
+	bImage = null;
+    }
+
     public void actionPerformed (ActionEvent event) {
 	Object target = event.getSource();
 
@@ -77,9 +83,7 @@ class ImageDisplayer extends JFrame implements ActionListener {
 	    new ImagePrinter(bImage).print();
 	}
 	else if (target == closeItem) {
-	    this.removeAll();
-	    this.setVisible(false);
-	    bImage = null;
+	    freeResources();
 	}
     }
 
@@ -108,6 +112,13 @@ class ImageDisplayer extends JFrame implements ActionListener {
 	ImagePanel imagePanel = new ImagePanel();
 	JScrollPane scrollPane = new JScrollPane(imagePanel);
 	scrollPane.getViewport().setPreferredSize(new Dimension(700, 700));
+
+	// Handle the close event
+	this.addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent winEvent) {
+		freeResources();
+	    }
+	});
 
 	// Add scroll pane to the frame and make it visible
 	this.getContentPane().add(scrollPane);
