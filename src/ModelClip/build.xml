@@ -48,7 +48,10 @@
 
 <project basedir="." default="compile">
     <target name="compile">
-        <javac debug="true" deprecation="true" destdir="." srcdir=".">
+        <javac
+            destdir="." srcdir="."
+            source="1.4" target="1.4"
+	    debug="true" deprecation="true">
         </javac>
     </target>
 
