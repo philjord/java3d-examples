@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<!--
+/*
+ * $RCSfile$
+ *
+ * Copyright (c) 2005 Sun Microsystems, Inc. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * - Redistribution of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *
+ * - Redistribution in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in
+ *   the documentation and/or other materials provided with the
+ *   distribution.
+ *
+ * Neither the name of Sun Microsystems, Inc. or the names of
+ * contributors may be used to endorse or promote products derived
+ * from this software without specific prior written permission.
+ *
+ * This software is provided "AS IS," without a warranty of any
+ * kind. ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND
+ * WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE HEREBY
+ * EXCLUDED. SUN MICROSYSTEMS, INC. ("SUN") AND ITS LICENSORS SHALL
+ * NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF
+ * USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
+ * DERIVATIVES. IN NO EVENT WILL SUN OR ITS LICENSORS BE LIABLE FOR
+ * ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT, SPECIAL,
+ * CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND
+ * REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF OR
+ * INABILITY TO USE THIS SOFTWARE, EVEN IF SUN HAS BEEN ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGES.
+ *
+ * You acknowledge that this software is not designed, licensed or
+ * intended for use in the design, construction, operation or
+ * maintenance of any nuclear facility.
+ *
+ * $Revision$
+ * $Date$
+ * $State$
+ */
+ -->
+
+<project default="compile">
+
+<target name="compile">
+    <property name="build.target" value="compile"/>
+    <antcall target="subdirs"/>
+</target>
+
+<target name="all">
+    <property name="build.target" value="all"/>
+    <antcall target="subdirs"/>
+</target>
+
+<target name="clean">
+    <property name="build.target" value="clean"/>
+    <antcall target="subdirs"/>
+</target>
+
+<target name="subdirs">
+    <ant dir="src/AWT_Interaction" target="${build.target}"/>
+    <ant dir="src/AlternateAppearance" target="${build.target}"/>
+    <ant dir="src/Appearance" target="${build.target}"/>
+    <ant dir="src/AppearanceMixed" target="${build.target}"/>
+    <ant dir="src/Background" target="${build.target}"/>
+    <ant dir="src/CgShaderTest" target="${build.target}"/>
+    <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
+    <ant dir="src/ConicWorld" target="${build.target}"/>
+    <ant dir="src/FPSCounter" target="${build.target}"/>
+    <ant dir="src/FourByFour" target="${build.target}"/>
+    <ant dir="src/GearTest" target="${build.target}"/>
+    <ant dir="src/GeometryByReference" target="${build.target}"/>
+    <ant dir="src/GeometryCompression" target="${build.target}"/>
+    <ant dir="src/GLSLShaderTest" target="${build.target}"/>
+    <ant dir="src/HelloUniverse" target="${build.target}"/>
+    <ant dir="src/LOD" target="${build.target}"/>
+    <ant dir="src/Lightwave" target="${build.target}"/>
+    <ant dir="src/ModelClip" target="${build.target}"/>
+    <ant dir="src/Morphing" target="${build.target}"/>
+    <ant dir="src/ObjLoad" target="${build.target}"/>
+    <ant dir="src/OffScreenCanvas3D" target="${build.target}"/>
+    <ant dir="src/OrientedShape3D" target="${build.target}"/>
+    <ant dir="src/PackageInfo" target="${build.target}"/>
+    <ant dir="src/PickTest" target="${build.target}"/>
+    <ant dir="src/PickText3D" target="${build.target}"/>
+    <ant dir="src/PlatformGeometry" target="${build.target}"/>
+    <ant dir="src/PrintCanvas3D" target="${build.target}"/>
+    <ant dir="src/PureImmediate" target="${build.target}"/>
+    <ant dir="src/ReadRaster" target="${build.target}"/>
+    <ant dir="src/Sound" target="${build.target}"/>
+    <ant dir="src/SphereMotion" target="${build.target}"/>
+    <ant dir="src/SplineAnim" target="${build.target}"/>
+    <ant dir="src/Text2D" target="${build.target}"/>
+    <ant dir="src/Text3D" target="${build.target}"/>
+    <ant dir="src/TextureByReference" target="${build.target}"/>
+    <ant dir="src/TextureTest" target="${build.target}"/>
+    <ant dir="src/TickTockCollision" target="${build.target}"/>
+    <ant dir="src/TickTockPicking" target="${build.target}"/>
+    <ant dir="src/Timer" target="${build.target}"/>
+    <ant dir="src/VirtualInputDevice" target="${build.target}"/>
+</target>
+
+</project>
