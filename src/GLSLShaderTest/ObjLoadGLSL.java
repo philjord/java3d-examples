@@ -124,11 +124,15 @@ public class ObjLoadGLSL extends Applet {
 	    e.printStackTrace();
 	    System.exit(1);
 	}
-	GLSLVertexShader vertexShader = new GLSLVertexShader(vertexProgram);
-	GLSLFragmentShader fragmentShader = new GLSLFragmentShader(fragmentProgram);
-	GLSLShaderProgram shaderProgram = new GLSLShaderProgram();
-	shaderProgram.setVertexShader(vertexShader);
-	shaderProgram.setFragmentShader(fragmentShader);
+	Shader[] shaders = new Shader[2];
+	shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL,
+					  Shader.SHADER_TYPE_VERTEX,
+					  vertexProgram);
+	shaders[1] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL,
+					  Shader.SHADER_TYPE_FRAGMENT,
+					  fragmentProgram);
+	ShaderProgram shaderProgram = new GLSLShaderProgram();
+	shaderProgram.setShaders(shaders);
 	setShaderProgram(s.getSceneGroup(), shaderProgram);
 
 	objTrans.addChild(s.getSceneGroup());
