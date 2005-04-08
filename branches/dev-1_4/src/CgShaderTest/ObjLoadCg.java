@@ -124,11 +124,15 @@ public class ObjLoadCg extends Applet {
 	    e.printStackTrace();
 	    System.exit(1);
 	}
-	CgVertexShader vertexShader = new CgVertexShader(vertexProgram);
-	CgFragmentShader fragmentShader = new CgFragmentShader(fragmentProgram);
-	CgShaderProgram shaderProgram = new CgShaderProgram();
-	shaderProgram.setVertexShader(vertexShader);
-	shaderProgram.setFragmentShader(fragmentShader);
+	Shader[] shaders = new Shader[2];
+	shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_CG,
+					  Shader.SHADER_TYPE_VERTEX,
+					  vertexProgram);
+	shaders[1] = new SourceCodeShader(Shader.SHADING_LANGUAGE_CG,
+					  Shader.SHADER_TYPE_FRAGMENT,
+					  fragmentProgram);
+	ShaderProgram shaderProgram = new CgShaderProgram();
+	shaderProgram.setShaders(shaders);
 	setShaderProgram(s.getSceneGroup(), shaderProgram);
 
 	objTrans.addChild(s.getSceneGroup());
