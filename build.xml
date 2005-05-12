@@ -69,13 +69,16 @@
     <ant dir="src/Appearance" target="${build.target}"/>
     <ant dir="src/AppearanceMixed" target="${build.target}"/>
     <ant dir="src/Background" target="${build.target}"/>
+    <ant dir="src/CgShaderTest" target="${build.target}"/>
     <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
     <ant dir="src/ConicWorld" target="${build.target}"/>
+    <ant dir="src/DepthFuncTest" target="${build.target}"/>
     <ant dir="src/FPSCounter" target="${build.target}"/>
     <ant dir="src/FourByFour" target="${build.target}"/>
     <ant dir="src/GearTest" target="${build.target}"/>
     <ant dir="src/GeometryByReference" target="${build.target}"/>
     <ant dir="src/GeometryCompression" target="${build.target}"/>
+    <ant dir="src/GLSLShaderTest" target="${build.target}"/>
     <ant dir="src/HelloUniverse" target="${build.target}"/>
     <ant dir="src/LOD" target="${build.target}"/>
     <ant dir="src/Lightwave" target="${build.target}"/>
