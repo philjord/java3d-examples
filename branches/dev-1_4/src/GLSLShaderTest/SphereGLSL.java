@@ -107,10 +107,6 @@ public class SphereGLSL extends Applet {
 	ShaderAppearance a = new ShaderAppearance();
 	Material m = new Material(objColor, eColor, objColor, sColor, 100.0f);
 	m.setLightingEnable(true);
-	Texture t2d = new Texture2D();
-	a.setTexture(t2d);
-	a.setCapability(Appearance.ALLOW_TEXTURE_WRITE);
-
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {

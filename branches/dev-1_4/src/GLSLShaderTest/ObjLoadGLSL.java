@@ -256,11 +256,8 @@ public class ObjLoadGLSL extends Applet {
     private void setShaderProgram(BranchGroup g, ShaderProgram shaderProgram) {
 	ShaderAppearance myApp = new ShaderAppearance();
 	Material mat = new Material();
-	Texture2D tex2d = new Texture2D();
-	myApp.setCapability(Appearance.ALLOW_TEXTURE_WRITE);
 	myApp.setShaderProgram(shaderProgram);
 	myApp.setMaterial(mat);
-	myApp.setTexture(tex2d);
 	setShaderProgram(g, myApp);
     }
 
