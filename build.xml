@@ -73,6 +73,7 @@
     <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
     <ant dir="src/ConicWorld" target="${build.target}"/>
     <ant dir="src/DepthFuncTest" target="${build.target}"/>
+    <ant dir="src/DistortGlyph" target="${build.target}"/>
     <ant dir="src/FPSCounter" target="${build.target}"/>
     <ant dir="src/FourByFour" target="${build.target}"/>
     <ant dir="src/GearTest" target="${build.target}"/>
