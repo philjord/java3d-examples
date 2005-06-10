@@ -62,6 +62,7 @@ import java.net.MalformedURLException;
 
 public class ObjLoadGLSL extends Applet {
 
+    private String shaderName = "simple";
     private boolean spin = false;
     private boolean noTriangulate = false;
     private boolean noStripify = false;
@@ -117,8 +118,8 @@ public class ObjLoadGLSL extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully("./simple.vert");
-	    fragmentProgram = StringIO.readFully("./simple.frag");
+	    vertexProgram = StringIO.readFully(shaderName + ".vert");
+	    fragmentProgram = StringIO.readFully(shaderName + ".frag");
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -165,8 +166,9 @@ public class ObjLoadGLSL extends Applet {
     private void usage()
     {
       System.out.println(
-	"Usage: java ObjLoadGLSL [-s] [-n] [-t] [-c degrees] <.obj file>");
+	"Usage: java ObjLoadGLSL [-s] [-S shaderName] [-n] [-t] [-c degrees] <.obj file>");
       System.out.println("  -s Spin (no user interaction)");
+      System.out.println("  -S Set shader name (default is 'simple')");
       System.out.println("  -n No triangulation");
       System.out.println("  -t No stripification");
       System.out.println(
@@ -292,6 +294,10 @@ public class ObjLoadGLSL extends Applet {
 	    } else if (args[i].equals("-c")) {
 	      if (i < args.length - 1) {
 		creaseAngle = (new Double(args[++i])).doubleValue();
+	      } else usage();
+	    } else if (args[i].equals("-S")) {
+	      if (i < args.length - 1) {
+		shaderName = args[++i];
 	      } else usage();
 	    } else {
 	      usage();
