@@ -62,7 +62,7 @@ import java.net.MalformedURLException;
 
 public class ObjLoadGLSL extends Applet {
 
-    private String shaderName = "simple";
+    private String shaderName = "polkadot3d";
     private boolean spin = false;
     private boolean noTriangulate = false;
     private boolean noStripify = false;
