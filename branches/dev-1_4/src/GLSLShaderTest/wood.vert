@@ -13,7 +13,7 @@ varying vec3 Position;
 //uniform vec3 LightPosition;
 //uniform float Scale;
 const vec3 LightPosition = vec3 (0.0,0.0,0.4);
-const float Scale = 1;
+const float Scale = 1.0;
 
 void main(void)
 {

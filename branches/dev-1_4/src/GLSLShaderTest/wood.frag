@@ -11,7 +11,7 @@
 //uniform float GrainSizeRecip;
 //uniform vec3  DarkColor;
 //uniform vec3  spread;
-const float GrainSizeRecip = 1;
+const float GrainSizeRecip = 1.0;
 const vec3  DarkColor = vec3 (0.6, 0.3, 0.1);
 const vec3  spread = vec3 (0.15, 0.075, 0.0);
 
