@@ -1,9 +1,5 @@
-The source code for the j3d-examples project is copyrighted code
-that is licensed to individuals or companies who download or otherwise
-access the code.
+WARNING: THIS CVS BRANCH IS NOW OBSOLETE
 
-The copyright notice for this project is in COPYRIGHT.txt
+All 1.4.0 development is now on the trunk (MAIN branch).
 
-The source code license information for this project is in LICENSE.txt
-
-Instructions for building this project are in README-build.html
+To checkout the main trunk, use "cvs checkout" without the "-r" option.
