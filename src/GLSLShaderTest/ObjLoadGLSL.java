@@ -96,22 +96,19 @@ public class ObjLoadGLSL extends Applet {
 	if (!noTriangulate) flags |= ObjectFile.TRIANGULATE;
 	if (!noStripify) flags |= ObjectFile.STRIPIFY;
 	ObjectFile f = new ObjectFile(flags, 
-	  (float)(creaseAngle * Math.PI / 180.0));
+				      (float)(creaseAngle * Math.PI / 180.0));
 	Scene s = null;
 	try {
-	  s = f.load(filename);
+	    s = f.load(filename);
 	}
 	catch (FileNotFoundException e) {
-	    e.printStackTrace();
-	    System.exit(1);
+	    throw new RuntimeException(e);
 	}
 	catch (ParsingErrorException e) {
-	    e.printStackTrace();
-	    System.exit(1);
+	    throw new RuntimeException(e);
 	}
 	catch (IncorrectFormatException e) {
-	    e.printStackTrace();
-	    System.exit(1);
+	    throw new RuntimeException(e);
 	}
 	  
 	// Set vertex and fragment shader program for all Shape3D nodes in scene
@@ -122,8 +119,7 @@ public class ObjLoadGLSL extends Applet {
 	    fragmentProgram = StringIO.readFully(shaderName + ".frag");
 	}
 	catch (IOException e) {
-	    e.printStackTrace();
-	    System.exit(1);
+	    throw new RuntimeException(e);
 	}
 	Shader[] shaders = new Shader[2];
 	shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL,
@@ -141,17 +137,17 @@ public class ObjLoadGLSL extends Applet {
 	bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
         if (spin) {
-	  Transform3D yAxis = new Transform3D();
-	  Alpha rotationAlpha = new Alpha(-1, Alpha.INCREASING_ENABLE,
-					  0, 0,
-					  4000, 0, 0,
-					  0, 0, 0);
+	    Transform3D yAxis = new Transform3D();
+	    Alpha rotationAlpha = new Alpha(-1, Alpha.INCREASING_ENABLE,
+					    0, 0,
+					    4000, 0, 0,
+					    0, 0, 0);
 
-	  RotationInterpolator rotator =
-	      new RotationInterpolator(rotationAlpha, objTrans, yAxis,
-				       0.0f, (float) Math.PI*2.0f);
-	  rotator.setSchedulingBounds(bounds);
-	  objTrans.addChild(rotator);
+	    RotationInterpolator rotator =
+		new RotationInterpolator(rotationAlpha, objTrans, yAxis,
+					 0.0f, (float) Math.PI*2.0f);
+	    rotator.setSchedulingBounds(bounds);
+	    objTrans.addChild(rotator);
 	} 
 
         // Set up the background
@@ -165,17 +161,17 @@ public class ObjLoadGLSL extends Applet {
 
     private void usage()
     {
-      System.out.println(
-	"Usage: java ObjLoadGLSL [-s] [-S shaderName] [-n] [-t] [-c degrees] <.obj file>");
-      System.out.println("  -s Spin (no user interaction)");
-      System.out.println("  -S Set shader name (default is 'simple')");
-      System.out.println("  -n No triangulation");
-      System.out.println("  -t No stripification");
-      System.out.println(
-	"  -c Set crease angle for normal generation (default is 60 without");
-      System.out.println(
-	"     smoothing group info, otherwise 180 within smoothing groups)");
-      System.exit(0);
+	System.out.println(
+			   "Usage: java ObjLoadGLSL [-s] [-S shaderName] [-n] [-t] [-c degrees] <.obj file>");
+	System.out.println("  -s Spin (no user interaction)");
+	System.out.println("  -S Set shader name (default is 'simple')");
+	System.out.println("  -n No triangulation");
+	System.out.println("  -t No stripification");
+	System.out.println(
+			   "  -c Set crease angle for normal generation (default is 60 without");
+	System.out.println(
+			   "     smoothing group info, otherwise 180 within smoothing groups)");
+	System.exit(0);
     } // End of usage
 
 
@@ -188,14 +184,13 @@ public class ObjLoadGLSL extends Applet {
                 filename = new URL(path.toString() + "./galleon.obj");
             }
             catch (MalformedURLException e) {
-	      System.err.println(e);
-	      System.exit(1);
+		throw new RuntimeException(e);
             }
 	}
 
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+	    SimpleUniverse.getPreferredConfiguration();
 
         Canvas3D c = new Canvas3D(config);
 	add("Center", c);
@@ -282,46 +277,45 @@ public class ObjLoadGLSL extends Applet {
 
     // Caled if running as a program
     public ObjLoadGLSL(String[] args) {
-      if (args.length != 0) {
-	for (int i = 0 ; i < args.length ; i++) {
-	  if (args[i].startsWith("-")) {
-	    if (args[i].equals("-s")) {
-	      spin = true;
-	    } else if (args[i].equals("-n")) {
-	      noTriangulate = true;
-	    } else if (args[i].equals("-t")) {
-	      noStripify = true;
-	    } else if (args[i].equals("-c")) {
-	      if (i < args.length - 1) {
-		creaseAngle = (new Double(args[++i])).doubleValue();
-	      } else usage();
-	    } else if (args[i].equals("-S")) {
-	      if (i < args.length - 1) {
-		shaderName = args[++i];
-	      } else usage();
-	    } else {
-	      usage();
+	if (args.length != 0) {
+	    for (int i = 0 ; i < args.length ; i++) {
+		if (args[i].startsWith("-")) {
+		    if (args[i].equals("-s")) {
+			spin = true;
+		    } else if (args[i].equals("-n")) {
+			noTriangulate = true;
+		    } else if (args[i].equals("-t")) {
+			noStripify = true;
+		    } else if (args[i].equals("-c")) {
+			if (i < args.length - 1) {
+			    creaseAngle = (new Double(args[++i])).doubleValue();
+			} else usage();
+		    } else if (args[i].equals("-S")) {
+			if (i < args.length - 1) {
+			    shaderName = args[++i];
+			} else usage();
+		    } else {
+			usage();
+		    }
+		} else {
+		    try {
+			if ((args[i].indexOf("file:") == 0) ||
+			    (args[i].indexOf("http") == 0)) {
+			    filename = new URL(args[i]);
+			}
+			else if (args[i].charAt(0) != '/') {
+			    filename = new URL("file:./" + args[i]);
+			}
+			else {
+			    filename = new URL("file:" + args[i]);
+			}
+		    }
+		    catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		    }
+		}
 	    }
-	  } else {
-	    try {
-	      if ((args[i].indexOf("file:") == 0) ||
-		  (args[i].indexOf("http") == 0)) {
-		  filename = new URL(args[i]);
-	      }
-	      else if (args[i].charAt(0) != '/') {
-		  filename = new URL("file:./" + args[i]);
-	      }
-	      else {
-		  filename = new URL("file:" + args[i]);
-	      }
-            }
-	    catch (MalformedURLException e) {
-	      System.err.println(e);
-	      System.exit(1);
-	    }
-	  }
 	}
-      }
     }
 
 
@@ -341,6 +335,6 @@ public class ObjLoadGLSL extends Applet {
     // as well as an applet
     //
     public static void main(String[] args) {
-      new MainFrame(new ObjLoadGLSL(args), 700, 700);
+	new MainFrame(new ObjLoadGLSL(args), 700, 700);
     }
 }

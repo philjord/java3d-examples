@@ -114,11 +114,7 @@ public class SphereGLSL extends Applet {
 	    fragmentProgram = StringIO.readFully("./simple.frag");
 	}
 	catch (IOException e) {
-	    /*
-	    e.printStackTrace();
-	    System.exit(1);
-	    */
-	    System.err.println(e);
+	    throw new RuntimeException(e);
 	}
 	Shader[] shaders = new Shader[2];
 	shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL,
