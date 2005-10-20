@@ -11,20 +11,23 @@ varying vec3 LightDir;
 varying vec3 EyeDir;
 varying vec3 Normal;
 
-const vec3 color = vec3(0.7, 0.6, 0.18);
+//const vec3 Color = vec3(0.7, 0.6, 0.18);
 
 //const float Density = 16.0;
 //const float Size = 0.25;
 
-//uniform float Density;
-//uniform float Size;
-float Density = 27.6;
-float Size = 0.13025;
+uniform vec3 Color;
+uniform float Density;
+uniform float Size;
+// uniform float SpecularFactor;
+
+//float Density = 27.6;
+//float Size = 0.13025;
 
 
 //uniform float Scale;
 
-const float SpecularFactor = 0.5;
+const float SpecularFactor = 0.4;
 
 void main (void)
 {
@@ -38,7 +41,7 @@ void main (void)
 
     vec3 normDelta = vec3(-p.x, -p.y, 1.0);
       
-    litColor = color * max(0.0, dot(normDelta, LightDir));
+    litColor = Color * max(0.0, dot(normDelta, LightDir));
       
     float t = 2.0 * dot(LightDir, normDelta);
     vec3 reflectDir = t * normDelta;
@@ -52,6 +55,7 @@ void main (void)
     spec *= SpecularFactor;
 
     litColor = min(litColor + spec, vec3(1.0));
-    gl_FragColor = vec4(litColor, 1.0);
+    gl_FragColor = vec4(litColor, gl_Color.a);
+//    gl_FragColor = vec4(litColor, 1.0);
 //    gl_FragColor = vec4(Scale);
 }
