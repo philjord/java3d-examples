@@ -42,8 +42,8 @@
  * $State$
  */
 
-import com.sun.j3d.utils.picking.behaviors.*;
-import com.sun.j3d.utils.picking.*;
+import com.sun.j3d.utils.pickfast.behaviors.*;
+import com.sun.j3d.utils.pickfast.*;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
@@ -243,7 +243,7 @@ public class PickTest extends Applet implements ActionListener {
 	morph = new Morph((GeometryArray[]) geomMorph, appearance);
 	morph.setCapability(Morph.ALLOW_WEIGHTS_READ);
 	morph.setCapability(Morph.ALLOW_WEIGHTS_WRITE);
-	PickTool.setCapabilities(morph, PickTool.INTERSECT_FULL);
+	//PickTool.setCapabilities(morph, PickTool.INTERSECT_FULL);
 	spinTg.addChild(morph); 
     } else {
 	// Geometry picking require this to be set.
@@ -263,7 +263,7 @@ public class PickTest extends Applet implements ActionListener {
 	shape.setCapability(Shape3D.ALLOW_APPEARANCE_READ);
 	shape.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
 	shape.setCapability(Shape3D.ENABLE_PICK_REPORTING);
-	PickTool.setCapabilities(shape, PickTool.INTERSECT_FULL);
+	//PickTool.setCapabilities(shape, PickTool.INTERSECT_FULL);
 	spinTg.addChild(shape);
     } 
      
@@ -294,7 +294,7 @@ public class PickTest extends Applet implements ActionListener {
   String pickModeString = new String("Pick Mode");
   String boundsString = new String("BOUNDS");
   String geometryString = new String("GEOMETRY");
-  String geometryIntersectString = new String("GEOMETRY_INTERSECT_INFO");
+    //String geometryIntersectString = new String("GEOMETRY_INTERSECT_INFO");
   String toleranceString = new String("Pick Tolerance");
   String tolerance0String = new String("0");
   String tolerance2String = new String("2");
@@ -327,7 +327,7 @@ public class PickTest extends Applet implements ActionListener {
       bg = new ButtonGroup();
       addRadioButton(panel, bg, pickModeString, boundsString, true);
       addRadioButton(panel, bg, pickModeString, geometryString, false);
-      addRadioButton(panel, bg, pickModeString, geometryIntersectString, false);
+      //addRadioButton(panel, bg, pickModeString, geometryIntersectString, false);
 
       panel.add(new JLabel(toleranceString));
       bg = new ButtonGroup();
@@ -349,11 +349,11 @@ public class PickTest extends Applet implements ActionListener {
       //System.out.println("action: name = " + name + " value = " + value);
       if (name == pickModeString) {
 	 if (value == boundsString) {
-	     setPickMode(PickCanvas.BOUNDS);
+	     setPickMode(PickInfo.PICK_BOUNDS);
 	 } else if (value == geometryString) {
-	     setPickMode(PickCanvas.GEOMETRY);
-	 } else if (value == geometryIntersectString) {
-	     setPickMode(PickCanvas.GEOMETRY_INTERSECT_INFO);
+	     setPickMode(PickInfo.PICK_GEOMETRY);
+	     //} else if (value == geometryIntersectString) {
+	     //setPickMode(PickInfo.PICK_GEOMETRY);
 	 } else {
 	     System.out.println("Unknown pick mode: " + value); 
 	 }
