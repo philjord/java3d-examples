@@ -11,9 +11,9 @@ varying vec3 LightDir;
 varying vec3 EyeDir;
 varying vec3 Normal;
 
-//uniform vec3 LightPosition;
-//uniform float Scale;
-vec3 LightPosition = vec3(0.0, 0.0, 5.0);
+uniform vec3 LightPosition;
+// uniform float Scale;
+// vec3 LightPosition = vec3(0.0, 0.0, 5.0);
 float Scale = 1.0;
 
 void main(void) 
@@ -23,7 +23,8 @@ void main(void)
     vec3 eyeDir = vec3(pos);
 //    gl_TexCoord[0] = gl_MultiTexCoord0;
     gl_TexCoord[0] = gl_Vertex;
-
+    gl_FrontColor = gl_Color;
+	
     vec3 n = normalize(gl_NormalMatrix * gl_Normal);
     vec3 t = normalize(cross(vec3(1.141, 2.78, 3.14), n));
     vec3 b = cross(n, t);
