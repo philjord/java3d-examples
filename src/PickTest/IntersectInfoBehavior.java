@@ -47,7 +47,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
-import com.sun.j3d.utils.picking.*;
+import com.sun.j3d.utils.pickfast.*;
 import com.sun.j3d.utils.geometry.*;
 
 /**
@@ -63,7 +63,7 @@ public class IntersectInfoBehavior extends Behavior {
 
   float size;
   PickCanvas pickCanvas;
-  PickResult[] pickResult;
+  PickInfo[] pickInfoArr;
   Appearance oldlook, redlookwf, redlook, greenlook, bluelook;  
   Node oldNode = null;
   GeometryArray oldGeom = null;
@@ -76,7 +76,8 @@ public class IntersectInfoBehavior extends Behavior {
 		float size) {
     pickCanvas = new PickCanvas(canvas3D, branchGroup);
     pickCanvas.setTolerance(5.0f);
-    pickCanvas.setMode(PickCanvas.GEOMETRY_INTERSECT_INFO);
+    pickCanvas.setMode(PickInfo.PICK_GEOMETRY);
+    pickCanvas.setFlags(PickInfo.LOCAL_TO_VWORLD | PickInfo.CLOSEST_GEOM_INFO);
     this.size = size;
     // Create an Appearance.
     redlook = new Appearance();
@@ -146,15 +147,13 @@ public class IntersectInfoBehavior extends Behavior {
 	    int y = ((MouseEvent)event[i]).getY();
 	    pickCanvas.setShapeLocation(x, y);
 
-	    Point3d eyePos = pickCanvas.getStartPosition ();
-	    pickResult = pickCanvas.pickAllSorted();
+	    pickInfoArr = pickCanvas.pickAllSorted();
 	    // Use this to do picking benchmarks
 	    /*
 	    long start = System.currentTimeMillis();
-	    for (int l=0;l<3;l++) {
+	    for (int l=0;l<2;l++) {
 	      if (l == 0) System.out.print ("BOUNDS: ");
 	      if (l == 1) System.out.print ("GEOMETRY: ");
-	      if (l == 2) System.out.print ("GEOMETRY_INTERSECT_INFO: ");
 
 	      for (int k=0;k<1000;k++) {
 		if (l == 0) {
@@ -165,23 +164,21 @@ public class IntersectInfoBehavior extends Behavior {
 		  pickCanvas.setMode(PickTool.GEOMETRY);
 		  pickResult = pickCanvas.pickAllSorted();
 		}
-		if (l == 2) {
-		  pickCanvas.setMode(PickTool.GEOMETRY_INTERSECT_INFO);
-                  pickResult = pickCanvas.pickAllSorted();
-		}
 	      }
 	      long delta = System.currentTimeMillis() - start;
 	      System.out.println ("\t"+delta+" ms / 1000 picks");
 	    }
 	    */
-	    if (pickResult != null) {
+	    if (pickInfoArr != null) {		
 		
 		// Get closest intersection results
-		PickIntersection pi = 
-		    pickResult[0].getClosestIntersection(eyePos);
+		Transform3D l2vw = pickInfoArr[0].getLocalToVWorld();
+		PickInfo.IntersectionInfo[] iInfoArr = pickInfoArr[0].getIntersectionInfos();
+		PickIntersection pi = new PickIntersection(l2vw, iInfoArr[0]);
 
-		GeometryArray curGeomArray = pi.getGeometryArray();
-		
+		// Safe to assume the return geometry is of GeometryArray type.
+		GeometryArray curGeomArray = (GeometryArray) iInfoArr[0].getGeometry();
+
 		// Position sphere at intersection point
 		Vector3d v = new Vector3d();
 		Point3d intPt = pi.getPointCoordinatesVW();

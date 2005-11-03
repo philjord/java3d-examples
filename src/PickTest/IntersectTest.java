@@ -51,7 +51,6 @@ import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import com.sun.j3d.utils.behaviors.keyboard.*;
-import com.sun.j3d.utils.picking.PickTool;
 
 public class IntersectTest extends Applet {
 
@@ -109,9 +108,6 @@ public class IntersectTest extends Applet {
 
  	  Shape3D shape = new Shape3D(geom);
 
-	  // use the utility method to set the capabilities
-	  PickTool.setCapabilities(shape, PickTool.INTERSECT_FULL);
-
 	  objTrans.addChild(shape);
 	}
       }
@@ -143,8 +139,6 @@ public class IntersectTest extends Applet {
 	Shape3D shape = new Shape3D();
 	shape.setGeometry (la);
 
-        // use the utility method to set the capabilities
-	PickTool.setCapabilities(shape, PickTool.INTERSECT_FULL);
 
 	objTrans.addChild(shape);
       }
@@ -169,8 +163,6 @@ public class IntersectTest extends Applet {
 	  Shape3D shape = new Shape3D();
 	  shape.setGeometry (pa);
 
-          // use the utility method to set the capabilities
-	  PickTool.setCapabilities(shape, PickTool.INTERSECT_FULL);
 
 	  objTrans.addChild(shape);
 	}
