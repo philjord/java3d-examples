@@ -156,7 +156,6 @@ public class SphereGLSL extends Applet {
 	TransformGroup l2Trans = new TransformGroup(t);
 	l2RotTrans.addChild(l2Trans);
 
-	/*
 	// Create Geometry for point lights
 	ColoringAttributes caL1 = new ColoringAttributes();
 	ColoringAttributes caL2 = new ColoringAttributes();
@@ -168,7 +167,6 @@ public class SphereGLSL extends Applet {
 	appL2.setColoringAttributes(caL2);
 	l1Trans.addChild(new Sphere(0.05f, appL1));
 	l2Trans.addChild(new Sphere(0.05f, appL2));
-	*/
 
 	// Create lights
 	AmbientLight aLgt = new AmbientLight(alColor);
