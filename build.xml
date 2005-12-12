@@ -68,6 +68,7 @@
     <ant dir="src/AlternateAppearance" target="${build.target}"/>
     <ant dir="src/Appearance" target="${build.target}"/>
     <ant dir="src/AppearanceMixed" target="${build.target}"/>
+    <ant dir="src/Applet3D" target="${build.target}"/>
     <ant dir="src/Background" target="${build.target}"/>
     <ant dir="src/CgShaderTest" target="${build.target}"/>
     <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
@@ -95,6 +96,7 @@
     <ant dir="src/PrintCanvas3D" target="${build.target}"/>
     <ant dir="src/PureImmediate" target="${build.target}"/>
     <ant dir="src/ReadRaster" target="${build.target}"/>
+    <ant dir="src/SgChangerListener" target="${build.target}"/>
     <ant dir="src/Sound" target="${build.target}"/>
     <ant dir="src/SphereMotion" target="${build.target}"/>
     <ant dir="src/SplineAnim" target="${build.target}"/>
