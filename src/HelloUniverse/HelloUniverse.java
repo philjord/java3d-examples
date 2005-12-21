@@ -106,6 +106,9 @@ public class HelloUniverse extends javax.swing.JFrame {
 	// objects in the scene can be viewed.
 	univ.getViewingPlatform().setNominalViewingTransform();
 
+	// Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
+
 	return c;
     }
 

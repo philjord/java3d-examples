@@ -64,7 +64,6 @@
 </target>
 
 <target name="subdirs">
-    <ant dir="src/AWT_Interaction" target="${build.target}"/>
     <ant dir="src/AlternateAppearance" target="${build.target}"/>
     <ant dir="src/Appearance" target="${build.target}"/>
     <ant dir="src/AppearanceMixed" target="${build.target}"/>
@@ -100,6 +99,7 @@
     <ant dir="src/Sound" target="${build.target}"/>
     <ant dir="src/SphereMotion" target="${build.target}"/>
     <ant dir="src/SplineAnim" target="${build.target}"/>
+    <ant dir="src/SwingInteraction" target="${build.target}"/>
     <ant dir="src/Text2D" target="${build.target}"/>
     <ant dir="src/Text3D" target="${build.target}"/>
     <ant dir="src/TextureByReference" target="${build.target}"/>
