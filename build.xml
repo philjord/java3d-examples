@@ -4,7 +4,7 @@
 /*
  * $RCSfile$
  *
- * Copyright (c) 2005 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (c) 2006 Sun Microsystems, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -64,10 +64,10 @@
 </target>
 
 <target name="subdirs">
-    <ant dir="src/AWT_Interaction" target="${build.target}"/>
     <ant dir="src/AlternateAppearance" target="${build.target}"/>
     <ant dir="src/Appearance" target="${build.target}"/>
     <ant dir="src/AppearanceMixed" target="${build.target}"/>
+    <ant dir="src/Applet3D" target="${build.target}"/>
     <ant dir="src/Background" target="${build.target}"/>
     <ant dir="src/CgShaderTest" target="${build.target}"/>
     <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
@@ -95,9 +95,11 @@
     <ant dir="src/PrintCanvas3D" target="${build.target}"/>
     <ant dir="src/PureImmediate" target="${build.target}"/>
     <ant dir="src/ReadRaster" target="${build.target}"/>
+    <ant dir="src/SgChangerListener" target="${build.target}"/>
     <ant dir="src/Sound" target="${build.target}"/>
     <ant dir="src/SphereMotion" target="${build.target}"/>
     <ant dir="src/SplineAnim" target="${build.target}"/>
+    <ant dir="src/SwingInteraction" target="${build.target}"/>
     <ant dir="src/Text2D" target="${build.target}"/>
     <ant dir="src/Text3D" target="${build.target}"/>
     <ant dir="src/TextureByReference" target="${build.target}"/>
