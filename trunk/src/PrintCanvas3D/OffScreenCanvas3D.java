@@ -68,6 +68,9 @@ class OffScreenCanvas3D extends Canvas3D {
 	waitForOffScreenRendering();
 	bImage = getOffScreenBuffer().getImage();
 
+        // To release the reference of buffer inside Java 3D.
+        setOffScreenBuffer(null);
+
 	return bImage;
     }
 

@@ -42,127 +42,176 @@
  * $State$
  */
 
-import com.sun.j3d.utils.geometry.ColorCube;
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
+import com.sun.j3d.utils.geometry.ColorCube;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
- * OffScreenTest issues renderOffScreenBuffer from the postSwap callback
- * of the OnScreen canvas.
+ * OffScreenTest programs with no UI.
  */
-public class OffScreenTest extends Applet {
+public class OffScreenTest extends javax.swing.JFrame {
 
-    private SimpleUniverse u = null;
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
+    private Raster drawRaster = null;    
 
-  public BranchGroup createSceneGraph(Raster drawRaster)
-  {
-    // Create the root of the branch graph
-    BranchGroup objRoot = new BranchGroup();
+    private BranchGroup createSceneGraph() {
+	// Create the root of the branch graph
+	BranchGroup objRoot = new BranchGroup();
 
-    // spin object has composited transformation matrix
-    Transform3D spin = new Transform3D();
-    Transform3D tempspin = new Transform3D();
+	// trans object has composited transformation matrix
+	Transform3D trans = new Transform3D();
+	Transform3D rot = new Transform3D();
 
-    spin.rotX(Math.PI/4.0d);
-    tempspin.rotY(Math.PI/5.0d);
-    spin.mul(tempspin);
-    spin.setScale(0.7);
-    spin.setTranslation(new Vector3d(-0.4, 0.3, 0.0));
+	trans.rotX(Math.PI/4.0d);
+	rot.rotY(Math.PI/5.0d);
+	trans.mul(rot);
+	trans.setScale(0.7);
+	trans.setTranslation(new Vector3d(-0.4, 0.3, 0.0));
 
-    TransformGroup objTrans = new TransformGroup(spin);
-    objRoot.addChild(objTrans);
+	TransformGroup objTrans = new TransformGroup(trans);
+	objRoot.addChild(objTrans);
 
-    // Create a simple shape leaf node, add it to the scene graph.
-    // ColorCube is a Convenience Utility class
-    objTrans.addChild(new ColorCube(0.4));
+	// Create a simple shape leaf node, add it to the scene graph.
+	// ColorCube is a Convenience Utility class
+	objTrans.addChild(new ColorCube(0.4));
 
-    //Create a raster 
-    Shape3D shape = new Shape3D(drawRaster);
-    objRoot.addChild(shape);
-
-    // Let Java 3D perform optimizations on this scene graph.
-    objRoot.compile();
-
-    return objRoot;
-  }
-
-  public OffScreenTest ()
-  {
-  }
-
-    public void init() {
-	setLayout(new BorderLayout());
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
-	
+	//Create a raster 
 	BufferedImage bImage = new BufferedImage(200, 200 ,
-						 BufferedImage.TYPE_INT_ARGB);
-	
+						 BufferedImage.TYPE_INT_ARGB);        
 	ImageComponent2D buffer =
 	    new ImageComponent2D(ImageComponent.FORMAT_RGBA, bImage);
 	buffer.setCapability(ImageComponent2D.ALLOW_IMAGE_READ);
 	
-	Raster drawRaster = new Raster(new Point3f(0.0f, 0.0f, 0.0f),
+	drawRaster = new Raster(new Point3f(0.0f, 0.0f, 0.0f),
 				       Raster.RASTER_COLOR,
 				       0, 0, 200, 200, buffer, null);
 	
-	drawRaster.setCapability(Raster.ALLOW_IMAGE_WRITE);
-	
-	// create the main scene graph
-	BranchGroup scene = createSceneGraph(drawRaster);
-	
-	// create the on-screen canvas
-	OnScreenCanvas3D d = new OnScreenCanvas3D(config, false);
-	add("Center", d);
-	
-	// create a simple universe
-	u = new SimpleUniverse(d);
-	
+	drawRaster.setCapability(Raster.ALLOW_IMAGE_WRITE);        
+	Shape3D shape = new Shape3D(drawRaster);
+	objRoot.addChild(shape);
+
+	// Let Java 3D perform optimizations on this scene graph.
+	objRoot.compile();
+
+	return objRoot;
+    }
+
+
+    private OnScreenCanvas3D createOnScreenCanvasAndUniverse() {
+        // Get the preferred graphics configuration for the default screen
+	GraphicsConfiguration config =
+	    SimpleUniverse.getPreferredConfiguration();
+
+        // Create a Canvas3D using the preferred configuration
+	OnScreenCanvas3D onScrCanvas = new OnScreenCanvas3D(config, false);
+
+        // Create simple universe with view branch
+	univ = new SimpleUniverse(onScrCanvas);
+
 	// This will move the ViewPlatform back a bit so the
 	// objects in the scene can be viewed.
-	u.getViewingPlatform().setNominalViewingTransform();
-	
-	// create an off Screen Canvas
-	
-	OffScreenCanvas3D c = new OffScreenCanvas3D(config, true, drawRaster);
-	
+	univ.getViewingPlatform().setNominalViewingTransform();
+
+	// Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
+
+	return onScrCanvas;
+    }
+
+    private OffScreenCanvas3D createOffScreenCanvas() {
+	// request an offscreen Canvas3D with a single buffer configuration
+	GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
+	template.setDoubleBuffer(GraphicsConfigTemplate3D.UNNECESSARY);
+	GraphicsConfiguration gc = 
+                GraphicsEnvironment.getLocalGraphicsEnvironment().
+                getDefaultScreenDevice().getBestConfiguration(template);
+
+        // Create a offscreen Canvas3D using the single buffer configuration.
+        OffScreenCanvas3D offScrCanvas = 
+                new OffScreenCanvas3D(gc, true, drawRaster);
+
+        return offScrCanvas;
+    }
+    
+    /**
+     * Creates new form OffScreenTest
+     */
+    public OffScreenTest() {
+        // Initialize the GUI components
+        initComponents();
+
+        // Create the content branch and add it to the universe
+        scene = createSceneGraph();
+        
+        // Create an OnScreenCanvas3D and SimpleUniverse; add canvas to drawing panel
+        OnScreenCanvas3D onScreenCanvas = createOnScreenCanvasAndUniverse();
+        drawingPanel.add(onScreenCanvas, java.awt.BorderLayout.CENTER);	
+
+	// Creante an OffScreenCanvas3D
+        OffScreenCanvas3D offScreenCanvas = createOffScreenCanvas();
+        
 	// set the offscreen to match the onscreen
-	Screen3D sOn = d.getScreen3D();
-	Screen3D sOff = c.getScreen3D();
+	Screen3D sOn = onScreenCanvas.getScreen3D();
+	Screen3D sOff = offScreenCanvas.getScreen3D();
 	sOff.setSize(sOn.getSize());
 	sOff.setPhysicalScreenWidth(sOn.getPhysicalScreenWidth());
 	sOff.setPhysicalScreenHeight(sOn.getPhysicalScreenHeight());
 	
 	// attach the same view to the offscreen canvas
-	View v = u.getViewer().getView();
-	v.addCanvas3D(c);
+	View view = univ.getViewer().getView();
+	view.addCanvas3D(offScreenCanvas);
 	
 	// tell onscreen about the offscreen so it knows to
 	// render to the offscreen at postswap
-	d.setOffScreenCanvas(c);
+	onScreenCanvas.setOffScreenCanvas(offScreenCanvas);
 	
-	u.addBranchGraph(scene);
-	v.stopView();
+        univ.addBranchGraph(scene);
+
+	view.stopView();
 	// Make sure that image are render completely
 	// before grab it in postSwap().
-	d.setImageReady();
-	v.startView();
-
+	onScreenCanvas.setImageReady();
+	view.startView();
     }
 
-    public void destroy() {
-	u.cleanup();
+    // ----------------------------------------------------------------
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        drawingPanel = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Window Title");
+        drawingPanel.setLayout(new java.awt.BorderLayout());
+
+        drawingPanel.setPreferredSize(new java.awt.Dimension(500, 500));
+        getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new OffScreenTest().setVisible(true);
+            }
+        });
     }
-  
-  
-  public static void main(String argv[])
-  {
-    new MainFrame(new OffScreenTest(), 500, 500);
-  }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    // End of variables declaration//GEN-END:variables
+    
 }
