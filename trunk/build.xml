@@ -92,6 +92,9 @@
   </target>
 
   <target name="init-run" depends="init,jar">
+    <path id="run.classpath">
+      <pathelement location="${output.jar}"/>
+    </path>
   </target>
 
   <target name="run" depends="run.HelloUniverse">
@@ -104,21 +107,21 @@
    -->
 
   <target name="run.HelloUniverse" depends="init-run">
-    <java classpath="${output.jar}"
+    <java classpath="${run.classpath}"
           fork="true"
           classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
     </java>
   </target>
 
   <target name="run.QueryProperties" depends="init-run">
-    <java classpath="${output.jar}"
+    <java classpath="${run.classpath}"
           fork="true"
           classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
     </java>
   </target>
 
   <target name="run.SphereMotion" depends="init-run">
-    <java classpath="${output.jar}"
+    <java classpath="${run.classpath}"
           fork="true"
           classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
     </java>
