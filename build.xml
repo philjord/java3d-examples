@@ -46,68 +46,85 @@
  */
  -->
 
-<project default="compile">
+<project name="j3d-examples-1.4.0" default="jar">
 
-<target name="compile">
-    <property name="build.target" value="compile"/>
-    <antcall target="subdirs"/>
-</target>
+  <target name="init">
+    <!-- Set global properties for this build -->
+    <property name="src"        location="src"/>
+    <property name="build"      location="build"/>
+    <property name="dist"       location="dist"/>
+    <property name="output.jar" location="dist/j3d-examples.jar"/>
+  </target>
 
-<target name="all">
-    <property name="build.target" value="all"/>
-    <antcall target="subdirs"/>
-</target>
+  <target name="compile" depends="init">
+    <!-- Create the build directory -->
+    <mkdir dir="${build}/classes"/>
 
-<target name="clean">
-    <property name="build.target" value="clean"/>
-    <antcall target="subdirs"/>
-</target>
+    <!-- Compile the java code from ${src}/classes into ${build}/classes -->
+    <javac srcdir="${src}/classes"
+           destdir="${build}/classes"
+	   source="1.4"
+	   target="1.4"
+	   debug="true"
+           deprecation="off">
+    </javac>
+  </target>
 
-<target name="subdirs">
-    <ant dir="src/AlternateAppearance" target="${build.target}"/>
-    <ant dir="src/Appearance" target="${build.target}"/>
-    <ant dir="src/AppearanceMixed" target="${build.target}"/>
-    <ant dir="src/Applet3D" target="${build.target}"/>
-    <ant dir="src/Background" target="${build.target}"/>
-    <ant dir="src/CgShaderTest" target="${build.target}"/>
-    <ant dir="src/ConfiguredUniverse" target="${build.target}"/>
-    <ant dir="src/ConicWorld" target="${build.target}"/>
-    <ant dir="src/DepthFuncTest" target="${build.target}"/>
-    <ant dir="src/DistortGlyph" target="${build.target}"/>
-    <ant dir="src/FPSCounter" target="${build.target}"/>
-    <ant dir="src/FourByFour" target="${build.target}"/>
-    <ant dir="src/GearTest" target="${build.target}"/>
-    <ant dir="src/GeometryByReference" target="${build.target}"/>
-    <ant dir="src/GeometryCompression" target="${build.target}"/>
-    <ant dir="src/GLSLShaderTest" target="${build.target}"/>
-    <ant dir="src/HelloUniverse" target="${build.target}"/>
-    <ant dir="src/LOD" target="${build.target}"/>
-    <ant dir="src/Lightwave" target="${build.target}"/>
-    <ant dir="src/ModelClip" target="${build.target}"/>
-    <ant dir="src/Morphing" target="${build.target}"/>
-    <ant dir="src/ObjLoad" target="${build.target}"/>
-    <ant dir="src/OffScreenCanvas3D" target="${build.target}"/>
-    <ant dir="src/OrientedShape3D" target="${build.target}"/>
-    <ant dir="src/PackageInfo" target="${build.target}"/>
-    <ant dir="src/PickTest" target="${build.target}"/>
-    <ant dir="src/PickText3D" target="${build.target}"/>
-    <ant dir="src/PlatformGeometry" target="${build.target}"/>
-    <ant dir="src/PrintCanvas3D" target="${build.target}"/>
-    <ant dir="src/PureImmediate" target="${build.target}"/>
-    <ant dir="src/ReadRaster" target="${build.target}"/>
-    <ant dir="src/SgChangerListener" target="${build.target}"/>
-    <ant dir="src/Sound" target="${build.target}"/>
-    <ant dir="src/SphereMotion" target="${build.target}"/>
-    <ant dir="src/SplineAnim" target="${build.target}"/>
-    <ant dir="src/SwingInteraction" target="${build.target}"/>
-    <ant dir="src/Text2D" target="${build.target}"/>
-    <ant dir="src/Text3D" target="${build.target}"/>
-    <ant dir="src/TextureByReference" target="${build.target}"/>
-    <ant dir="src/TextureTest" target="${build.target}"/>
-    <ant dir="src/TickTockCollision" target="${build.target}"/>
-    <ant dir="src/TickTockPicking" target="${build.target}"/>
-    <ant dir="src/Timer" target="${build.target}"/>
-    <ant dir="src/VirtualInputDevice" target="${build.target}"/>
-</target>
+  <target name="jar" depends="init,compile">
+    <!-- Create the dist directory -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Create the jar file -->
+    <jar jarfile="${output.jar}"
+         manifest="manifest.mf"
+         update="no"
+         compress="false">
+	<fileset dir="${build}/classes" includes="org/**/*"/>
+    </jar>
+  </target>
+
+  <target name="all" depends="init,jar">
+  </target>
+
+  <target name="clean" depends="init">
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+
+  <target name="init-run" depends="init,jar">
+    <path id="run.classpath">
+      <pathelement location="${output.jar}"/>
+    </path>
+  </target>
+
+  <target name="run" depends="run.HelloUniverse">
+  </target>
+
+  <!--
+   **************************************************
+   * Individual run targets for each example program
+   **************************************************
+   -->
+
+  <target name="run.HelloUniverse" depends="init-run">
+    <java classpath="${run.classpath}"
+          fork="true"
+          classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
+    </java>
+  </target>
+
+  <target name="run.QueryProperties" depends="init-run">
+    <java classpath="${run.classpath}"
+          fork="true"
+          classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
+    </java>
+  </target>
+
+  <target name="run.SphereMotion" depends="init-run">
+    <java classpath="${run.classpath}"
+          fork="true"
+          classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
+    </java>
+  </target>
 
 </project>
