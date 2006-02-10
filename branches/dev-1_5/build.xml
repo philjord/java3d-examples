@@ -46,7 +46,7 @@
  */
  -->
 
-<project name="j3d-examples-1.4.0" default="jar">
+<project name="j3d-examples-1.5.0" default="jar">
 
   <target name="init">
     <!-- Set global properties for this build -->
@@ -63,8 +63,8 @@
     <!-- Compile the java code from ${src}/classes into ${build}/classes -->
     <javac srcdir="${src}/classes"
            destdir="${build}/classes"
-	   source="1.4"
-	   target="1.4"
+	   source="1.5"
+	   target="1.5"
 	   debug="true"
            deprecation="off">
     </javac>
