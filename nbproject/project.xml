@@ -4,7 +4,7 @@
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
             <!-- Do not use Project Properties customizer when editing this file manually. -->
-            <name>j3d-examples-1.4.0</name>
+            <name>j3d-examples-1.5.0</name>
             <properties/>
             <folders>
                 <source-folder>
@@ -50,7 +50,7 @@
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
             <compilation-unit>
                 <package-root>src/classes</package-root>
-                <source-level>1.4</source-level>
+                <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
     </configuration>
