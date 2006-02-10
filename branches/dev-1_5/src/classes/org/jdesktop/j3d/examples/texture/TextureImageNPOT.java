@@ -61,7 +61,7 @@ public class TextureImageNPOT extends Applet {
 
     private SimpleUniverse u = null;
     private boolean allowNonPowerOfTwo = true;
-    private boolean mipmap = false;
+    private boolean mipmap = true;
 
     public BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
@@ -95,11 +95,10 @@ public class TextureImageNPOT extends Applet {
 	Texture tex = new TextureLoader(texImage, flags, this).getTexture();
 	tex.setMagFilter(Texture.BASE_LEVEL_LINEAR);
 	if (mipmap) {
-	    tex.setMipMapMode(Texture.MULTI_LEVEL_MIPMAP);
 	    tex.setMinFilter(Texture.MULTI_LEVEL_LINEAR);
 	} else {
-	    tex.setMagFilter(Texture.BASE_LEVEL_LINEAR);
-	}
+	    tex.setMinFilter(Texture.BASE_LEVEL_LINEAR);
+        }
 	app.setTexture(tex);
 	TextureAttributes texAttr = new TextureAttributes();
 	texAttr.setTextureMode(TextureAttributes.MODULATE);
