@@ -49,8 +49,6 @@ import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.Scene;
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
@@ -59,6 +57,11 @@ import java.io.*;
 import com.sun.j3d.utils.behaviors.vp.*;
 import java.net.URL;
 import java.net.MalformedURLException;
+
+
+
+import java.awt.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ObjLoad extends Applet {
 
@@ -159,12 +162,9 @@ public class ObjLoad extends Applet {
     public void init() {
 	if (filename == null) {
             // Applet
-            try {
-                URL path = getCodeBase();
-                filename = new URL(path.toString() + "./galleon.obj");
-            }
-            catch (MalformedURLException e) {
-	      System.err.println(e);
+	    filename = Resources.getResource("resources/geometry/galleon.obj");
+	    if (filename == null) {
+	      System.err.println("resources/geometry/galleon.obj not found");
 	      System.exit(1);
             }
 	}

@@ -51,6 +51,7 @@ import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
+import org.jdesktop.j3d.examples.Resources;
 
 /**
  *
@@ -126,8 +127,8 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         String[] attrNames = { "numLights" };
 
         try {
-            vertexProgram = StringIO.readFully("./gouraud.vert");
-            fragmentProgram = StringIO.readFully("./gouraud.frag");
+            vertexProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/gouraud.vert"));
+            fragmentProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/gouraud.frag"));
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -142,8 +143,8 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         gouraudSP.setShaders(shaders);
 
         try {
-            vertexProgram = StringIO.readFully("./phong.vert");
-            fragmentProgram = StringIO.readFully("./phong.frag");
+            vertexProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/phong.vert"));
+            fragmentProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/phong.frag"));
         }
         catch (IOException e) {
             throw new RuntimeException(e);

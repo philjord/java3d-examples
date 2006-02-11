@@ -48,12 +48,12 @@ import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.behaviors.mouse.*;
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class BackgroundGeometry extends Applet {
 
@@ -169,14 +169,12 @@ public class BackgroundGeometry extends Applet {
 
         if (bgImage == null) {
 	    // the path to the image for an applet
-	    try {
-	        bgImage = new java.net.URL(getCodeBase().toString() +
-					   "../images/bg.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
+	    bgImage = Resources.getResource("resources/images/bg.jpg");
+	    if (bgImage == null) {
+	      System.err.println("resources/images/bg.jpg not found");
+	      System.exit(1);
+            }            
+            
 	}
         setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -225,11 +223,10 @@ public class BackgroundGeometry extends Applet {
       System.out.println("       Note that the background geometry only changes with rotation");
       // the path to the image file for an application
       java.net.URL bgurl = null;
-      try {
-	  bgurl = new java.net.URL("file:../images/bg.jpg");
-      }
-      catch (java.net.MalformedURLException ex) {
-	  System.out.println(ex.getMessage());
+      
+      bgurl = Resources.getResource("resources/images/bg.jpg");
+      if (bgurl == null) {
+	  System.err.println("resources/images/bg.jpg not found");
 	  System.exit(1);
       }
       new MainFrame(new BackgroundGeometry(bgurl), 750, 750);
