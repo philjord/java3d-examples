@@ -51,7 +51,6 @@ import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.utils.shader.StringIO;
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
@@ -61,6 +60,7 @@ import java.io.*;
 import com.sun.j3d.utils.behaviors.vp.*;
 import java.net.URL;
 import java.net.MalformedURLException;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ObjLoadCg extends Applet {
 
@@ -119,8 +119,8 @@ public class ObjLoadCg extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully("./simple_vp.cg");
-	    fragmentProgram = StringIO.readFully("./simple_fp.cg");
+	    vertexProgram = StringIO.readFully(Resources.getResource("resources/cg_shader/simple_vp.cg"));
+	    fragmentProgram = StringIO.readFully(Resources.getResource("resources/cg_shader/simple_fp.cg"));
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -183,12 +183,9 @@ public class ObjLoadCg extends Applet {
     public void init() {
 	if (filename == null) {
             // Applet
-            try {
-                URL path = getCodeBase();
-                filename = new URL(path.toString() + "./galleon.obj");
-            }
-            catch (MalformedURLException e) {
-	      System.err.println(e);
+	    filename = Resources.getResource("resources/geometry/galleon.obj");
+	    if (filename == null) {
+	      System.err.println("resources/geometry/galleon.obj not found");
 	      System.exit(1);
             }
 	}
