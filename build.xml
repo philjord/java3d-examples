@@ -79,11 +79,11 @@
         <fileset dir="${src}/resources"/>
     </copy>
     <!-- Cg shader -->   
-    <copy todir="${build}/classes/org/jdesktop/j3d/examples/resources/cg_shader">
+    <copy todir="${build}/classes/org/jdesktop/j3d/examples/cg_shader">
         <fileset dir="${src}/classes/org/jdesktop/j3d/examples/cg_shader" includes ="*.cg"/>
     </copy>
     <!-- GLSL shader -->
-    <copy todir="${build}/classes/org/jdesktop/j3d/examples/resources/glsl_shader">
+    <copy todir="${build}/classes/org/jdesktop/j3d/examples/glsl_shader">
         <fileset dir="${src}/classes/org/jdesktop/j3d/examples/glsl_shader" includes ="*.vert, *.frag"/>
     </copy>   
     
@@ -119,9 +119,16 @@
    **************************************************
    -->
 
-  <target name="run.HelloUniverse" depends="init-run">
+  <target name="run.AppearanceMixed" depends="init-run">
     <java fork="true"
-          classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
+          classname="org.jdesktop.j3d.examples.appearance.AppearanceMixed">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.AppearanceTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.appearance.AppearanceTest">
       <classpath refid="run.classpath"/>
     </java>
   </target>
@@ -133,16 +140,23 @@
     </java>
   </target>
   
-  <target name="run.QueryProperties" depends="init-run">
+  <target name="run.HelloUniverse" depends="init-run">
     <java fork="true"
-          classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
+          classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
       <classpath refid="run.classpath"/>
     </java>
   </target>
 
-  <target name="run.SphereMotion" depends="init-run">
+  <target name="run.Morphing" depends="init-run">
     <java fork="true"
-          classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
+          classname="org.jdesktop.j3d.examples.morphing.Morphing">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+    
+  <target name="run.MultiTextureTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.texture.MultiTextureTest">
       <classpath refid="run.classpath"/>
     </java>
   </target>
@@ -154,4 +168,60 @@
     </java>
   </target>
 
+  <target name="run.ObjLoadGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.ObjLoadGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.PhongShadingGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.PhongShadingGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.QueryProperties" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.ShaderTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.ShaderTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.SphereMotion" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.SphereGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.SphereGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.TextureByReference" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.texture_by_ref.TextureByReference">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.TextureImage" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.texture.TextureImage">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
 </project>
