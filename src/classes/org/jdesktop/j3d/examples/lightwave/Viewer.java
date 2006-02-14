@@ -160,7 +160,12 @@ public class Viewer extends Applet {
     public void destroy() {
 	u.cleanup();
     }
-
+    
+    private static void usage() {
+	System.out.println("Usage: java Viewer <.lws>")  ;
+	System.exit(0)  ;
+    }
+    
     /**
      * The main method of the application takes one argument in the
      * args array; the filname that you want to load.  Note that the
@@ -190,15 +195,7 @@ public class Viewer extends Applet {
 	    }
 	}
 	else {
-	    // the path to the image for an application
-	    try {
-		url = new java.net.URL("file:./ballcone.lws");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-		System.err.println(ex.getMessage());
-		ex.printStackTrace();
-		System.exit(1);
-	    }
+            usage();
 	}
 	new MainFrame(new Viewer(url), 500, 500);
     }
