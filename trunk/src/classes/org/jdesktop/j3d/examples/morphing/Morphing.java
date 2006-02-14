@@ -46,7 +46,6 @@ package org.jdesktop.j3d.examples.morphing;
 
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
@@ -56,6 +55,7 @@ import com.sun.j3d.loaders.objectfile.ObjectFile;
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.IncorrectFormatException;
+import org.jdesktop.j3d.examples.Resources;
 
 public class Morphing extends Applet {
 
@@ -210,6 +210,14 @@ public class Morphing extends Applet {
     public void init() {
         if (objFiles == null) {
 	    objFiles = new java.net.URL[3];
+            for(int i=0; i<3; i++) {
+                objFiles[i] = Resources.getResource("resources/geometry/hand" + (i+1) + ".obj");
+                if (objFiles[i] == null) {
+                    System.err.println("resources/geometry/hand" + (i+1) + ".obj not found");
+                    System.exit(1);
+                }
+            }
+            /*
 	    // the path to the image for an applet
 	    String path = getCodeBase().toString();
 	    try {
@@ -221,6 +229,7 @@ public class Morphing extends Applet {
 	        System.out.println(ex.getMessage());
 		System.exit(1);
 	    }
+            */
 	}
 
     	setLayout(new BorderLayout());
@@ -248,6 +257,14 @@ public class Morphing extends Applet {
     public static void main(String[] args) {
         java.net.URL[] urls = new java.net.URL[3];
 	// the path to the image file for an application
+            for(int i=0; i<3; i++) {
+                urls[i] = Resources.getResource("resources/geometry/hand" + (i+1) + ".obj");
+                if (urls[i] == null) {
+                    System.err.println("resources/geometry/hand" + (i+1) + ".obj not found");
+                    System.exit(1);
+                }
+            }
+        /*
 	try {
 	    urls[0] = new java.net.URL("file:./hand1.obj");
 	    urls[1] = new java.net.URL("file:./hand2.obj");
@@ -257,6 +274,7 @@ public class Morphing extends Applet {
 	    System.out.println(ex.getMessage());
 	    System.exit(1);
 	}
+         **/
 	new MainFrame(new Morphing(urls), 700, 700);
     }
 }

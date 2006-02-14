@@ -127,8 +127,8 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         String[] attrNames = { "numLights" };
 
         try {
-            vertexProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/gouraud.vert"));
-            fragmentProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/gouraud.frag"));
+            vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/gouraud.vert"));
+            fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/gouraud.frag"));
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -143,8 +143,8 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         gouraudSP.setShaders(shaders);
 
         try {
-            vertexProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/phong.vert"));
-            fragmentProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/phong.frag"));
+            vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/phong.vert"));
+            fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/phong.frag"));
         }
         catch (IOException e) {
             throw new RuntimeException(e);

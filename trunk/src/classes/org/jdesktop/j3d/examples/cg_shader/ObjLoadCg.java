@@ -119,8 +119,8 @@ public class ObjLoadCg extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully(Resources.getResource("resources/cg_shader/simple_vp.cg"));
-	    fragmentProgram = StringIO.readFully(Resources.getResource("resources/cg_shader/simple_fp.cg"));
+	    vertexProgram = StringIO.readFully(Resources.getResource("cg_shader/simple_vp.cg"));
+	    fragmentProgram = StringIO.readFully(Resources.getResource("cg_shader/simple_fp.cg"));
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
