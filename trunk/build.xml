@@ -68,11 +68,6 @@
 	   debug="true"
            deprecation="off">
     </javac>
-  </target>
-
-  <target name="jar" depends="init,compile">
-    <!-- Create the dist directory -->
-    <mkdir dir="${dist}"/>
 
     <!-- Copy resources to build in preparation for jarring -->
     <copy todir="${build}/classes/org/jdesktop/j3d/examples/resources">
@@ -86,6 +81,12 @@
     <copy todir="${build}/classes/org/jdesktop/j3d/examples/glsl_shader">
         <fileset dir="${src}/classes/org/jdesktop/j3d/examples/glsl_shader" includes ="*.vert, *.frag"/>
     </copy>   
+    
+  </target>
+
+  <target name="jar" depends="init,compile">
+    <!-- Create the dist directory -->
+    <mkdir dir="${dist}"/>
     
     <!-- Create the jar file -->
     <jar jarfile="${output.jar}"
@@ -224,4 +225,10 @@
     </java>
   </target>
   
+  <target name="run.Viewer" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.lightwave.Viewer">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>  
 </project>
