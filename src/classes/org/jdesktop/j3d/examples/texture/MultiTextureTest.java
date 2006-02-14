@@ -55,6 +55,7 @@ import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.image.BufferedImage;
+import org.jdesktop.j3d.examples.Resources;
 
 public class MultiTextureTest extends Applet implements ItemListener{
 
@@ -203,66 +204,60 @@ public class MultiTextureTest extends Applet implements ItemListener{
   }
 
   public void init() {
-    if (stoneImage == null) {
-      // the path to the image for an applet
-      try {
-	stoneImage = new java.net.URL(getCodeBase().toString() + 
-				      "../images/stone.jpg");
+      if (stoneImage == null) {
+          // the path to the image for an applet
+          stoneImage = Resources.getResource("resources/images/stone.jpg");
+          if (stoneImage == null) {
+              System.err.println("resources/images/stone.jpg not found");
+              System.exit(1);
+          }
+          
+          if (skyImage == null) {
+              // the path to the image for an applet
+              skyImage = Resources.getResource("resources/images/bg.jpg");
+              if (skyImage == null) {
+                  System.err.println("resources/images/bg.jpg not found");
+                  System.exit(1);
+              }
+          }
       }
-      catch (java.net.MalformedURLException ex) {
-	System.out.println(ex.getMessage());
-	System.exit(1);
-      }
-    }
-
-    if (skyImage == null) {
-      // the path to the image for an applet
-      try {
-	skyImage = new java.net.URL(getCodeBase().toString() +
-				    "../images/bg.jpg");
-      }
-      catch (java.net.MalformedURLException ex) {
-	System.out.println(ex.getMessage());
-	System.exit(1);
-      }
-    }
-
-    setLayout(new BorderLayout());
-    GraphicsConfiguration config =
-       SimpleUniverse.getPreferredConfiguration();
-
-    Canvas3D c = new Canvas3D(config);
-    add("Center", c);
-    
-    BranchGroup scene = createSceneGraph();
-    u = new SimpleUniverse(c);
-
-    ViewingPlatform viewingPlatform = u.getViewingPlatform();
-    // This will move the ViewPlatform back a bit so the
-    // objects in the scene can be viewed.
-    viewingPlatform.setNominalViewingTransform();
-
-    // add orbit behavior but disable translate
-    OrbitBehavior orbit =
-	new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL |
-			  OrbitBehavior.DISABLE_TRANSLATE);
-    BoundingSphere bounds =
-	new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-    orbit.setSchedulingBounds(bounds);
-    viewingPlatform.setViewPlatformBehavior(orbit);
-
-    u.addBranchGraph(scene);
-
-    // create the gui
-    choice = new Choice();
-    choice.addItem("stone + light");
-    choice.addItem("stone");
-    choice.addItem("lightMap");
-    choice.addItem("sky");
-    choice.addItem("stone + sky");
-    choice.addItemListener(this);
-    add("North", choice);
-
+      
+      setLayout(new BorderLayout());
+      GraphicsConfiguration config =
+              SimpleUniverse.getPreferredConfiguration();
+      
+      Canvas3D c = new Canvas3D(config);
+      add("Center", c);
+      
+      BranchGroup scene = createSceneGraph();
+      u = new SimpleUniverse(c);
+      
+      ViewingPlatform viewingPlatform = u.getViewingPlatform();
+      // This will move the ViewPlatform back a bit so the
+      // objects in the scene can be viewed.
+      viewingPlatform.setNominalViewingTransform();
+      
+      // add orbit behavior but disable translate
+      OrbitBehavior orbit =
+              new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL |
+              OrbitBehavior.DISABLE_TRANSLATE);
+      BoundingSphere bounds =
+              new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
+      orbit.setSchedulingBounds(bounds);
+      viewingPlatform.setViewPlatformBehavior(orbit);
+      
+      u.addBranchGraph(scene);
+      
+      // create the gui
+      choice = new Choice();
+      choice.addItem("stone + light");
+      choice.addItem("stone");
+      choice.addItem("lightMap");
+      choice.addItem("sky");
+      choice.addItem("stone + sky");
+      choice.addItemListener(this);
+      add("North", choice);
+      
   }
 
     public void destroy() {
@@ -302,19 +297,24 @@ public class MultiTextureTest extends Applet implements ItemListener{
   }
 
   public static void main(String argv[])
-  {
-    java.net.URL stoneURL = null;
-    java.net.URL skyURL = null;
-    // the path to the image for an application
-    try {
-      stoneURL = new java.net.URL("file:../images/stone.jpg");
-      skyURL = new java.net.URL("file:../images/bg.jpg");
-    }
-    catch (java.net.MalformedURLException ex) {
-      System.out.println(ex.getMessage());
-      System.exit(1);
-    }
-    new MainFrame(new MultiTextureTest(stoneURL, skyURL), 750, 750);
+{
+      java.net.URL stoneURL = null;
+      java.net.URL skyURL = null;
+      // the path to the image for an application
+      
+      stoneURL = Resources.getResource("resources/images/stone.jpg");
+      if (stoneURL == null) {
+          System.err.println("resources/images/stone.jpg not found");
+          System.exit(1);
+      }
+      
+      skyURL = Resources.getResource("resources/images/bg.jpg");
+      if (skyURL == null) {
+          System.err.println("resources/images/bg.jpg not found");
+          System.exit(1);
+      }
+      
+      new MainFrame(new MultiTextureTest(stoneURL, skyURL), 750, 750);
   }
 }
 
