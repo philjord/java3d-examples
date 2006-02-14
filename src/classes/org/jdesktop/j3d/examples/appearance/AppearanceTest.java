@@ -46,12 +46,12 @@ package org.jdesktop.j3d.examples.appearance;
 
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.image.TextureLoader;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class AppearanceTest extends Applet {
 
@@ -316,28 +316,23 @@ public class AppearanceTest extends Applet {
       
     public void init() {
         if (bgImage == null) {
-	    // the path to the image for an applet
-	    try {
-	        bgImage = new java.net.URL(getCodeBase().toString() +
-					   "../images/bg.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
-	}
-
+            // the path to the image for an applet
+            bgImage = Resources.getResource("resources/images/bg.jpg");
+            if (bgImage == null) {
+                System.err.println("resources/images/bg.jpg not found");
+                System.exit(1);
+            }
+        }
+	
 	if (texImage == null) {
-	    // the path to the image for an applet
-	    try {
-	        texImage = new java.net.URL(getCodeBase().toString() +
-					    "../images/apimage.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
-	}
+            // the path to the image for an applet
+            texImage = Resources.getResource("resources/images/apimage.jpg");
+            if (texImage == null) {
+                System.err.println("resources/images/apimage.jpg not found");
+                System.exit(1);
+            }
+        }
+        
         setLayout(new BorderLayout());
         GraphicsConfiguration config =
            SimpleUniverse.getPreferredConfiguration();
@@ -369,14 +364,18 @@ public class AppearanceTest extends Applet {
         // the path to the image file for an application
         java.net.URL bgurl = null;
         java.net.URL texurl = null;
-        try {
-	  bgurl = new java.net.URL("file:../images/bg.jpg");
-	  texurl = new java.net.URL("file:../images/apimage.jpg");
-	}
-	catch (java.net.MalformedURLException ex) {
-	    System.out.println(ex.getMessage());
-	    System.exit(1);
-	}
-	new MainFrame(new AppearanceTest(bgurl, texurl), 700, 700);
+        
+        bgurl = Resources.getResource("resources/images/bg.jpg");
+        if (bgurl == null) {
+            System.err.println("resources/images/bg.jpg not found");
+            System.exit(1);
+        }
+        texurl = Resources.getResource("resources/images/apimage.jpg");
+        if (texurl == null) {
+            System.err.println("resources/images/apimage.jpg not found");
+            System.exit(1);
+        }
+        
+        new MainFrame(new AppearanceTest(bgurl, texurl), 700, 700);
     }
 }

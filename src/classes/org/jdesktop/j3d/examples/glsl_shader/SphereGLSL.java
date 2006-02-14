@@ -53,9 +53,7 @@ import com.sun.j3d.utils.shader.StringIO;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
-import java.util.Enumeration;
-import java.net.URL;
-import java.net.MalformedURLException;
+import org.jdesktop.j3d.examples.Resources;
 
 /**
  * Simple GLSL Shader test program
@@ -112,8 +110,8 @@ public class SphereGLSL extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully("./simple.vert");
-	    fragmentProgram = StringIO.readFully("./simple.frag");
+	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/simple.vert"));
+	    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/simple.frag"));
 	}
 	catch (IOException e) {
 	    throw new RuntimeException(e);

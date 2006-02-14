@@ -51,6 +51,7 @@ import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ShaderTestGLSL extends javax.swing.JFrame {
 
@@ -114,20 +115,20 @@ public class ShaderTestGLSL extends javax.swing.JFrame {
 	try {
             switch (index) {
                 case DIMPLE_SHADER:
-                    vertexProgram = StringIO.readFully("./dimple.vert");
-                    fragmentProgram = StringIO.readFully("./dimple.frag");
+                    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/dimple.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/dimple.frag"));
                     break;
                 case BRICK_SHADER:
-        	    vertexProgram = StringIO.readFully("./aabrick.vert");
-                    fragmentProgram = StringIO.readFully("./aabrick.frag");
+        	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/aabrick.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/aabrick.frag"));
                     break;
                 case WOOD_SHADER:
-        	    vertexProgram = StringIO.readFully("./wood.vert");
-                    fragmentProgram = StringIO.readFully("./wood.frag");
+        	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/wood.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/wood.frag"));
                     break;
                 case POLKADOT3D_SHADER:
-        	    vertexProgram = StringIO.readFully("./polkadot3d.vert");
-                    fragmentProgram = StringIO.readFully("./polkadot3d.frag");
+        	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/polkadot3d.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/polkadot3d.frag"));
                     break;                    
                 default:
             }

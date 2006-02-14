@@ -117,8 +117,8 @@ public class ObjLoadGLSL extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/" + shaderName + ".vert"));
-	    fragmentProgram = StringIO.readFully(Resources.getResource("resources/glsl_shader/" + shaderName + ".frag"));
+	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/" + shaderName + ".vert"));
+	    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/" + shaderName + ".frag"));
 	}
 	catch (IOException e) {
 	    throw new RuntimeException(e);
