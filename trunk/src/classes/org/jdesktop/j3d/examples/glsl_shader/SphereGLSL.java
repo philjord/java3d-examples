@@ -44,21 +44,19 @@
 
 package org.jdesktop.j3d.examples.glsl_shader;
 
-import java.applet.Applet;
-import java.awt.*;
-import java.io.*;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.shader.StringIO;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import java.awt.GraphicsConfiguration;
+import java.io.*;
 import org.jdesktop.j3d.examples.Resources;
 
 /**
- * Simple GLSL Shader test program
+ * Simple Java 3D example program with programmable shader.
  */
-public class SphereGLSL extends Applet {
+public class SphereGLSL extends javax.swing.JFrame {
 
     // Constants for type of light to use
     private static final int DIRECTIONAL_LIGHT = 0;
@@ -68,10 +66,10 @@ public class SphereGLSL extends Applet {
     // Flag indicates type of lights: directional, point, or spot
     // lights.  This flag is set based on command line argument
     private static int lightType = DIRECTIONAL_LIGHT;
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
 
-    private SimpleUniverse u = null;
-
-    public BranchGroup createSceneGraph(SimpleUniverse u) {
+    public BranchGroup createSceneGraph() {
 	Color3f eColor    = new Color3f(0.0f, 0.0f, 0.0f);
 	Color3f sColor    = new Color3f(1.0f, 1.0f, 1.0f);
 	Color3f objColor  = new Color3f(0.6f, 0.6f, 0.6f);
@@ -243,7 +241,7 @@ public class SphereGLSL extends Applet {
 	// Create a position interpolator and attach it to the view
 	// platform
 	TransformGroup vpTrans =
-	    u.getViewingPlatform().getViewPlatformTransform();
+	    univ.getViewingPlatform().getViewPlatformTransform();
 	Transform3D axisOfTranslation = new Transform3D();
 	Alpha transAlpha = new Alpha(-1,
 				      Alpha.INCREASING_ENABLE |
@@ -265,75 +263,82 @@ public class SphereGLSL extends Applet {
 
 	return objRoot;
     }
+    
+    private Canvas3D createUniverse() {
+	// Get the preferred graphics configuration for the default screen
+	GraphicsConfiguration config =
+	    SimpleUniverse.getPreferredConfiguration();
 
-    public SphereGLSL() {
-    }
+	// Create a Canvas3D using the preferred configuration
+	Canvas3D canvas3d = new Canvas3D(config);
 
-    public void init() {
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+	// Create simple universe with view branch
+	univ = new SimpleUniverse(canvas3d);
+        BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
-
-	u = new SimpleUniverse(c);
-	BranchGroup scene = createSceneGraph(u);
-
+      
         // This will move the ViewPlatform back a bit so the
-        // objects in the scene can be viewed.
-        u.getViewingPlatform().setNominalViewingTransform();
+	// objects in the scene can be viewed.
+	univ.getViewingPlatform().setNominalViewingTransform();
+        
+        // Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
 
-	/*
-	// Limit the frame rate to 100 Hz
-	u.getViewer().getView().setMinimumFrameCycleTime(10);
-	*/
-
-	u.addBranchGraph(scene);
+	return canvas3d;
     }
 
-    public void destroy() {
-	u.cleanup();
-    }
 
-    //
-    // The following allows SphereGLSL to be run as an application
-    // as well as an applet
-    //
-    public static void main(String[] args) {
-        // Parse the Input Arguments
-	String usage = "Usage: java SphereGLSL [-point | -spot | -dir]";
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].startsWith("-")) {
-                if (args[i].equals("-point")) {
-		    /*
-		    System.out.println("Using point lights");
-                    lightType = POINT_LIGHT;
-		    */
-		    System.out.println("Point lights not yet implemented, option ignored");
-                }
-		else if (args[i].equals("-spot")) {
-		    /*
-		    System.out.println("Using spot lights");
-                    lightType = SPOT_LIGHT;
-		    */
-		    System.out.println("Spot lights not yet implemented, option ignored");
-                }
-		else if (args[i].equals("-dir")) {
-		    System.out.println("Using directional lights");
-                    lightType = DIRECTIONAL_LIGHT;
-                }
-		else {
-		    System.out.println(usage);
-                    System.exit(0);
-                }
+    /**
+     * Creates new form SphereGLSL
+     */
+    public SphereGLSL() {
+        
+        // Initialize the GUI components
+        initComponents();
+        
+        // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
+        Canvas3D c = createUniverse();
+        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        
+	// Create the content branch and add it to the universe
+	scene = createSceneGraph();
+	univ.addBranchGraph(scene);    }
+
+    // ----------------------------------------------------------------
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        drawingPanel = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SphereGLSL");
+        drawingPanel.setLayout(new java.awt.BorderLayout());
+
+        drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
+        getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(final String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                SphereGLSL sphereGLSL = new SphereGLSL();
+                sphereGLSL.setVisible(true);
             }
-	    else {
-		System.out.println(usage);
-		System.exit(0);
-	    }
-        }
-
-	new MainFrame(new SphereGLSL(), 700, 700);
+        });
     }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    // End of variables declaration//GEN-END:variables
+    
 }
