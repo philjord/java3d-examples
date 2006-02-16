@@ -49,20 +49,22 @@ import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.utils.shader.StringIO;
-import java.applet.Applet;
-import java.awt.*;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import java.awt.GraphicsConfiguration;
+import java.net.MalformedURLException;
 import java.util.Enumeration;
 import java.io.*;
-import com.sun.j3d.utils.behaviors.vp.*;
 import java.net.URL;
-import java.net.MalformedURLException;
+import com.sun.j3d.utils.behaviors.vp.*;
+import java.io.FileNotFoundException;
 import org.jdesktop.j3d.examples.Resources;
 
-public class ObjLoadGLSL extends Applet {
+/**
+ * Simple Java 3D example program to display an .obj object with shader programs.
+ */
+public class ObjLoadGLSL extends javax.swing.JFrame {
 
     private String shaderName = "polkadot3d";
     private boolean spin = false;
@@ -70,8 +72,9 @@ public class ObjLoadGLSL extends Applet {
     private boolean noStripify = false;
     private double creaseAngle = 60.0;
     private URL filename = null;
-    private SimpleUniverse u;
-    private BoundingSphere bounds;
+
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
 
     public BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
@@ -98,21 +101,24 @@ public class ObjLoadGLSL extends Applet {
 	if (!noTriangulate) flags |= ObjectFile.TRIANGULATE;
 	if (!noStripify) flags |= ObjectFile.STRIPIFY;
 	ObjectFile f = new ObjectFile(flags, 
-				      (float)(creaseAngle * Math.PI / 180.0));
+	  (float)(creaseAngle * Math.PI / 180.0));
 	Scene s = null;
 	try {
-	    s = f.load(filename);
+	  s = f.load(filename);
 	}
 	catch (FileNotFoundException e) {
-	    throw new RuntimeException(e);
+	  System.err.println(e);
+	  System.exit(1);
 	}
 	catch (ParsingErrorException e) {
-	    throw new RuntimeException(e);
+	  System.err.println(e);
+	  System.exit(1);
 	}
 	catch (IncorrectFormatException e) {
-	    throw new RuntimeException(e);
+	  System.err.println(e);
+	  System.exit(1);
 	}
-	  
+
 	// Set vertex and fragment shader program for all Shape3D nodes in scene
 	String vertexProgram = null;
 	String fragmentProgram = null;
@@ -136,20 +142,20 @@ public class ObjLoadGLSL extends Applet {
 
 	objTrans.addChild(s.getSceneGroup());
 
-	bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
+	BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
         if (spin) {
-	    Transform3D yAxis = new Transform3D();
-	    Alpha rotationAlpha = new Alpha(-1, Alpha.INCREASING_ENABLE,
-					    0, 0,
-					    4000, 0, 0,
-					    0, 0, 0);
+	  Transform3D yAxis = new Transform3D();
+	  Alpha rotationAlpha = new Alpha(-1, Alpha.INCREASING_ENABLE,
+					  0, 0,
+					  4000, 0, 0,
+					  0, 0, 0);
 
-	    RotationInterpolator rotator =
-		new RotationInterpolator(rotationAlpha, objTrans, yAxis,
-					 0.0f, (float) Math.PI*2.0f);
-	    rotator.setSchedulingBounds(bounds);
-	    objTrans.addChild(rotator);
+	  RotationInterpolator rotator =
+	      new RotationInterpolator(rotationAlpha, objTrans, yAxis,
+				       0.0f, (float) Math.PI*2.0f);
+	  rotator.setSchedulingBounds(bounds);
+	  objTrans.addChild(rotator);
 	} 
 
         // Set up the background
@@ -160,47 +166,21 @@ public class ObjLoadGLSL extends Applet {
 
 	return objRoot;
     }
-
-    private void usage()
-    {
-	System.out.println(
-			   "Usage: java ObjLoadGLSL [-s] [-S shaderName] [-n] [-t] [-c degrees] <.obj file>");
-	System.out.println("  -s Spin (no user interaction)");
-	System.out.println("  -S Set shader name (default is 'simple')");
-	System.out.println("  -n No triangulation");
-	System.out.println("  -t No stripification");
-	System.out.println(
-			   "  -c Set crease angle for normal generation (default is 60 without");
-	System.out.println(
-			   "     smoothing group info, otherwise 180 within smoothing groups)");
-	System.exit(0);
-    } // End of usage
-
-
-
-    public void init() {
-	if (filename == null) {
-            // Applet
-	    filename = Resources.getResource("resources/geometry/galleon.obj");
-	    if (filename == null) {
-	      System.err.println("resources/geometry/galleon.obj not found");
-	      System.exit(1);
-            }
-	}
-
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
+    
+    private Canvas3D createUniverse() {
+	// Get the preferred graphics configuration for the default screen
+	GraphicsConfiguration config =
 	    SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+	// Create a Canvas3D using the preferred configuration
+	Canvas3D canvas3d = new Canvas3D(config);
 
-	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
-	u = new SimpleUniverse(c);
-	
+	// Create simple universe with view branch
+	univ = new SimpleUniverse(canvas3d);
+        BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
+
 	// add mouse behaviors to the ViewingPlatform
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+	ViewingPlatform viewingPlatform = univ.getViewingPlatform();
 
 	PlatformGeometry pg = new PlatformGeometry();
 
@@ -211,10 +191,10 @@ public class ObjLoadGLSL extends Applet {
 	pg.addChild(ambientLightNode);
 
 	// Set up the directional lights
-	Color3f light1Color = new Color3f(1.0f, 0.2f, 0.4f);
-	Vector3f light1Direction  = new Vector3f(-1.0f, -1.0f, -1.0f);
-	Color3f light2Color = new Color3f(1.0f, 1.0f, 0.9f);
-	Vector3f light2Direction  = new Vector3f(1.0f, 1.0f, 1.0f);
+	Color3f light1Color = new Color3f(1.0f, 1.0f, 0.9f);
+	Vector3f light1Direction  = new Vector3f(1.0f, 1.0f, 1.0f);
+	Color3f light2Color = new Color3f(1.0f, 1.0f, 1.0f);
+	Vector3f light2Direction  = new Vector3f(-1.0f, -1.0f, -1.0f);
 
 	DirectionalLight light1
 	    = new DirectionalLight(light1Color, light1Direction);
@@ -233,23 +213,32 @@ public class ObjLoadGLSL extends Applet {
 	viewingPlatform.setNominalViewingTransform();
 
 	if (!spin) {
-            OrbitBehavior orbit = new OrbitBehavior(c,
+            OrbitBehavior orbit = new OrbitBehavior(canvas3d,
 						    OrbitBehavior.REVERSE_ALL);
-            BoundingSphere bounds =
-                new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
             orbit.setSchedulingBounds(bounds);
             viewingPlatform.setViewPlatformBehavior(orbit);	    
-	}
+	}        
+        
+        // Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
 
-	/*
-	// Limit the frame rate to 100 Hz
-	u.getViewer().getView().setMinimumFrameCycleTime(10);
-	*/
-
-	u.addBranchGraph(scene);
+	return canvas3d;
     }
 
-    // Set shader program for all nodes in specified branch graph
+    private void usage() {
+	System.out.println("Usage: java ObjLoadGLSL [-s] [-S shaderName] [-n] [-t] [-c degrees] <.obj file>");
+	System.out.println("  -s Spin (no user interaction)");
+	System.out.println("  -S Set shader name (default is 'simple')");
+	System.out.println("  -n No triangulation");
+	System.out.println("  -t No stripification");
+	System.out.println(
+			   "  -c Set crease angle for normal generation (default is 60 without");
+	System.out.println(
+			   "     smoothing group info, otherwise 180 within smoothing groups)");
+	System.exit(0);
+    } // End of usage
+
+        // Set shader program for all nodes in specified branch graph
     private void setShaderProgram(BranchGroup g, ShaderProgram shaderProgram) {
 	ShaderAppearance myApp = new ShaderAppearance();
 	Material mat = new Material();
@@ -275,66 +264,103 @@ public class ObjLoadGLSL extends Applet {
 	}
     }
 
-    // Caled if running as a program
-    public ObjLoadGLSL(String[] args) {
-	if (args.length != 0) {
-	    for (int i = 0 ; i < args.length ; i++) {
-		if (args[i].startsWith("-")) {
-		    if (args[i].equals("-s")) {
-			spin = true;
-		    } else if (args[i].equals("-n")) {
-			noTriangulate = true;
-		    } else if (args[i].equals("-t")) {
-			noStripify = true;
-		    } else if (args[i].equals("-c")) {
-			if (i < args.length - 1) {
-			    creaseAngle = (new Double(args[++i])).doubleValue();
-			} else usage();
-		    } else if (args[i].equals("-S")) {
-			if (i < args.length - 1) {
-			    shaderName = args[++i];
-			} else usage();
-		    } else {
-			usage();
-		    }
-		} else {
-		    try {
-			if ((args[i].indexOf("file:") == 0) ||
-			    (args[i].indexOf("http") == 0)) {
-			    filename = new URL(args[i]);
-			}
-			else if (args[i].charAt(0) != '/') {
-			    filename = new URL("file:./" + args[i]);
-			}
-			else {
-			    filename = new URL("file:" + args[i]);
-			}
-		    }
-		    catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		    }
-		}
-	    }
-	}
+    /**
+     * Creates new form ObjLoadGLSL
+     */
+    public ObjLoadGLSL(String args[]) {
+        if (args.length != 0) {
+            for (int i = 0 ; i < args.length ; i++) {
+                if (args[i].startsWith("-")) {
+                    if (args[i].equals("-s")) {
+                        spin = true;
+                    } else if (args[i].equals("-n")) {
+                        noTriangulate = true;
+                    } else if (args[i].equals("-t")) {
+                        noStripify = true;
+                    } else if (args[i].equals("-c")) {
+                        if (i < args.length - 1) {
+                            creaseAngle = (new Double(args[++i])).doubleValue();
+                        } else usage();
+                    } else if (args[i].equals("-S")) {
+                        if (i < args.length - 1) {
+                            shaderName = args[++i];
+                        } else usage();
+                    } else {
+                        usage();
+                    }
+                } else {
+                    try {
+                        if ((args[i].indexOf("file:") == 0) ||
+                                (args[i].indexOf("http") == 0)) {
+                            filename = new URL(args[i]);
+                        } else if (args[i].charAt(0) != '/') {
+                            filename = new URL("file:./" + args[i]);
+                        } else {
+                            filename = new URL("file:" + args[i]);
+                        }
+                    } catch (MalformedURLException e) {
+                        System.err.println(e);
+                        System.exit(1);
+                    }
+                }
+            }
+        }
+        
+        if (filename == null) {
+            filename = Resources.getResource("resources/geometry/galleon.obj");
+            if (filename == null) {
+                System.err.println("resources/geometry/galleon.obj not found");
+                System.exit(1);
+            }
+        }
+        
+        // Initialize the GUI components
+        initComponents();
+        
+        // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
+        Canvas3D c = createUniverse();
+        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        
+        // Create the content branch and add it to the universe
+        scene = createSceneGraph();
+        univ.addBranchGraph(scene);
     }
 
+    // ----------------------------------------------------------------
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        drawingPanel = new javax.swing.JPanel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ObjLoadGLSL");
+        drawingPanel.setLayout(new java.awt.BorderLayout());
 
-    // Running as an applet
-    public ObjLoadGLSL() {
+        drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
+        getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(final String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ObjLoadGLSL objLoadGLSL = new ObjLoadGLSL(args);
+                objLoadGLSL.setVisible(true);
+            }
+        });
     }
-
-    public void destroy() {
-	u.cleanup();
-    }
-
-
-
-    //
-    // The following allows ObjLoadGLSL to be run as an application
-    // as well as an applet
-    //
-    public static void main(String[] args) {
-	new MainFrame(new ObjLoadGLSL(args), 700, 700);
-    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    // End of variables declaration//GEN-END:variables
+    
 }
