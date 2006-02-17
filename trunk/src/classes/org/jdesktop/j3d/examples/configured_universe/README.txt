@@ -72,7 +72,7 @@ It also differs in the following other respects:
     into their own user interfaces.
 
     The configuration file to load is specified by the j3d.configURL
-    property.  If one is not specified, it will load the file j3d1x1-window
+    property.  If one is not specified, it will load the file j3d1x1-window.cfg
     in this directory.
 
     Alternative custom view platform behaviors other than OrbitBehavior can
@@ -89,44 +89,44 @@ command line:
 
     java -Dj3d.configURL=<URL string> ConfigObjLoad <args> <obj file>
 
-For example, to load j3d1x2-rot30 in the current directory, run
+For example, to load j3d1x2-rot30.cfg in the current directory, run
 
-    java -Dj3d.configURL=file:j3d1x2-rot30 ConfigObjLoad <args> <obj file>
+    java -Dj3d.configURL=file:j3d1x2-rot30.cfg ConfigObjLoad <args> <obj file>
 
 This directory includes the following sample configuration files.  Normally
 a configuration file is site-specific but many of these can used as-is.
 Others may need customization for screen sizes, available input devices, and
 PhysicalBody parameters.
 
-    j3d1x1: single fullscreen desktop configuration.
+    j3d1x1.cfg: single fullscreen desktop configuration.
     
-    j3d1x1-behavior: single fullscreen desktop configuration with a
+    j3d1x1-behavior.cfg: single fullscreen desktop configuration with a
     configurable view platform behavior.
 
-    j3d1x1-stereo: single fullscreen desktop configuration with stereo
+    j3d1x1-stereo.cfg: single fullscreen desktop configuration with stereo
     viewing.     
 
-    j3d1x1-vr: single fullscreen desktop configuration with stereo viewing,
+    j3d1x1-vr.cfg: single fullscreen desktop configuration with stereo viewing,
     head tracker, and 6DOF mouse.
 
-    j3d1x1-window: single screen windowed desktop configuration.
+    j3d1x1-window.cfg: single screen windowed desktop configuration.
 
-    j3d1x2-flat: dual-screen flat desktop configuration.
+    j3d1x2-flat.cfg: dual-screen flat desktop configuration.
 
-    j3d1x2-rot30: dual-screen desktop configuration with each screen rotated
+    j3d1x2-rot30.cfg: dual-screen desktop configuration with each screen rotated
     toward the other by 30 degrees about Y.
 
-    j3d1x3-cave: 3-projector configuration with screens to the left, front,
+    j3d1x3-cave.cfg: 3-projector configuration with screens to the left, front,
     and right of the user.
 
-    j3d1x3-cave-vr: 3-projector configuration with screens to the left,
+    j3d1x3-cave-vr.cfg: 3-projector configuration with screens to the left,
     front, and right of the user.  Includes head tracking and stereo
     viewing.
 
-    j3d1x3-rot45: 3-screen desktop configuration with left and right screens
+    j3d1x3-rot45.cfg: 3-screen desktop configuration with left and right screens
     angled by 45 degrees from the center screen.
 
-    j3d2x2-flat: 4-screen projector configuration arranged in a 2x2 power
+    j3d2x2-flat.cfg: 4-screen projector configuration arranged in a 2x2 power
     wall. 
 
 Note: JDK 1.4 or newer is required when configuring multiple screens if the
