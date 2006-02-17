@@ -54,6 +54,7 @@
     <property name="build"      location="build"/>
     <property name="dist"       location="dist"/>
     <property name="output.jar" location="dist/j3d-examples.jar"/>
+    <property name="output.zip" location="dist/j3d-examples-src.zip"/>
   </target>
 
   <target name="compile" depends="init">
@@ -97,7 +98,20 @@
     </jar>
   </target>
 
-  <target name="all" depends="init,jar">
+  <target name="zip" depends="init">
+    <mkdir dir="${dist}"/>
+    <zip destfile="${output.zip}">
+      <fileset dir="." includes="src/**"/>
+      <fileset dir="." includes="COPYRIGHT.txt"/>
+      <fileset dir="." includes="README*.*"/>
+      <fileset dir="." includes="*LICENSE*.*"/>
+      <fileset dir="." includes="build.xml"/>
+      <fileset dir="." includes="manifest.mf"/>
+      <fileset dir="." includes="nbproject/**" excludes="nbproject/private/**"/>
+    </zip>
+  </target>
+
+  <target name="all" depends="init,jar,zip">
   </target>
 
   <target name="clean" depends="init">
