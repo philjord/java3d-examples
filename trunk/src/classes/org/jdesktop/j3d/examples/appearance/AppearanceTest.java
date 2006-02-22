@@ -51,9 +51,6 @@ import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import org.jdesktop.j3d.examples.Resources;
 
-/**
- * Simple Java 3D example program to display a spinning cube.
- */
 public class AppearanceTest extends javax.swing.JFrame {
 
     private java.net.URL texImage = null;
@@ -110,7 +107,6 @@ public class AppearanceTest extends javax.swing.JFrame {
 
 	return objRoot;
     }
-
 
     private Appearance createAppearance(int idx) {
 	Appearance app = new Appearance();
