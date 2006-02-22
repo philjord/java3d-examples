@@ -53,9 +53,6 @@ import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import org.jdesktop.j3d.examples.Resources;
 
-/**
- * Simple Java 3D example program to display a spinning cube.
- */
 public class BackgroundGeometry extends javax.swing.JFrame {
 
     private SimpleUniverse univ = null;
@@ -197,7 +194,7 @@ public class BackgroundGeometry extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form HelloUniverse
+     * Creates new form BackgroundGeometry
      */
     public BackgroundGeometry() {
 

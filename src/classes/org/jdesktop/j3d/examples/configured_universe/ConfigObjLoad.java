@@ -166,7 +166,7 @@ public class ConfigObjLoad {
     private void usage()
     {
       System.out.println(
-	"Usage: java ObjLoad [-s] [-n] [-t] [-c degrees] <.obj file>");
+	"Usage: java ConfigObjLoad [-s] [-n] [-t] [-c degrees] <.obj file>");
       System.out.println("  -s Spin (no user interaction)");
       System.out.println("  -n No triangulation");
       System.out.println("  -t No stripification");
@@ -193,6 +193,7 @@ public class ConfigObjLoad {
         URL configURL = Resources.getResource("configured_universe/j3d1x1-windows.cfg");
 	// Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();
+
 	u = new ConfiguredUniverse(configURL);
 	
 	// Get the ViewingPlatform.

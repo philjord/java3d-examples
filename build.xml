@@ -74,14 +74,11 @@
     <copy todir="${build}/classes/org/jdesktop/j3d/examples/resources">
         <fileset dir="${src}/resources"/>
     </copy>
-    <!-- Cg shader -->   
-    <copy todir="${build}/classes/org/jdesktop/j3d/examples/cg_shader">
-        <fileset dir="${src}/classes/org/jdesktop/j3d/examples/cg_shader" includes ="*.cg"/>
+    
+    <!-- Copy all non class files from src to build -->   
+    <copy todir="${build}/classes/org/jdesktop/j3d/examples">
+        <fileset dir="${src}/classes/org/jdesktop/j3d/examples" includes ="**/*.vert **/*.frag **/*.cg **/*.cfg **/*.html"/>
     </copy>
-    <!-- GLSL shader -->
-    <copy todir="${build}/classes/org/jdesktop/j3d/examples/glsl_shader">
-        <fileset dir="${src}/classes/org/jdesktop/j3d/examples/glsl_shader" includes ="*.vert, *.frag"/>
-    </copy>   
     
   </target>
 
@@ -148,13 +145,41 @@
     </java>
   </target>
 
+  <target name="run.Applet3D" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.applet3d.Applet3D">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
   <target name="run.BackgroudGeometry" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.background.BackgroundGeometry">
       <classpath refid="run.classpath"/>
     </java>
   </target>
+
+  <target name="run.ConfigObjLoad" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.configured_universe.ConfigObjLoad">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
   
+  <target name="run.DepthFuncTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.depth_func.DepthFuncTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.FourByFour" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.four_by_four.FourByFour">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+    
   <target name="run.HelloUniverse" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
@@ -235,6 +260,13 @@
   <target name="run.TextureImage" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.texture.TextureImage">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.TickTockCollision" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.collision.TickTockCollision">
       <classpath refid="run.classpath"/>
     </java>
   </target>

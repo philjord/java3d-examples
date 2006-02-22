@@ -53,7 +53,7 @@ import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 
 /**
- * Simple Java 3D example program to display a spinning cube.
+ * Simple Java 3D example program to display how collision work.
  */
 public class TickTockCollision extends javax.swing.JFrame {
 
@@ -206,7 +206,7 @@ public class TickTockCollision extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form HelloUniverse
+     * Creates new form TickTockCollision
      */
     public TickTockCollision() {
 	// Initialize the GUI components
