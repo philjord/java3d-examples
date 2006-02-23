@@ -173,6 +173,13 @@
     </java>
   </target>
   
+  <target name="run.DistortGlyphTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.distort_glyph.DistortGlyphTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
   <target name="run.FourByFour" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.four_by_four.FourByFour">
