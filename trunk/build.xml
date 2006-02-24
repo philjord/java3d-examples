@@ -222,7 +222,21 @@
     </java>
   </target>
 
-  <target name="run.PhongShadingGLSL" depends="init-run">
+  <target name="run.EnvironmentMappingGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.EnvironmentMappingGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.SamplerTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+ <target name="run.PhongShadingGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.PhongShadingGLSL">
       <classpath refid="run.classpath"/>
