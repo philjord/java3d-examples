@@ -180,6 +180,13 @@
     </java>
   </target>
 
+  <target name="run.Dot3Demo" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.dot3.Dot3Demo">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
   <target name="run.FourByFour" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.four_by_four.FourByFour">
@@ -257,6 +264,26 @@
     </java>
   </target>
   
+  <target name="run.VertexAttrTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+   <target name="run.PureImmediate" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediate">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.PureImmediateStereo" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediateStereo">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
   <target name="run.SphereMotion" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
