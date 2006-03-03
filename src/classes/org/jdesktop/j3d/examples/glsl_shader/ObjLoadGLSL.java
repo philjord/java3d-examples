@@ -59,6 +59,7 @@ import java.io.*;
 import java.net.URL;
 import com.sun.j3d.utils.behaviors.vp.*;
 import java.io.FileNotFoundException;
+import javax.swing.JOptionPane;
 import org.jdesktop.j3d.examples.Resources;
 
 /**
@@ -178,6 +179,17 @@ public class ObjLoadGLSL extends javax.swing.JFrame {
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(canvas3d);
         BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
+
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(ObjLoadGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
 	// add mouse behaviors to the ViewingPlatform
 	ViewingPlatform viewingPlatform = univ.getViewingPlatform();

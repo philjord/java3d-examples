@@ -291,17 +291,6 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         rotator2.setSchedulingBounds(bounds);
         l2RotTrans.addChild(rotator2);
 
-        // Setup ShaderErrorListener
-        univ.addShaderErrorListener(new ShaderErrorListener() {
-            public void errorOccurred(ShaderError error) {
-                error.printVerbose();
-                JOptionPane.showMessageDialog(PhongShadingGLSL.this,
-                              error.toString(),
-                              "ShaderError",
-                              JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
         return objRoot;
     }
 
@@ -312,6 +301,17 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         Canvas3D c = new Canvas3D(config);
 
         univ = new SimpleUniverse(c);
+
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(PhongShadingGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
