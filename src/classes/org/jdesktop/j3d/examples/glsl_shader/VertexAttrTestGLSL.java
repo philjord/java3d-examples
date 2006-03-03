@@ -57,11 +57,10 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import org.jdesktop.j3d.examples.Resources;
 
-public class VertexAttrTest extends javax.swing.JFrame {
+public class VertexAttrTestGLSL extends javax.swing.JFrame {
 
     SimpleUniverse universe = null;
     BranchGroup scene = null;
-    boolean attached = false;
 
     public BranchGroup createSceneGraph( boolean hasVertexAttrs ) {
 
@@ -109,9 +108,9 @@ public class VertexAttrTest extends javax.swing.JFrame {
     }
     
     /**
-     * Creates new form VertexAttrTest
+     * Creates new form VertexAttrTestGLSL
      */
-    public VertexAttrTest() {
+    public VertexAttrTestGLSL() {
         // Initialize the GUI components
         initComponents();
         
@@ -233,7 +232,7 @@ public class VertexAttrTest extends javax.swing.JFrame {
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
 
-        setTitle("Vertex Attribute Test");
+        setTitle("VertexAttrTestGLSL");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -345,7 +344,6 @@ public class VertexAttrTest extends javax.swing.JFrame {
     private void destroyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destroyButtonActionPerformed
         if (scene != null) {
             universe.getLocale().removeBranchGraph(scene);
-            attached = false;
             scene = null;
         }
     }//GEN-LAST:event_destroyButtonActionPerformed
@@ -355,8 +353,6 @@ public class VertexAttrTest extends javax.swing.JFrame {
             boolean hasVertexAttrs = vertexAttrsBox.isSelected();
             scene = createSceneGraph(hasVertexAttrs);
             universe.addBranchGraph(scene);
-            attached = true;
-            System.err.println("Scene created");
         }
     }//GEN-LAST:event_createButtonActionPerformed
 
@@ -375,7 +371,7 @@ public class VertexAttrTest extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VertexAttrTest().setVisible(true);
+                new VertexAttrTestGLSL().setVisible(true);
             }
         });
     }

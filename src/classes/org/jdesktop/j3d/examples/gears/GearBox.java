@@ -45,23 +45,23 @@
 package org.jdesktop.j3d.examples.gears;
 
 import com.sun.j3d.utils.behaviors.mouse.*;
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.lang.Integer;
 import com.sun.j3d.utils.behaviors.vp.*;
+import java.awt.GraphicsConfiguration;
 
-public class GearBox extends Applet {
+/**
+ * Simple Java 3D example program to display a spinning cube.
+ */
+public class GearBox extends javax.swing.JFrame {
 
-    static final int defaultToothCount = 48;
-    private int toothCount;
-    private SimpleUniverse u = null;
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
+    private int toothCount = 48;
     
-    public BranchGroup createGearBox(int toothCount) {
+    public BranchGroup createSceneGraph() {
 	Transform3D tempTransform = new Transform3D();
 
 	// Create the root of the branch graph
@@ -177,7 +177,7 @@ public class GearBox extends Applet {
 	}
 
 	// Define the gear base information.  Again, these arrays exist to
-	// make the process of changing the GearBox via an editor faster
+	// make the process of changing the GearBox1 via an editor faster
 	int gearCount = 5;
 	float valleyToCircularPitchRatio = .15f;
 	float pitchCircleRadius = 1.0f;
@@ -282,75 +282,113 @@ public class GearBox extends Applet {
         return branchRoot;
     }
 
-    public GearBox() {
-	this(defaultToothCount);
-    }
+    private Canvas3D createUniverse() {
+	// Get the preferred graphics configuration for the default screen
+	GraphicsConfiguration config =
+	    SimpleUniverse.getPreferredConfiguration();
 
-    public GearBox(int toothCount) {
-	this.toothCount = toothCount;
-    }
+	// Create a Canvas3D using the preferred configuration
+	Canvas3D c = new Canvas3D(config);
 
-    public void init() {
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
-
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
-	
-	// Create the gearbox and attach it to the virtual universe
-	BranchGroup scene = createGearBox(toothCount);
-	u = new SimpleUniverse(c);
-
+	// Create simple universe with view branch
+	univ = new SimpleUniverse(c);
+        
 	// add mouse behaviors to the ViewingPlatform
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+	ViewingPlatform viewingPlatform = univ.getViewingPlatform();
 
-        // This will move the ViewPlatform back a bit so the
-        // objects in the scene can be viewed.
-	viewingPlatform.setNominalViewingTransform();
-
-	// add orbit behavior to the ViewingPlatform
+        // add orbit behavior to the ViewingPlatform
 	OrbitBehavior orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL);
 	BoundingSphere bounds =
 	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
 	orbit.setSchedulingBounds(bounds);
 	viewingPlatform.setViewPlatformBehavior(orbit);
 
-	u.addBranchGraph(scene);
-    }
+	// This will move the ViewPlatform back a bit so the
+	// objects in the scene can be viewed.
+	univ.getViewingPlatform().setNominalViewingTransform();
 
-    public void destroy() {
-	u.cleanup();
-    }
+	// Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
 
-    //
-    // The following allows GearBox to be run as an application
-    // as well as an applet
-    //
-    public static void main(String[] args) {
+	return c;
+    }
+    
+    
+    /**
+     * Creates new form GearBox
+     */
+    public GearBox(String args[]) {
 	int value;
 	
 	if (args.length > 1) {
-	    System.out.println("Usage: java GearBox  #teeth (LCD 4)");
-	    System.exit(0);
-	} else if (args.length == 0) {	
-	    new MainFrame(new GearBox(), 700, 700);
-	} else
-	    {
-		try{
-		    value = Integer.parseInt(args[0]);
-		} catch (NumberFormatException e) {
-		    System.out.println("Illegal integer specified");
-		    System.out.println("Usage: java GearBox  #teeth (LCD 4)");
-		    value = 0;
-		    System.exit(0);
-		}
-		if (value <= 0 | (value % 4) != 0) {
-		    System.out.println("Integer not a positive multiple of 4");
-		    System.out.println("Usage: java GearBox  #teeth (LCD 4)");
-		    System.exit(0);
-		}
-		new MainFrame(new GearBox(value), 700, 700);
-	    }
+            System.out.println("Usage: java GearBox  #teeth (LCD 4)");
+            System.exit(0);
+        } else if (args.length == 1) {
+            {
+                try{
+                    value = Integer.parseInt(args[0]);
+                } catch (NumberFormatException e) {
+                    System.out.println("Illegal integer specified");
+                    System.out.println("Usage: java GearBox  #teeth (LCD 4)");
+                    value = 0;
+                    System.exit(0);
+                }
+                if (value <= 0 | (value % 4) != 0) {
+                    System.out.println("Integer not a positive multiple of 4");
+                    System.out.println("Usage: java GearBox  #teeth (LCD 4)");
+                    System.exit(0);
+                }
+                toothCount = value;
+            }
+        }
+        
+        // Initialize the GUI components
+	initComponents();
+
+	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
+	Canvas3D c = createUniverse();
+	drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+
+	// Create the content branch and add it to the universe
+	scene = createSceneGraph();
+	univ.addBranchGraph(scene);
     }
+
+    // ----------------------------------------------------------------
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        drawingPanel = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GearBox");
+        drawingPanel.setLayout(new java.awt.BorderLayout());
+
+        drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
+        getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(final String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                GearBox gb = new GearBox(args);
+                gb.setVisible(true);
+            }
+        });
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    // End of variables declaration//GEN-END:variables
+    
 }

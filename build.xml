@@ -193,10 +193,38 @@
       <classpath refid="run.classpath"/>
     </java>
   </target>
-    
+ 
+  <target name="run.FPSCounterDemo" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.fps_counter.FPSCounterDemo">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+   
   <target name="run.HelloUniverse" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.GearBox" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.gears.GearBox">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.GearTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.gears.GearTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.LOD" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.lod.LOD">
       <classpath refid="run.classpath"/>
     </java>
   </target>
@@ -250,6 +278,13 @@
     </java>
   </target>
 
+ <target name="run.Pyramid2Cube" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.morphing.Pyramid2Cube">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
   <target name="run.QueryProperties" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
@@ -264,14 +299,22 @@
     </java>
   </target>
   
-  <target name="run.VertexAttrTest" depends="init-run">
+  <target name="run.VertexAttrTestGLSL" depends="init-run">
     <java fork="true"
-          classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTest">
+          classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTestGLSL">
       <classpath refid="run.classpath"/>
     </java>
   </target>
  
-   <target name="run.PureImmediate" depends="init-run">
+  <target name="run.VertexAttrTestCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.VertexAttrTestCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
+    </java>
+  </target>
+   
+  <target name="run.PureImmediate" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediate">
       <classpath refid="run.classpath"/>
@@ -295,6 +338,14 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.SphereGLSL">
       <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+   <target name="run.SphereCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.SphereCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
   </target>
   
