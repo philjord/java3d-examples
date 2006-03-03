@@ -51,6 +51,7 @@ import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.*;
+import javax.swing.JOptionPane;
 import org.jdesktop.j3d.examples.Resources;
 
 /**
@@ -277,7 +278,17 @@ public class SphereCg extends javax.swing.JFrame {
 	univ = new SimpleUniverse(canvas3d);
         BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
-      
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(SphereCg.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
         // This will move the ViewPlatform back a bit so the
 	// objects in the scene can be viewed.
 	univ.getViewingPlatform().setNominalViewingTransform();
