@@ -82,8 +82,8 @@ work.We have built j3d-examples on the following operating environments:<br>
 <ul>
   <li><a href="http://java.sun.com/j2se">JDK 1.4.2</a> </li>
   <li><a href="http://jakarta.apache.org/ant">Apache Ant 1.6.1</a> </li>
-  <li><a href="http://java.sun.com/products/java-media/3D/">Java&nbsp;3D
-1.3.1</a> or later. </li>
+  <li><a href="https://j3d-examples.dev.java.net/">Java&nbsp;3D
+1.4.0</a> or later. </li>
 </ul>
 <h3><span style="text-decoration: underline;">Building
 j3d-examples</span><span
@@ -96,7 +96,8 @@ following directories:</p>
   <li>&lt;ant-root-dir&gt;/bin</li>
   <li>&lt;jdk-root_dir&gt;/bin</li>
 </ul>
-<p>NOTE that Java&nbsp;3D must be installed into the JDK that you have in
+<p>NOTE that Java&nbsp;3D must be installed into the JDK that you have
+in
 your path <span style="font-weight: bold;">OR</span> you must put the
 Java&nbsp;3D and vecmath jar files (j3dcore.jar, j3dutils.jar and
 vecmath.jar) in your CLASSPATH and the directory containing the
@@ -110,33 +111,29 @@ PATH (Windows).<br>
 </ul>
 <p>
 </p>
-<p>This will build all example programs, each one being placed in the
-corresponding <code>src/&lt;ExampleProgram&gt;</code> directory.
-You may run
-ant from a subdirectory in order to just build that program. For
-example, to build the HelloUniverse program:<br>
-</p>
-<ul>
-  <code>cd &lt;cvs-root-dir&gt;/j3d-examples/src/HelloUniverse</code><br>
-  <code>ant</code>
-</ul>
-<p>
+<p>This will build all example programs and bundle them into a single
+jar
+file,<code>j3d-examples.jar</code>, placed in the <code>dist</code>
+directory. <br>
 </p>
 <h3><span style="text-decoration: underline;">Running j3d-examples</span></h3>
-<p>To run an example program, cd to the desired directory and execute
-java from there. You must ensure that CLASSPATH is either not set, or
-contains "." in its list of directories. For example, to run the
+<p>To run an example program, you must ensure that your CLASSPATH
+contains <code>dist/j3d-examples.jar </code>in its list. For example,
+to run the
 HelloUniverse program:<br>
 </p>
 <ul>
-  <code>cd &lt;cvs-root-dir&gt;/j3d-examples/src/HelloUniverse</code><br>
-  <code>java HelloUniverse<br>
+  <code>cd &lt;cvs-root-dir&gt;/j3d-examples<br>
+  </code> <code>java
+org.jdesktop.j3d.examples.hello_universe.HelloUniverse<br>
   </code>
 </ul>
 <p>
 </p>
-<p>You may also point your Java-enabled web browser at the
-<code>src/index.html</code> page and run Java&nbsp;3D example programs
+<p>You may also point your Java-enabled web browser at some Java 3D
+applet
+examples, such as the <code>src/classes/org/jdesktop/j3d/examples/FourByFour.html</code>
+page, and run the Java&nbsp;3D applet example programs
 from within your browser. Java&nbsp;3D must be installed into the JDK
 in order to run Java&nbsp;3D programs from within a browser.<br>
 <br>

@@ -339,9 +339,9 @@ public class AppearanceTest extends javax.swing.JFrame {
 	
 	if (texImage == null) {
             // the path to the image for an applet
-            texImage = Resources.getResource("resources/images/apimage.jpg");
+            texImage = Resources.getResource("resources/images/stone.jpg");
             if (texImage == null) {
-                System.err.println("resources/images/apimage.jpg not found");
+                System.err.println("resources/images/stone.jpg not found");
                 System.exit(1);
             }
         }

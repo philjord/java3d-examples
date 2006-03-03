@@ -451,7 +451,7 @@ public class AppearanceMixed extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form AppearanceTest
+     * Creates new form AppearanceMixed
      */
     public AppearanceMixed() {
 
@@ -466,9 +466,9 @@ public class AppearanceMixed extends javax.swing.JFrame {
 	
 	if (texImage == null) {
             // the path to the image for an applet
-            texImage = Resources.getResource("resources/images/apimage.jpg");
+            texImage = Resources.getResource("resources/images/stone.jpg");
             if (texImage == null) {
-                System.err.println("resources/images/apimage.jpg not found");
+                System.err.println("resources/images/stone.jpg not found");
                 System.exit(1);
             }
         }
@@ -497,7 +497,7 @@ public class AppearanceMixed extends javax.swing.JFrame {
         drawingPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("AppearanceTest");
+        setTitle("AppearanceMixed");
         drawingPanel.setLayout(new java.awt.BorderLayout());
 
         drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
