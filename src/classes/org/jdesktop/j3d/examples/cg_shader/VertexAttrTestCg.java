@@ -60,7 +60,7 @@ import org.jdesktop.j3d.examples.Resources;
 
 public class VertexAttrTestCg extends javax.swing.JFrame {
 
-    SimpleUniverse u = null;
+    SimpleUniverse univ = null;
     BranchGroup scene = null;
 
     public BranchGroup createSceneGraph(boolean hasVertexAttrs) {
@@ -99,9 +99,20 @@ public class VertexAttrTestCg extends javax.swing.JFrame {
         
         Canvas3D c = new Canvas3D(config);
         
-        u = new SimpleUniverse(c);
-        
-        ViewingPlatform viewingPlatform = u.getViewingPlatform();
+        univ = new SimpleUniverse(c);
+
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(VertexAttrTestCg.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        ViewingPlatform viewingPlatform = univ.getViewingPlatform();
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
         viewingPlatform.setNominalViewingTransform();
@@ -342,7 +353,7 @@ public class VertexAttrTestCg extends javax.swing.JFrame {
 
     private void destroyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destroyButtonActionPerformed
         if (scene != null) {
-            u.getLocale().removeBranchGraph(scene);
+            univ.getLocale().removeBranchGraph(scene);
             scene = null;
         }
     }//GEN-LAST:event_destroyButtonActionPerformed
@@ -351,7 +362,7 @@ public class VertexAttrTestCg extends javax.swing.JFrame {
         if (scene == null) {
             boolean hasVertexAttrs = vertexAttrsBox.isSelected();
             scene = createSceneGraph(hasVertexAttrs);
-            u.addBranchGraph(scene);
+            univ.addBranchGraph(scene);
         }
     }//GEN-LAST:event_createButtonActionPerformed
 
