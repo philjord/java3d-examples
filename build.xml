@@ -77,7 +77,8 @@
     
     <!-- Copy all non class files from src to build -->   
     <copy todir="${build}/classes/org/jdesktop/j3d/examples">
-        <fileset dir="${src}/classes/org/jdesktop/j3d/examples" includes ="**/*.vert **/*.frag **/*.cg **/*.cfg **/*.html"/>
+        <fileset dir="${src}/classes/org/jdesktop/j3d/examples"
+                 includes ="**/*.vert **/*.frag **/*.cg **/*.cfg **/*.html **/*.txt"/>
     </copy>
     
   </target>
