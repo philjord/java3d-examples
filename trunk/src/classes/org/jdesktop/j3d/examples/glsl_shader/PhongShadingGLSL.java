@@ -48,6 +48,7 @@ import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.shader.StringIO;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
+import javax.swing.JOptionPane;
 import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
     // Flag indicates type of lights: directional, point, or spot lights.
     private static int lightType = DIRECTIONAL_LIGHT;
 
-    private SimpleUniverse u = null;
+    private SimpleUniverse univ = null;
 
     private ShaderAppearance sApp = null;
     private ShaderProgram gouraudSP = null;
@@ -290,6 +291,17 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         rotator2.setSchedulingBounds(bounds);
         l2RotTrans.addChild(rotator2);
 
+        // Setup ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(PhongShadingGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
         return objRoot;
     }
 
@@ -299,14 +311,14 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
 
         Canvas3D c = new Canvas3D(config);
 
-        u = new SimpleUniverse(c);
+        univ = new SimpleUniverse(c);
 
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
-        u.getViewingPlatform().setNominalViewingTransform();
+        univ.getViewingPlatform().setNominalViewingTransform();
 
         BranchGroup scene = createSceneGraph();
-        u.addBranchGraph(scene);
+        univ.addBranchGraph(scene);
 
         return c;
     }
@@ -322,6 +334,7 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         Canvas3D c = initScene();
         drawingPanel.add(c, java.awt.BorderLayout.CENTER);
     }
+
 
     // ----------------------------------------------------------------
     
