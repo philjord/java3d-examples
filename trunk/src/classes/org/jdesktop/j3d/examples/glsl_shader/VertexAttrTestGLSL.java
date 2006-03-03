@@ -59,7 +59,7 @@ import org.jdesktop.j3d.examples.Resources;
 
 public class VertexAttrTestGLSL extends javax.swing.JFrame {
 
-    SimpleUniverse universe = null;
+    SimpleUniverse univ = null;
     BranchGroup scene = null;
 
     public BranchGroup createSceneGraph( boolean hasVertexAttrs ) {
@@ -88,7 +88,7 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame {
 
         // Create a simple Shape3D node; add it to the scene graph.
         objTrans.addChild(new MyShape(this, hasVertexAttrs));
-        
+
         return objRoot;
     }
     
@@ -97,9 +97,20 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame {
                 SimpleUniverse.getPreferredConfiguration();
         
         Canvas3D c = new Canvas3D(config);
-        universe = new SimpleUniverse(c);
-        
-        ViewingPlatform viewingPlatform = universe.getViewingPlatform();
+        univ = new SimpleUniverse(c);
+
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(VertexAttrTestGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        ViewingPlatform viewingPlatform = univ.getViewingPlatform();
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
         viewingPlatform.setNominalViewingTransform();
@@ -343,7 +354,7 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame {
 
     private void destroyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destroyButtonActionPerformed
         if (scene != null) {
-            universe.getLocale().removeBranchGraph(scene);
+            univ.getLocale().removeBranchGraph(scene);
             scene = null;
         }
     }//GEN-LAST:event_destroyButtonActionPerformed
@@ -352,7 +363,7 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame {
         if (scene == null) {
             boolean hasVertexAttrs = vertexAttrsBox.isSelected();
             scene = createSceneGraph(hasVertexAttrs);
-            universe.addBranchGraph(scene);
+            univ.addBranchGraph(scene);
         }
     }//GEN-LAST:event_createButtonActionPerformed
 

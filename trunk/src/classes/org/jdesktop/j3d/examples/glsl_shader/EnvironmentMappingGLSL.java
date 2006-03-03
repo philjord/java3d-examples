@@ -53,6 +53,7 @@ import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
 import java.net.URL;
+import javax.swing.JOptionPane;
 import org.jdesktop.j3d.examples.Resources;
 
 public class EnvironmentMappingGLSL extends javax.swing.JFrame {
@@ -61,7 +62,7 @@ public class EnvironmentMappingGLSL extends javax.swing.JFrame {
     private static final int NUM_TEX_UNITS = 1;
     private static final int TEX_UNIT = 0;
 
-    SimpleUniverse u = null;
+    SimpleUniverse univ = null;
 
     public BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
@@ -163,14 +164,25 @@ public class EnvironmentMappingGLSL extends javax.swing.JFrame {
 	Canvas3D c = new Canvas3D(config);
 
 	BranchGroup scene = createSceneGraph();
-	u = new SimpleUniverse(c);
+	univ = new SimpleUniverse(c);
 
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(EnvironmentMappingGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+	ViewingPlatform viewingPlatform = univ.getViewingPlatform();
 	// This will move the ViewPlatform back a bit so the
 	// objects in the scene can be viewed.
 	viewingPlatform.setNominalViewingTransform();
 
-	u.addBranchGraph(scene);
+	univ.addBranchGraph(scene);
 
 	return c;
     }
