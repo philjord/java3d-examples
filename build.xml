@@ -188,7 +188,14 @@
     </java>
   </target>
 
-  <target name="run.FourByFour" depends="init-run">
+  <target name="run.EnvironmentMappingGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.EnvironmentMappingGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+ <target name="run.FourByFour" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.four_by_four.FourByFour">
       <classpath refid="run.classpath"/>
@@ -202,13 +209,6 @@
     </java>
   </target>
    
-  <target name="run.HelloUniverse" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
-
   <target name="run.GearBox" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.gears.GearBox">
@@ -219,6 +219,13 @@
   <target name="run.GearTest" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.gears.GearTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.HelloUniverse" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
       <classpath refid="run.classpath"/>
     </java>
   </target>
@@ -293,34 +300,12 @@
     </java>
   </target> 
   
-  <target name="run.MoveAppBoundingLeaf" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.sound.MoveAppBoundingLeaf">
-      <classpath refid="run.classpath"/>
-      <sysproperty key="j3d.audiodevice" value="com.sun.j3d.audioengines.javasound.JavaSoundMixer"/>
-    </java>
-  </target>
-  
-  <target name="run.EnvironmentMappingGLSL" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.glsl_shader.EnvironmentMappingGLSL">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
-  
   <target name="run.PrintCanvas3D" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.print_canvas3d.PrintCanvas3D">
       <classpath refid="run.classpath"/>
     </java>
   </target> 
-
-  <target name="run.SamplerTestGLSL" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
   
  <target name="run.PhongShadingGLSL" depends="init-run">
     <java fork="true"
@@ -328,44 +313,8 @@
       <classpath refid="run.classpath"/>
     </java>
   </target>
-
- <target name="run.Pyramid2Cube" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.morphing.Pyramid2Cube">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
   
-  <target name="run.QueryProperties" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
-
-  <target name="run.ShaderTestGLSL" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.glsl_shader.ShaderTestGLSL">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
-  
-  <target name="run.VertexAttrTestGLSL" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTestGLSL">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>
- 
-  <target name="run.VertexAttrTestCg" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.cg_shader.VertexAttrTestCg">
-      <classpath refid="run.classpath"/>
-      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
-    </java>
-  </target>
-   
-  <target name="run.PureImmediate" depends="init-run">
+   <target name="run.PureImmediate" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediate">
       <classpath refid="run.classpath"/>
@@ -378,7 +327,52 @@
       <classpath refid="run.classpath"/>
     </java>
   </target>
-  <target name="run.SphereMotion" depends="init-run">
+  
+<target name="run.Pyramid2Cube" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.morphing.Pyramid2Cube">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+    
+  <target name="run.QueryProperties" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+  <target name="run.ReverberateSound" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.sound.ReverberateSound">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.audiodevice" value="com.sun.j3d.audioengines.javasound.JavaSoundMixer"/>
+    </java>
+  </target>
+  
+  <target name="run.SamplerTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.ShaderTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.ShaderTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.SimpleSounds" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.sound.SimpleSounds">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.audiodevice" value="com.sun.j3d.audioengines.javasound.JavaSoundMixer"/>
+    </java>
+  </target>
+  
+<target name="run.SphereMotion" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
       <classpath refid="run.classpath"/>
@@ -398,7 +392,7 @@
       <classpath refid="run.classpath"/>
       <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
-  </target>
+  </target> 
   
   <target name="run.TextureByReference" depends="init-run">
     <java fork="true"
@@ -420,7 +414,22 @@
       <classpath refid="run.classpath"/>
     </java>
   </target>
-  
+    
+  <target name="run.VertexAttrTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+  <target name="run.VertexAttrTestCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.VertexAttrTestCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
+    </java>
+  </target>
+     
   <target name="run.Viewer" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.lightwave.Viewer">

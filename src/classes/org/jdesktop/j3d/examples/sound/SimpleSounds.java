@@ -47,14 +47,13 @@ package org.jdesktop.j3d.examples.sound;
 import java.applet.Applet;
 import java.net.URL;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.*;
-import java.io.File;
-import java.security.*;
 import javax.media.j3d.*;
+import javax.swing.JOptionPane;
 import javax.vecmath.*;
+import org.jdesktop.j3d.examples.Resources;
 
 /*
  * This Java3D program:
@@ -94,13 +93,7 @@ import javax.vecmath.*;
 
 public class SimpleSounds extends Applet {
 
-    // File name of sound sample
-    private static  int filenamesGiven = 0;
     private static URL[] url = new URL[3];
-    private static String[] filename = new String[3];
-    private static String path = null;
-    private static boolean filenamesSet = false;
-
     private SimpleUniverse u = null;
 
     public BranchGroup createSceneGraph() {
@@ -197,31 +190,6 @@ public class SimpleSounds extends Applet {
     }
 
     public void init() {
-        if (!filenamesSet) {
-            // path is null if started from appletviewer/browser 
-	    if (path == null) {
-	        // the path for an applet
-	        path = getCodeBase().toString();
-            }
-            int j;
-            /*
-             * append given file name to given URL path
-             */
-            for (j=0; j<filenamesGiven; j++)
-	        filename[j] = new String(path + "/" + filename[j]);
-            /*
-             * fill in default file names if all three not given
-             */
-            for (int i=j; i<3; i++) {
-                if (i == 0)
-		    filename[0] = new String(path + "/techno_machine.au");
-                if (i == 1)
-		    filename[1] = new String(path + "/hello_universe.au");
-                if (i == 2)
-		    filename[2] = new String(path + "/roar.au");
-            }
-            filenamesSet = true;
-        }
 
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -230,19 +198,24 @@ public class SimpleSounds extends Applet {
         Canvas3D c = new Canvas3D(config);
 	add("Center", c);
 
-        /*
-         * Change filenames into URLs
-         */
-        for (int i=0; i<3; i++) {
-            try {
-                url[i] = new URL(filename[i]);
-            }
-            catch (Exception e) {
-	        System.out.println(e.getMessage());
-                return;
-            }
+        url[0] = Resources.getResource("resources/audio/techno_machine.au");
+        if (url == null) {
+            System.err.println("resources/audio/techno_machine.au not found");
+            System.exit(1);
         }
-
+            
+         url[1] = Resources.getResource("resources/audio/hello_universe.au");
+        if (url == null) {
+            System.err.println("resources/audio/hello_universe.au not found");
+            System.exit(1);
+        }
+         
+        url[2] = Resources.getResource("resources/audio/roar.au");
+        if (url == null) {
+            System.err.println("resources/audio/roar.au not found");
+            System.exit(1);
+        }         
+                                      
 	/*
          * Create a simple scene and attach it to the virtual universe
          */
@@ -255,6 +228,12 @@ public class SimpleSounds extends Applet {
         u.getViewingPlatform().setNominalViewingTransform();
 
 	u.addBranchGraph(scene);
+        
+        JOptionPane.showMessageDialog(this,
+                ("This program is still a work in progress.\n" +
+                "Please check back in Java 3D 1.5.\n"),
+                "Incomplete Work",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void destroy() {
@@ -266,29 +245,6 @@ public class SimpleSounds extends Applet {
      * as well as an applet
      */
     public static void main(String[] args) {
-        if (args.length > 0) {
-            if ( (args[0].startsWith("file"+File.pathSeparator)) || 
-                 (args[0].startsWith("http"+File.pathSeparator))   ) {
-                path = args[0];
-            }
-            else {
-	        path = "file:" + args[0];
-            }
-	}
-	else {
-	    path = "file:.";
-	}  
-	
-        for (int i=0; i<3; i++) {
-            if (args.length > (i+1)) {
-                filename[i] = args[i+1];
-                if (filename[i] != null) {
-                    filenamesGiven++ ;
-                }
-            }
-            else
-                break;
-        }
 	new MainFrame(new SimpleSounds(), args, 256, 256);
     }
 }
