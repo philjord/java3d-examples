@@ -53,6 +53,7 @@ import javax.media.j3d.*;
 import javax.vecmath.*;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.applet.MainFrame;
+import org.jdesktop.j3d.examples.Resources;
 
 /**
  * Class        FourByFour
@@ -147,8 +148,8 @@ public class FourByFour extends Applet implements ActionListener {
          host = getCodeBase().getHost();
 
          try {
-            inStream = new BufferedInputStream
-               (new URL(getCodeBase(), "instructions.txt").openStream(), 8192);
+            URL instrURL = Resources.getResource("four_by_four/instructions.txt");
+            inStream = new BufferedInputStream((instrURL).openStream(), 8192);
             text = new byte[5000];
             int character = inStream.read();
             int count = 0;
@@ -166,8 +167,8 @@ public class FourByFour extends Applet implements ActionListener {
       else {
 
          try {
-            inStream = new BufferedInputStream
-               (new FileInputStream("instructions.txt"));
+            URL instrURL = Resources.getResource("four_by_four/instructions.txt");
+            inStream = new BufferedInputStream((instrURL).openStream(), 8192);
             text = new byte[5000];
             int character = inStream.read();
             int count = 0;
@@ -189,8 +190,8 @@ public class FourByFour extends Applet implements ActionListener {
       names  = new String[20];
       if (appletFlag) {
          try {
-            inStream = new BufferedInputStream
-               (new URL(getCodeBase(), "scores.txt").openStream(), 8192);
+            URL scoreURL = Resources.getResource("four_by_four/scores.txt");
+            inStream = new BufferedInputStream((scoreURL).openStream(), 8192);
             Reader read = new BufferedReader(new InputStreamReader(inStream));
             StreamTokenizer st = new StreamTokenizer(read);
             st.whitespaceChars(32,44);
@@ -222,8 +223,8 @@ public class FourByFour extends Applet implements ActionListener {
       }
       else {
          try {
-            inStream = new BufferedInputStream
-               (new FileInputStream("scores.txt"));
+            URL scoreURL = Resources.getResource("four_by_four/scores.txt");
+            inStream = new BufferedInputStream((scoreURL).openStream(), 8192);
             Reader read = new BufferedReader(new InputStreamReader(inStream));
             StreamTokenizer st = new StreamTokenizer(read);
             st.whitespaceChars(32,44);

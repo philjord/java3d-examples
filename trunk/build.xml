@@ -223,6 +223,27 @@
     </java>
   </target>
   
+  <target name="run.ImageComponentByReferenceTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.geometry_by_ref.ImageComponentByReferenceTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+  <target name="run.InterleavedNIOBuffer" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.geometry_by_ref.InterleavedNIOBuffer">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
+  <target name="run.InterleavedTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.geometry_by_ref.InterleavedTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
   <target name="run.LOD" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.lod.LOD">
@@ -258,6 +279,13 @@
     </java>
   </target>
 
+  <target name="run.OrientedPtTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.oriented_shape3d.OrientedPtTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
   <target name="run.EnvironmentMappingGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.EnvironmentMappingGLSL">

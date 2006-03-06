@@ -189,7 +189,7 @@ public class VertexAttrTestCg extends javax.swing.JFrame {
                 
                 String vertexProgram = null;
                 try {
-                    vertexProgram = StringIO.readFully(Resources.getResource("cg_shader/myshader_vp.cg"));
+                    vertexProgram = StringIO.readFully(Resources.getResource("cg_shader/vertexshader_vp.cg"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
