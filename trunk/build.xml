@@ -153,7 +153,7 @@
     </java>
   </target>
   
-  <target name="run.BackgroudGeometry" depends="init-run">
+  <target name="run.BackgroundGeometry" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.background.BackgroundGeometry">
       <classpath refid="run.classpath"/>
@@ -279,6 +279,14 @@
     </java>
   </target>
 
+   <target name="run.ObjLoadCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.ObjLoadCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
+    </java>
+  </target> 
+
   <target name="run.ObjLoadGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.ObjLoadGLSL">
@@ -342,14 +350,6 @@
     </java>
   </target>
  
-  <target name="run.ReverberateSound" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.sound.ReverberateSound">
-      <classpath refid="run.classpath"/>
-      <sysproperty key="j3d.audiodevice" value="com.sun.j3d.audioengines.javasound.JavaSoundMixer"/>
-    </java>
-  </target>
-  
   <target name="run.SamplerTestGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
@@ -361,14 +361,6 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.ShaderTestGLSL">
       <classpath refid="run.classpath"/>
-    </java>
-  </target>
-  
-  <target name="run.SimpleSounds" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.sound.SimpleSounds">
-      <classpath refid="run.classpath"/>
-      <sysproperty key="j3d.audiodevice" value="com.sun.j3d.audioengines.javasound.JavaSoundMixer"/>
     </java>
   </target>
   
@@ -414,14 +406,14 @@
       <classpath refid="run.classpath"/>
     </java>
   </target>
-    
+
   <target name="run.VertexAttrTestGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTestGLSL">
       <classpath refid="run.classpath"/>
     </java>
   </target>
- 
+
   <target name="run.VertexAttrTestCg" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.cg_shader.VertexAttrTestCg">
@@ -429,11 +421,5 @@
       <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
   </target>
-     
-  <target name="run.Viewer" depends="init-run">
-    <java fork="true"
-          classname="org.jdesktop.j3d.examples.lightwave.Viewer">
-      <classpath refid="run.classpath"/>
-    </java>
-  </target>  
+
 </project>
