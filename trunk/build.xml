@@ -286,6 +286,13 @@
     </java>
   </target> 
 
+  <target name="run.OrientedTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.oriented_shape3d.OrientedTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
   <target name="run.MoveAppBoundingLeaf" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.sound.MoveAppBoundingLeaf">
@@ -301,6 +308,13 @@
     </java>
   </target>
   
+  <target name="run.PrintCanvas3D" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.print_canvas3d.PrintCanvas3D">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+
   <target name="run.SamplerTestGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
