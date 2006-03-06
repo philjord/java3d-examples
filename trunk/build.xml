@@ -285,6 +285,14 @@
       <classpath refid="run.classpath"/>
     </java>
   </target> 
+
+  <target name="run.MoveAppBoundingLeaf" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.sound.MoveAppBoundingLeaf">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.audiodevice" value="com.sun.j3d.audioengines.javasound.JavaSoundMixer"/>
+    </java>
+  </target>
   
   <target name="run.EnvironmentMappingGLSL" depends="init-run">
     <java fork="true"

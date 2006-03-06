@@ -44,6 +44,7 @@
 
 package org.jdesktop.j3d.examples.sound;
 
+import java.net.URL;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.util.Enumeration;
@@ -59,13 +60,15 @@ public class AudioBehaviorMoveOne extends Behavior {
         // long                 lastTime = -1;
         boolean              first_loop = true;
         String               fileName;
+        URL                  url = null;
         
 	// Override Behavior's initialize method to setup wakeup criteria
 	public void initialize() {
             MediaContainer sample  = new MediaContainer();
             sample.setCapability(MediaContainer.ALLOW_URL_WRITE);
             sample.setCapability(MediaContainer.ALLOW_URL_READ);
-            sample.setURLString(fileName);
+             //sample.setURLString(fileName);
+            sample.setURLObject(url);
             psound.setSoundData(sample);
             // exaggerate the sound position now that viewPlatform
             // tranform is taken into account
@@ -99,8 +102,13 @@ public class AudioBehaviorMoveOne extends Behavior {
         //
 	// Constructor for rotation behavior.  Parameter: front and back Sound nodes
         //
+	public AudioBehaviorMoveOne(PointSound psound, URL url) {
+            this.psound = psound;
+            this.url = url;
+	}
+        
 	public AudioBehaviorMoveOne(PointSound psound, String filename) {
             this.psound = psound;
             this.fileName = filename;
-	}
+	}        
 }

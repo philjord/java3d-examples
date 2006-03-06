@@ -79,24 +79,20 @@ package org.jdesktop.j3d.examples.sound;
 import java.applet.Applet;
 import java.net.URL;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.*;
 import java.io.File;
+import java.net.MalformedURLException;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class MoveAppBoundingLeaf extends Applet {
 
     // File name of sound sample
-    private static  int filenamesGiven = 0;
-    private static URL[] url = new URL[1];
-    private static String[] filename = new String[1];
-    private static String path = null;
-    private static boolean filenamesSet = false;
-
+    private static URL url = null;
     private SimpleUniverse u = null;
 
     public BranchGroup createSceneGraph() {
@@ -293,8 +289,7 @@ public class MoveAppBoundingLeaf extends Applet {
         //
 	// Create a new Behavior object that will play the sound
 	//
-        AudioBehaviorMoveOne player = new AudioBehaviorMoveOne(sound, 
-                filename[0]);
+        AudioBehaviorMoveOne player = new AudioBehaviorMoveOne(sound, url);
 	player.setSchedulingBounds(soundBounds);
 	objTrans.addChild(player);
 
@@ -305,24 +300,6 @@ public class MoveAppBoundingLeaf extends Applet {
     }
 
     public void init() {
-        if (!filenamesSet) {
-            // path is null if started from applet
-	    if (path == null) {
-	        path = getCodeBase().toString();
-	    }
-    
-            /*
-             * append given file name to given URL path
-             */
-            if (filenamesGiven > 0) {
-                filename[0] = new String(path + "/" + filename[0]);
-            }
-            else {
-                // fill in default file names if all three not given
-                filename[0] = new String(path + "/techno_machine.au");
-            }
-            filenamesSet = true;
-        }
 
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -331,16 +308,6 @@ public class MoveAppBoundingLeaf extends Applet {
         Canvas3D c = new Canvas3D(config);
 	add("Center", c);
 
-        /*
-         * Change filenames into URLs
-         */
-        String substr = filename[0].substring(0,4);
-        try {
-            url[0] = new URL(filename[0]);
-        }
-        catch (Exception e) {
-                return;
-        }
         /*
          * Create a simple scene and attach it to the virtual universe
          */
@@ -364,26 +331,31 @@ public class MoveAppBoundingLeaf extends Applet {
     // as well as an applet
     //
     public static void main(String[] args) {
+       
         if (args.length > 0) {
-            if ( (args[0].startsWith("file"+File.pathSeparator)) ||
-                 (args[0].startsWith("http"+File.pathSeparator))   ) {
-                path = args[0];
-            }
-            else {
-                path = "file:" + args[0];
+            try {
+                if ( (args[0].startsWith("file"+File.pathSeparator)) ||
+                        (args[0].startsWith("http"+File.pathSeparator))   ) {
+                    url = new URL(args[0]);
+                } else if (args[0].charAt(0) != '/') {
+                    url = new URL("file:./" + args[0]);
+                } else {
+                    url = new URL("file:" + args[0]);
+                }
+            } catch (MalformedURLException e) {
+                System.err.println(e);
+                System.exit(1);
             }
         }
-        else {
-            path = "file:.";
-        } 
         
-        if (args.length > 1) {
-            filename[0] = args[1];
-            if (filename[0] != null) {
-                filenamesGiven++ ;
+        if (url == null) {
+            url = Resources.getResource("resources/audio/techno_machine.au");
+            if (url == null) {
+                System.err.println("resources/audio/techno_machine.au not found");
+                System.exit(1);
             }
         }
- 
+        
 	new MainFrame(new MoveAppBoundingLeaf(), 256, 256);
     }
 }
