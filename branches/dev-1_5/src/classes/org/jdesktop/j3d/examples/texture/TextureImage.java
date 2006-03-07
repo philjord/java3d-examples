@@ -46,13 +46,13 @@ package org.jdesktop.j3d.examples.texture;
 
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.geometry.Box;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class TextureImage extends Applet {
   
@@ -118,14 +118,11 @@ public class TextureImage extends Applet {
     public void init() {
         if (texImage == null) {
   	    // the path to the image for an applet
-  	    try {
-	        texImage = new java.net.URL(getCodeBase().toString() +
-					    "../images/stone.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
+            texImage = Resources.getResource("resources/images/stone.jpg");
+            if (texImage == null) {
+                System.err.println("resources/images/stone.jpg not found");
+                System.exit(1);
+            }
 	}
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -156,25 +153,21 @@ public class TextureImage extends Applet {
     public static void main(String[] args) {
         java.net.URL url = null;
         if (args.length > 0) {
-	    try {
-	        url = new java.net.URL("file:" + args[0]);
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
-	}
-	else {
-	    // the path to the image for an application
-	    try {
-	        url = new java.net.URL("file:../images/stone.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
-	}
-	new MainFrame(new TextureImage(url), 256, 256);
+            try {
+                url = new java.net.URL("file:" + args[0]);
+            } catch (java.net.MalformedURLException ex) {
+                System.out.println(ex.getMessage());
+                System.exit(1);
+            }
+        } else {
+            // the path to the image for an application
+            url = Resources.getResource("resources/images/stone.jpg");
+            if (url == null) {
+                System.err.println("resources/images/stone.jpg not found");
+                System.exit(1);
+            }
+        }
+        new MainFrame(new TextureImage(url), 256, 256);
     }
 
 }

@@ -54,6 +54,7 @@
     <property name="build"      location="build"/>
     <property name="dist"       location="dist"/>
     <property name="output.jar" location="dist/j3d-examples.jar"/>
+    <property name="output.zip" location="dist/j3d-examples-1_5_0-src.zip"/>
   </target>
 
   <target name="compile" depends="init">
@@ -68,22 +69,47 @@
 	   debug="true"
            deprecation="off">
     </javac>
+
+    <!-- Copy resources to build in preparation for jarring -->
+    <copy todir="${build}/classes/org/jdesktop/j3d/examples/resources">
+        <fileset dir="${src}/resources"/>
+    </copy>
+    
+    <!-- Copy all non class files from src to build -->   
+    <copy todir="${build}/classes/org/jdesktop/j3d/examples">
+        <fileset dir="${src}/classes/org/jdesktop/j3d/examples"
+                 includes ="**/*.vert **/*.frag **/*.cg **/*.cfg **/*.html **/*.txt"/>
+    </copy>
+    
   </target>
 
   <target name="jar" depends="init,compile">
     <!-- Create the dist directory -->
     <mkdir dir="${dist}"/>
-
+    
     <!-- Create the jar file -->
     <jar jarfile="${output.jar}"
          manifest="manifest.mf"
          update="no"
-         compress="false">
+         compress="true">
 	<fileset dir="${build}/classes" includes="org/**/*"/>
     </jar>
   </target>
 
-  <target name="all" depends="init,jar">
+  <target name="zip" depends="init">
+    <mkdir dir="${dist}"/>
+    <zip destfile="${output.zip}">
+      <fileset dir=".." includes="j3d-examples/src/**"/>
+      <fileset dir=".." includes="j3d-examples/COPYRIGHT.txt"/>
+      <fileset dir=".." includes="j3d-examples/README*.*"/>
+      <fileset dir=".." includes="j3d-examples/*LICENSE*.*"/>
+      <fileset dir=".." includes="j3d-examples/build.xml"/>
+      <fileset dir=".." includes="j3d-examples/manifest.mf"/>
+      <fileset dir=".." includes="j3d-examples/nbproject/**" excludes="j3d-examples/nbproject/private/**"/>
+    </zip>
+  </target>
+
+  <target name="all" depends="init,jar,zip">
   </target>
 
   <target name="clean" depends="init">
@@ -106,24 +132,293 @@
    **************************************************
    -->
 
+  <target name="run.AppearanceMixed" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.appearance.AppearanceMixed">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.AppearanceTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.appearance.AppearanceTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.Applet3D" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.applet3d.Applet3D">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.BackgroundGeometry" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.background.BackgroundGeometry">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.ConfigObjLoad" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.configured_universe.ConfigObjLoad">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.DepthFuncTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.depth_func.DepthFuncTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.DistortGlyphTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.distort_glyph.DistortGlyphTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.Dot3Demo" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.dot3.Dot3Demo">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.EnvironmentMappingGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.EnvironmentMappingGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+ <target name="run.FourByFour" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.four_by_four.FourByFour">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+  <target name="run.FPSCounterDemo" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.fps_counter.FPSCounterDemo">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+   
+  <target name="run.GearBox" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.gears.GearBox">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.GearTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.gears.GearTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
   <target name="run.HelloUniverse" depends="init-run">
-    <java classpath="${run.classpath}"
-          fork="true"
+    <java fork="true"
           classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.ImageComponentByReferenceTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.geometry_by_ref.ImageComponentByReferenceTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+  <target name="run.InterleavedNIOBuffer" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.geometry_by_ref.InterleavedNIOBuffer">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
+  <target name="run.InterleavedTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.geometry_by_ref.InterleavedTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
+  <target name="run.LOD" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.lod.LOD">
+      <classpath refid="run.classpath"/>
     </java>
   </target>
 
+  <target name="run.Morphing" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.morphing.Morphing">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+    
+  <target name="run.MultiTextureTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.texture.MultiTextureTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.ObjLoad" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.objload.ObjLoad">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+   <target name="run.ObjLoadCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.ObjLoadCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
+    </java>
+  </target> 
+
+  <target name="run.ObjLoadGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.ObjLoadGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.OrientedPtTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.oriented_shape3d.OrientedPtTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+
+  <target name="run.OrientedTest" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.oriented_shape3d.OrientedTest">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
+  <target name="run.PrintCanvas3D" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.print_canvas3d.PrintCanvas3D">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target> 
+  
+ <target name="run.PhongShadingGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.PhongShadingGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+   <target name="run.PureImmediate" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediate">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.PureImmediateStereo" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediateStereo">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+<target name="run.Pyramid2Cube" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.morphing.Pyramid2Cube">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+    
   <target name="run.QueryProperties" depends="init-run">
-    <java classpath="${run.classpath}"
-          fork="true"
+    <java fork="true"
           classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+  <target name="run.SamplerTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
+      <classpath refid="run.classpath"/>
     </java>
   </target>
 
-  <target name="run.SphereMotion" depends="init-run">
-    <java classpath="${run.classpath}"
-          fork="true"
+  <target name="run.ShaderTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.ShaderTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+<target name="run.SphereMotion" depends="init-run">
+    <java fork="true"
           classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.SphereGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.SphereGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+ 
+   <target name="run.SphereCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.SphereCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
+    </java>
+  </target> 
+  
+  <target name="run.TextureByReference" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.texture_by_ref.TextureByReference">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+  
+  <target name="run.TextureImage" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.texture.TextureImage">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.TickTockCollision" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.collision.TickTockCollision">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.VertexAttrTestGLSL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTestGLSL">
+      <classpath refid="run.classpath"/>
+    </java>
+  </target>
+
+  <target name="run.VertexAttrTestCg" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.cg_shader.VertexAttrTestCg">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
   </target>
 

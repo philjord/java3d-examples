@@ -51,6 +51,8 @@ import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
+import javax.swing.JOptionPane;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ShaderTestGLSL extends javax.swing.JFrame {
 
@@ -70,7 +72,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame {
         "BrickColor", "LightPosition"
     };
     
-    private SimpleUniverse u = null;
+    private SimpleUniverse univ = null;
     private View view;
     private BranchGroup transpObj;
     private BranchGroup scene = null;
@@ -114,20 +116,20 @@ public class ShaderTestGLSL extends javax.swing.JFrame {
 	try {
             switch (index) {
                 case DIMPLE_SHADER:
-                    vertexProgram = StringIO.readFully("./dimple.vert");
-                    fragmentProgram = StringIO.readFully("./dimple.frag");
+                    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/dimple.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/dimple.frag"));
                     break;
                 case BRICK_SHADER:
-        	    vertexProgram = StringIO.readFully("./aabrick.vert");
-                    fragmentProgram = StringIO.readFully("./aabrick.frag");
+        	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/aabrick.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/aabrick.frag"));
                     break;
                 case WOOD_SHADER:
-        	    vertexProgram = StringIO.readFully("./wood.vert");
-                    fragmentProgram = StringIO.readFully("./wood.frag");
+        	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/wood.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/wood.frag"));
                     break;
                 case POLKADOT3D_SHADER:
-        	    vertexProgram = StringIO.readFully("./polkadot3d.vert");
-                    fragmentProgram = StringIO.readFully("./polkadot3d.frag");
+        	    vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/polkadot3d.vert"));
+                    fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/polkadot3d.frag"));
                     break;                    
                 default:
             }
@@ -280,7 +282,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame {
         // Create a position interpolator and attach it to the view
         // platform
         TransformGroup vpTrans =
-                u.getViewingPlatform().getViewPlatformTransform();
+                univ.getViewingPlatform().getViewPlatformTransform();
         Transform3D axisOfTranslation = new Transform3D();
         Alpha transAlpha = new Alpha(-1,
                 Alpha.INCREASING_ENABLE |
@@ -309,14 +311,25 @@ public class ShaderTestGLSL extends javax.swing.JFrame {
         
         Canvas3D c = new Canvas3D(config);
         
-        u = new SimpleUniverse(c);
-        
-        ViewingPlatform viewingPlatform = u.getViewingPlatform();
+        univ = new SimpleUniverse(c);
+
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(ShaderTestGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        ViewingPlatform viewingPlatform = univ.getViewingPlatform();
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
         viewingPlatform.setNominalViewingTransform();
         
-        view = u.getViewer().getView();
+        view = univ.getViewer().getView();
         
         return c;
     }
@@ -605,7 +618,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame {
     private void AttachButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttachButtonActionPerformed
        if (scene == null) {
             scene = createSceneGraph(1);
-            u.addBranchGraph(scene);
+            univ.addBranchGraph(scene);
             replaceSPButton.setEnabled(true);
             shaderSelected = BRICK_SHADER;
        }  

@@ -48,9 +48,7 @@ import com.sun.j3d.loaders.objectfile.ObjectFile;
 import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.Scene;
-import java.awt.*;
 import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
@@ -60,6 +58,7 @@ import com.sun.j3d.utils.behaviors.sensor.Mouse6DPointerBehavior;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.Map;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ConfigObjLoad {
 
@@ -167,7 +166,7 @@ public class ConfigObjLoad {
     private void usage()
     {
       System.out.println(
-	"Usage: java ObjLoad [-s] [-n] [-t] [-c degrees] <.obj file>");
+	"Usage: java ConfigObjLoad [-s] [-n] [-t] [-c degrees] <.obj file>");
       System.out.println("  -s Spin (no user interaction)");
       System.out.println("  -n No triangulation");
       System.out.println("  -t No stripification");
@@ -181,21 +180,20 @@ public class ConfigObjLoad {
 
     public void init() {
 	if (filename == null) {
-            try {
-              filename = new URL("file:../geometry/galleon.obj");
+            filename = Resources.getResource("resources/geometry/galleon.obj");
+            if (filename == null) {
+                System.err.println("resources/geometry/galleon.obj not found");
+                System.exit(1);
             }
-            catch (MalformedURLException e) {
-	      System.err.println(e);
-	      System.exit(1);
-            }
-	}
+        }
 
 	// Get the config file URL from the j3d.configURL property or use the
 	// default config file "j3d1x1-window" in the current directory.
-	URL configURL = ConfiguredUniverse.getConfigURL("file:j3d1x1-window");
-
+	//URL configURL = ConfiguredUniverse.getConfigURL("file:j3d1x1-window");
+        URL configURL = Resources.getResource("configured_universe/j3d1x1-windows.cfg");
 	// Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();
+
 	u = new ConfiguredUniverse(configURL);
 	
 	// Get the ViewingPlatform.

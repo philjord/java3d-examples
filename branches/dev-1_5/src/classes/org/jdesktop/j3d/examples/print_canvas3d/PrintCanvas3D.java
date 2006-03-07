@@ -45,6 +45,7 @@
 package org.jdesktop.j3d.examples.print_canvas3d;
 
 import com.sun.j3d.utils.universe.*;
+import java.net.MalformedURLException;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.*;
@@ -56,9 +57,10 @@ import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.Scene;
 import java.awt.image.BufferedImage;
-import java.awt.event.*;
 import java.io.*;
 import com.sun.j3d.utils.behaviors.mouse.*;
+import java.net.URL;
+import org.jdesktop.j3d.examples.Resources;
 
 public class PrintCanvas3D extends javax.swing.JFrame {
 
@@ -67,7 +69,7 @@ public class PrintCanvas3D extends javax.swing.JFrame {
     private static final double creaseAngle = 60.0;
     private Canvas3D onScreenCanvas3D;
     private OffScreenCanvas3D offScreenCanvas3D;
-    private String filename = null;
+    private URL filename = null;
     private static final int OFF_SCREEN_SCALE = 3;
 
     private SimpleUniverse univ = null;
@@ -230,13 +232,23 @@ public class PrintCanvas3D extends javax.swing.JFrame {
     public PrintCanvas3D(String args[]) {
         
         if (args.length == 0) {
-            usage();
+            filename = Resources.getResource("resources/geometry/beethoven.obj");
+            if (filename == null) {
+                System.err.println("resources/geometry/beethoven.obj not found");
+                System.exit(1);
+            }
         } else {
             for (int i = 0 ; i < args.length ; i++) {
                 if (args[i].startsWith("-")) {
                     System.err.println("Argument '" + args[i] + "' ignored.");
                 } else {
-                    filename = args[i];
+                    try{
+                        filename = new URL(args[i]);
+                    }
+                    catch (MalformedURLException e) {
+                        System.err.println(e.getMessage());
+                        System.exit(1);
+                    }
                 }
             }
         }

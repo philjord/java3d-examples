@@ -44,25 +44,17 @@
 
 package org.jdesktop.j3d.examples.geometry_by_ref;
 
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.border.*;
-import com.sun.j3d.utils.behaviors.mouse.*;
 import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.geometry.Box;
-import com.sun.j3d.utils.geometry.ColorCube;
 import java.awt.image.*;
-import java.awt.color.ColorSpace;
-import com.sun.j3d.utils.geometry.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ImageComponentByReferenceTest extends JApplet implements ActionListener {
 
@@ -251,33 +243,28 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
     }
 
     public void init() {
+        
+        texImage = Resources.getResource("resources/images/one.jpg");
         if (texImage == null) {
-	    // the path to the image for an applet
-	    try {
-	        texImage = new java.net.URL(getCodeBase().toString() +
-					    "../images/one.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
-	}
-
+            System.err.println("resources/images/one.jpg not found");
+            System.exit(1);
+        }
+        
         Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-	BranchGroup scene = createSceneGraph();u = new SimpleUniverse(c);
+        BranchGroup scene = createSceneGraph();u = new SimpleUniverse(c);
         u.getViewingPlatform().setNominalViewingTransform();
         u.addBranchGraph(scene);
-	Container contentPane = getContentPane();
-	JPanel p = new JPanel();
-	BoxLayout boxlayout = new BoxLayout(p, 
-					    BoxLayout.Y_AXIS);
-	p.setLayout(boxlayout);
+        Container contentPane = getContentPane();
+        JPanel p = new JPanel();
+        BoxLayout boxlayout = new BoxLayout(p,
+                BoxLayout.Y_AXIS);
+        p.setLayout(boxlayout);
         contentPane.add("Center", c);
-  
-	contentPane.add("South", p);
-	
-	p.add(createImagePanel());
-
+        
+        contentPane.add("South", p);
+        
+        p.add(createImagePanel());
+        
     }
 
     public void destroy() {
@@ -287,21 +274,16 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
     public static void main(String[] args) {
         java.net.URL url = null;
         // the path to the image file for an application
-	try {
-	    url = new java.net.URL("file:../images/one.jpg");
-	}
-	catch (java.net.MalformedURLException ex) {
-	    System.out.println(ex.getMessage());
-	    System.exit(1);
-	}
-
+        url = Resources.getResource("resources/images/one.jpg");
+        if (url == null) {
+            System.err.println("resources/images/one.jpg not found");
+            System.exit(1);
+        }
+        
         new MainFrame(new ImageComponentByReferenceTest(url), 800, 700);
     }
 
    void createRaster( BranchGroup scene) {
-
-
-
 	// Create raster geometries and shapes
 	Vector3f trans = new Vector3f( );
 	Transform3D tr = new Transform3D( );
@@ -319,9 +301,6 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
 	raster.setImage( image[2] );
 	Shape3D sh = new Shape3D( raster, new Appearance( ) );
 	scene.addChild( sh );
-
-
-
     }
 }
 

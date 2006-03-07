@@ -44,31 +44,29 @@
 
 package org.jdesktop.j3d.examples.fps_counter;
 
-import java.applet.Applet;
-import java.awt.BorderLayout;
-import java.awt.event.*;
-import java.awt.GraphicsConfiguration;
-import com.sun.j3d.utils.applet.JMainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.*;
+import com.sun.j3d.utils.geometry.ColorCube;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import java.awt.GraphicsConfiguration;
 import javax.swing.JOptionPane;
 
-/** This program demonstrates the use of the frames per second counter.
+/**
+ * This program demonstrates the use of the frames per second counter.
  * The program displays a rotating cube and sets up the FPSCounter to compute
  * the frame rate. The FPSCounter is set up with default values:
  * 	- run indefinitely
- *	- 2 sec. warmup time
- *	- display average frame rate every fifth sampling interval.
+ * 	- 2 sec. warmup time
+ * 	- display average frame rate every fifth sampling interval.
  * The default values can be changed through the command line
- * arguments. Use FPSCounterDemo -h for help on the various arguments.
+ * arguments. Use FPSCounterDemo1 -h for help on the various arguments.
  */
+public class FPSCounterDemo extends javax.swing.JFrame {
 
-public class FPSCounterDemo extends Applet {
-    private SimpleUniverse u = null;
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
     private FPSCounter fpsCounter = new FPSCounter();
-
+    
     BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
 	BranchGroup objRoot = new BranchGroup();
@@ -105,60 +103,53 @@ public class FPSCounterDemo extends Applet {
 	return objRoot;
     }
 
+    private Canvas3D createUniverse() {
+	// Get the preferred graphics configuration for the default screen
+	GraphicsConfiguration config =
+	    SimpleUniverse.getPreferredConfiguration();
 
-   public FPSCounterDemo(String args[]) {
-   }
+	// Create a Canvas3D using the preferred configuration
+	Canvas3D c = new Canvas3D(config);
 
-   public FPSCounterDemo() {
-   }
+	// Create simple universe with view branch
+	univ = new SimpleUniverse(c);
 
-   public void init() {
-      setLayout(new BorderLayout());
-      GraphicsConfiguration config =
-	  SimpleUniverse.getPreferredConfiguration();
+	// This will move the ViewPlatform back a bit so the
+	// objects in the scene can be viewed.
+	univ.getViewingPlatform().setNominalViewingTransform();
 
-      Canvas3D c = new Canvas3D(config);
-      add("Center", c);
+	// Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
 
-      // Create a simple scene and attach it to the virtual universe
-      BranchGroup scene = createSceneGraph();
+	return c;
+    }
 
-      // Parse the command line to set the various parameters
-
-      // Have Java 3D perform optimizations on this scene graph.
-      scene.compile();
-      u = new SimpleUniverse(c);
-
-      // This will move the ViewPlatform back a bit so the
-      // objects in the scene can be viewed.
-      u.getViewingPlatform().setNominalViewingTransform();
-
-      u.addBranchGraph(scene);
-
-      JOptionPane.showMessageDialog(this,
-	  ("This program measures the number of frames rendered per second.\n" +
-	   "Note that the frame rate is limited by the refresh rate of the monitor.\n" +
-	   "To get the true frame rate you need to disable vertical retrace.\n\n" +
-	   "On Windows(tm) you do this through the Control Panel.\n\n" +
-	   "On Solaris set the environment variable OGL_NO_VBLANK"),
-	  "Frame Counter",
-	   JOptionPane.INFORMATION_MESSAGE);
-   }
-
-   public void destroy() {
-      u.cleanup();
-   }
-
-   //
-   // The following allows FPSCounterDemo to be run as an application
-   // as well as an applet
-   //
-   public static void main(String[] args) {
-      FPSCounterDemo fp = new FPSCounterDemo();
-      fp.parseArgs(args);
-      JMainFrame frame = new JMainFrame(fp, 256, 256);
-   }
-
+    /**
+     * Creates new form FPSCounterDemo
+     */
+    public FPSCounterDemo() {
+        // Initialize the GUI components
+        initComponents();
+        
+        // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
+        Canvas3D c = createUniverse();
+        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        
+        // Create the content branch and add it to the universe
+        scene = createSceneGraph();
+        univ.addBranchGraph(scene);
+        
+        JOptionPane.showMessageDialog(this,
+                ("This program measures the number of frames rendered per second.\n" +
+                "Note that the frame rate is limited by the refresh rate of the monitor.\n" +
+                "To get the true frame rate you need to disable vertical retrace.\n\n" +
+                "On Windows(tm) you do this through the Control Panel.\n\n" +
+                "On Solaris set the environment variable OGL_NO_VBLANK"),
+                "Frame Counter",
+                JOptionPane.INFORMATION_MESSAGE);
+        
+    }
+    
     /** Parses the commandline for the various switches to set the FPSCounter
      * variables.
      * All arguments are of the form <i>-name value</i>.
@@ -217,5 +208,43 @@ public class FPSCounterDemo extends Applet {
 	  }
       }
    }
+   
+    // ----------------------------------------------------------------
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        drawingPanel = new javax.swing.JPanel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FPSCounterDemo");
+        drawingPanel.setLayout(new java.awt.BorderLayout());
+
+        drawingPanel.setPreferredSize(new java.awt.Dimension(250, 250));
+        getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(final String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                FPSCounterDemo fp = new FPSCounterDemo();
+                fp.parseArgs(args);
+                fp.setVisible(true);
+            }
+        });
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    // End of variables declaration//GEN-END:variables
+    
 }
