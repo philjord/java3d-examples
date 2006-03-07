@@ -21,13 +21,18 @@
                     <target>clean</target>
                 </action>
                 <action name="run">
-                    <target>run</target>
+                    <target>run.HelloUniverse</target>
                 </action>
                 <action name="rebuild">
                     <target>clean</target>
                     <target>jar</target>
                 </action>
             </ide-actions>
+            <export>
+                <type>jar</type>
+                <location>dist/j3d-examples.jar</location>
+                <build-target>jar</build-target>
+            </export>
             <view>
                 <items>
                     <source-folder style="packages">
@@ -54,6 +59,7 @@
             <compilation-unit>
                 <package-root>src/classes</package-root>
                 <classpath mode="compile">../j3d-core/build/default/debug/lib/ext/j3dcore.jar:../j3d-core/build/default/debug/lib/ext/j3dutils.jar:../vecmath/build/debug/lib/ext/vecmath.jar</classpath>
+                <built-to>dist/j3d-examples.jar</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
