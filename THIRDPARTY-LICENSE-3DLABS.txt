@@ -1,7 +1,7 @@
 The following additional provisions apply to third party software
 included as part of this product.
 
-    src/GLSLShaderTest/
+    src/classes/org/jdesktop/j3d/examples/glsl_shader/
 	dimple.frag - shader for ObjLoadGLSL.java
 	dimple.vert - shader for ObjLoadGLSL.java
 	polkadot3d.frag - shader for ObjLoadGLSL.java

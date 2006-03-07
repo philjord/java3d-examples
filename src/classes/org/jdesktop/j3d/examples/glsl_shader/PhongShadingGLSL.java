@@ -48,9 +48,11 @@ import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.shader.StringIO;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
+import javax.swing.JOptionPane;
 import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
+import org.jdesktop.j3d.examples.Resources;
 
 /**
  *
@@ -66,7 +68,7 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
     // Flag indicates type of lights: directional, point, or spot lights.
     private static int lightType = DIRECTIONAL_LIGHT;
 
-    private SimpleUniverse u = null;
+    private SimpleUniverse univ = null;
 
     private ShaderAppearance sApp = null;
     private ShaderProgram gouraudSP = null;
@@ -126,8 +128,8 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         String[] attrNames = { "numLights" };
 
         try {
-            vertexProgram = StringIO.readFully("./gouraud.vert");
-            fragmentProgram = StringIO.readFully("./gouraud.frag");
+            vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/gouraud.vert"));
+            fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/gouraud.frag"));
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -142,8 +144,8 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         gouraudSP.setShaders(shaders);
 
         try {
-            vertexProgram = StringIO.readFully("./phong.vert");
-            fragmentProgram = StringIO.readFully("./phong.frag");
+            vertexProgram = StringIO.readFully(Resources.getResource("glsl_shader/phong.vert"));
+            fragmentProgram = StringIO.readFully(Resources.getResource("glsl_shader/phong.frag"));
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -298,14 +300,25 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
 
         Canvas3D c = new Canvas3D(config);
 
-        u = new SimpleUniverse(c);
+        univ = new SimpleUniverse(c);
+
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(PhongShadingGLSL.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
-        u.getViewingPlatform().setNominalViewingTransform();
+        univ.getViewingPlatform().setNominalViewingTransform();
 
         BranchGroup scene = createSceneGraph();
-        u.addBranchGraph(scene);
+        univ.addBranchGraph(scene);
 
         return c;
     }
@@ -321,6 +334,7 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
         Canvas3D c = initScene();
         drawingPanel.add(c, java.awt.BorderLayout.CENTER);
     }
+
 
     // ----------------------------------------------------------------
     

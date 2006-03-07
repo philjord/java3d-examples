@@ -44,6 +44,7 @@
 
 package org.jdesktop.j3d.examples.sound;
 
+import java.net.URL;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.util.Enumeration;
@@ -86,7 +87,7 @@ public class AudioReverberate extends Behavior {
         long                 dur;
         long                 time;
         boolean              firstTime = true;
-        String               fileName;
+        URL                  url = null;
         int                  lCount = 0;
         int                  loopCount = 0;
         
@@ -94,7 +95,7 @@ public class AudioReverberate extends Behavior {
 	public void initialize() {
             MediaContainer sample  = new MediaContainer();
             sample.setCacheEnable(true);
-            sample.setURLString(fileName);
+            sample.setURLObject(url);
             psound.setSoundData(sample);
             Point3f soundPos = new Point3f(-23.0f, 0.0f, 0.0f);
             psound.setPosition(soundPos);
@@ -162,10 +163,9 @@ public class AudioReverberate extends Behavior {
         //
 	// Constructor for rotation behavior.  Parameter: front and back Sound nodes
         //
-	public AudioReverberate(PointSound psound, String filename,
-                   AuralAttributes sscape) {
+	public AudioReverberate(PointSound psound, URL url, AuralAttributes sscape) {
             this.psound = psound;
-            this.fileName = filename;
+            this.url = url;
             this.sScape = sscape;
 	}
 }

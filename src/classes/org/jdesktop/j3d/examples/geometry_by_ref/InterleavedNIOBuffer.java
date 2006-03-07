@@ -44,20 +44,18 @@
 
 package org.jdesktop.j3d.examples.geometry_by_ref;
 
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.image.TextureLoader;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.border.*;
 import com.sun.j3d.utils.behaviors.vp.*;
 import java.nio.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class InterleavedNIOBuffer extends JApplet implements ActionListener {
 
@@ -336,31 +334,18 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
     public void init() {
 
 	// create textures
-
+        texImage1 = Resources.getResource("resources/images/bg.jpg");
         if (texImage1 == null) {
-          // the path to the image for an applet
-          try {
-            texImage1 = new java.net.URL(getCodeBase().toString() +
-                                      "../images/bg.jpg");
-          }
-          catch (java.net.MalformedURLException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println("resources/images/bg.jpg not found");
             System.exit(1);
-          }
         }
 
+        texImage2 = Resources.getResource("resources/images/one.jpg");
         if (texImage2 == null) {
-          // the path to the image for an applet
-          try {
-            texImage2 = new java.net.URL(getCodeBase().toString() +
-                                    "../images/one.jpg");
-          }
-          catch (java.net.MalformedURLException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println("resources/images/one.jpg not found");
             System.exit(1);
-          }
         }
-
+        
 	Container contentPane = getContentPane();
 	
         Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
@@ -431,13 +416,16 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
         java.net.URL texURL1 = null;
         java.net.URL texURL2 = null;
         // the path to the image for an application
-        try {
-          texURL1 = new java.net.URL("file:../images/bg.jpg");
-          texURL2 = new java.net.URL("file:../images/one.jpg");
+        texURL1 = Resources.getResource("resources/images/bg.jpg");
+        if (texURL1 == null) {
+            System.err.println("resources/images/bg.jpg not found");
+            System.exit(1);
         }
-        catch (java.net.MalformedURLException ex) {
-          System.out.println(ex.getMessage());
-          System.exit(1);
+
+        texURL2 = Resources.getResource("resources/images/one.jpg");
+        if (texURL2 == null) {
+            System.err.println("resources/images/one.jpg not found");
+            System.exit(1);
         }
 
 	Frame frame = new MainFrame(new InterleavedNIOBuffer(texURL1, texURL2), 

@@ -52,10 +52,10 @@ import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import java.awt.image.*;
-import java.awt.color.ColorSpace;
 import com.sun.j3d.utils.image.TextureLoader;
 import javax.swing.*;
 import javax.swing.event.*;
+import org.jdesktop.j3d.examples.Resources;
 
 
 public class TextureByReference extends Applet 
@@ -88,16 +88,16 @@ implements ItemListener, ActionListener, ChangeListener {
   // image files used for the Texture animation for the applet,
   // or if no parameters are passed in for the application
   public static final String[] defaultFiles = {
-    "../images/animation1.gif",
-    "../images/animation2.gif",
-    "../images/animation3.gif",
-    "../images/animation4.gif",
-    "../images/animation5.gif",
-    "../images/animation6.gif",
-    "../images/animation7.gif",
-    "../images/animation8.gif",
-    "../images/animation9.gif",
-    "../images/animation10.gif"};
+    "resources/images/animation1.gif",
+    "resources/images/animation2.gif",
+    "resources/images/animation3.gif",
+    "resources/images/animation4.gif",
+    "resources/images/animation5.gif",
+    "resources/images/animation6.gif",
+    "resources/images/animation7.gif",
+    "resources/images/animation8.gif",
+    "resources/images/animation9.gif",
+    "resources/images/animation10.gif"};
 
   private java.net.URL[] urls = null;
 
@@ -113,7 +113,13 @@ implements ItemListener, ActionListener, ChangeListener {
     if (urls == null) {
       urls = new java.net.URL[defaultFiles.length];
       for (int i = 0; i < defaultFiles.length; i++) {
-	try {
+            urls[i] = Resources.getResource(defaultFiles[i]);
+            if (urls[i] == null) {
+                System.err.println(defaultFiles[i] + " not found");
+                System.exit(1);
+            }
+            /*
+            try {
 	  urls[i] = new java.net.URL(getCodeBase().toString() + 
 				       defaultFiles[i]);
 	}
@@ -121,6 +127,7 @@ implements ItemListener, ActionListener, ChangeListener {
 	  System.out.println(ex.getMessage());
 	  System.exit(1);
 	}
+             */
       }
     }
     setLayout(new BorderLayout());
@@ -511,7 +518,14 @@ implements ItemListener, ActionListener, ChangeListener {
     else {
       fnames = new java.net.URL[TextureByReference.defaultFiles.length];
       for (int i = 0; i < TextureByReference.defaultFiles.length; i++) {
-	try {
+            fnames[i] = Resources.getResource(defaultFiles[i]);
+            if (fnames[i] == null) {
+                System.err.println(TextureByReference.defaultFiles[i] + " not found");
+                System.exit(1);
+            }
+ 
+/*                    
+          try {
 	  fnames[i] = new java.net.URL("file:" +
 				     TextureByReference.defaultFiles[i]);
 	}
@@ -519,6 +533,7 @@ implements ItemListener, ActionListener, ChangeListener {
 	  System.out.println(ex.getMessage());
 	  System.exit(1);
 	}
+ */
       }
     }
     new MainFrame((new TextureByReference(fnames)), 650, 750);    

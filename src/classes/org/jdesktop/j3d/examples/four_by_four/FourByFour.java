@@ -53,6 +53,7 @@ import javax.media.j3d.*;
 import javax.vecmath.*;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.applet.MainFrame;
+import org.jdesktop.j3d.examples.Resources;
 
 /**
  * Class        FourByFour
@@ -64,6 +65,9 @@ import com.sun.j3d.utils.applet.MainFrame;
  */
 public class FourByFour extends Applet implements ActionListener {
 
+    // To write scores to scores file
+    private static final boolean  writeScoresFile = false;
+    
    String host;                    // Host from which this applet came from
    int port;                       // Port number for writing high scores
    Image backbuffer2D;             // Backbuffer image used for 2D double buffering
@@ -106,7 +110,6 @@ public class FourByFour extends Applet implements ActionListener {
    Button high_return_button;      // Return button for high scores panel 
    CheckboxGroup group;            // CheckboxGroup object for skill level panel
    InputStream inStream;           // Input stream for reading instructions and high scores 
-   OutputStream outStream;         // Output stream for writing high scores
    static boolean appletFlag = true;      // Applet flag
    boolean winner_flag = false;    // Winner flag
    byte text[];                    // Temporary storage area for reading instructions file
@@ -147,8 +150,8 @@ public class FourByFour extends Applet implements ActionListener {
          host = getCodeBase().getHost();
 
          try {
-            inStream = new BufferedInputStream
-               (new URL(getCodeBase(), "instructions.txt").openStream(), 8192);
+            URL instrURL = Resources.getResource("four_by_four/instructions.txt");
+            inStream = new BufferedInputStream((instrURL).openStream(), 8192);
             text = new byte[5000];
             int character = inStream.read();
             int count = 0;
@@ -166,8 +169,8 @@ public class FourByFour extends Applet implements ActionListener {
       else {
 
          try {
-            inStream = new BufferedInputStream
-               (new FileInputStream("instructions.txt"));
+            URL instrURL = Resources.getResource("four_by_four/instructions.txt");
+            inStream = new BufferedInputStream((instrURL).openStream(), 8192);
             text = new byte[5000];
             int character = inStream.read();
             int count = 0;
@@ -189,8 +192,8 @@ public class FourByFour extends Applet implements ActionListener {
       names  = new String[20];
       if (appletFlag) {
          try {
-            inStream = new BufferedInputStream
-               (new URL(getCodeBase(), "scores.txt").openStream(), 8192);
+            URL scoreURL = Resources.getResource("four_by_four/scores.txt");
+            inStream = new BufferedInputStream((scoreURL).openStream(), 8192);
             Reader read = new BufferedReader(new InputStreamReader(inStream));
             StreamTokenizer st = new StreamTokenizer(read);
             st.whitespaceChars(32,44);
@@ -222,8 +225,8 @@ public class FourByFour extends Applet implements ActionListener {
       }
       else {
          try {
-            inStream = new BufferedInputStream
-               (new FileInputStream("scores.txt"));
+            URL scoreURL = Resources.getResource("four_by_four/scores.txt");
+            inStream = new BufferedInputStream((scoreURL).openStream(), 8192);
             Reader read = new BufferedReader(new InputStreamReader(inStream));
             StreamTokenizer st = new StreamTokenizer(read);
             st.whitespaceChars(32,44);
@@ -631,64 +634,35 @@ public class FourByFour extends Applet implements ActionListener {
                scoresString += "\n";
             }
 
-            if (appletFlag) {
-               // Use this section of code when writing the high
-               // scores file back to a server. Requires the use
-               // of a deamon on the server to receive the socket 
-               // connection.
-               //
-               // Create the output stream.
-               // try {
-               //    Socket socket = new Socket(host, port);
-               //    outStream = new BufferedOutputStream
-               //       (socket.getOutputStream(), 8192);
-               // }
-               // catch(IOException ioe) {
-               //    System.out.println("Error: " + ioe.toString());
-               // }
-               // System.out.println("Output stream opened");
-               //
-               // Write the scores to the file back on the server.
-               // outText = scoresString.getBytes();
-               // try {
-               //    outStream.write(outText);
-               //    outStream.flush();
-               //    outStream.close();
-               //    outStream = null;
-               // }
-               // catch (IOException ioe) {
-               //    System.out.println("Error: " + ioe.toString());
-               // }
-               // System.out.println("Output stream written");
-
-	      try {
-		OutputStreamWriter outFile =
-		  new OutputStreamWriter(new FileOutputStream("scores.txt"));
-		outFile.write(scoresString);
-		outFile.flush();
-		outFile.close();
-		outFile = null;
-	      }
-	      catch (IOException ioe) {
-		System.out.println("Error: " + ioe.toString());
-	      }
-	      catch (Exception e) {
-		System.out.println("Error: " + e.toString());
-	      }
-	    }
-           else {
-
-               try {
-                  OutputStreamWriter outFile = 
-                        new OutputStreamWriter(new FileOutputStream("scores.txt"));
-                     outFile.write(scoresString);
-                     outFile.flush();
-                     outFile.close();
-                     outFile = null;
-               }
-               catch (IOException ioe) {
-                  System.out.println("Error: " + ioe.toString());
-               }
+            if(writeScoresFile) {
+                if (appletFlag) {
+                    try {
+                        OutputStreamWriter outFile =
+                                new OutputStreamWriter(new FileOutputStream("scores.txt"));
+                        outFile.write(scoresString);
+                        outFile.flush();
+                        outFile.close();
+                        outFile = null;
+                    } catch (IOException ioe) {
+                        System.out.println("Error: " + ioe.toString());
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.toString());
+                    }
+                    
+                } else {
+                    
+                    try {
+                        
+                        OutputStreamWriter outFile =
+                                new OutputStreamWriter(new FileOutputStream("scores.txt"));
+                        outFile.write(scoresString);
+                        outFile.flush();
+                        outFile.close();
+                        outFile = null;
+                    } catch (IOException ioe) {
+                        System.out.println("Error: " + ioe.toString());
+                    }
+                }
             }
          }
          winner_panel.setVisible(false);
@@ -737,8 +711,8 @@ public class FourByFour extends Applet implements ActionListener {
          // Read the high scores file.
          if (appletFlag) {
             try {
-               inStream = new BufferedInputStream
-                  (new URL(getCodeBase(), "scores.txt").openStream(), 8192);
+               URL scoreURL = Resources.getResource("four_by_four/scores.txt");
+               inStream = new BufferedInputStream(scoreURL.openStream(), 8192);
                Reader read = new BufferedReader(new InputStreamReader(inStream));
                StreamTokenizer st = new StreamTokenizer(read);
                st.whitespaceChars(32,44);
@@ -770,8 +744,8 @@ public class FourByFour extends Applet implements ActionListener {
          }
          else {
             try {
-               inStream = new BufferedInputStream
-                  (new FileInputStream("scores.txt"));
+               URL scoreURL = Resources.getResource("four_by_four/scores.txt");
+               inStream = new BufferedInputStream(scoreURL.openStream(), 8192);
                Reader read = new BufferedReader(new InputStreamReader(inStream));
                StreamTokenizer st = new StreamTokenizer(read);
                st.whitespaceChars(32,44);

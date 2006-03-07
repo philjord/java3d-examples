@@ -49,28 +49,32 @@ import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.utils.shader.StringIO;
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import java.awt.GraphicsConfiguration;
+import java.net.MalformedURLException;
 import java.util.Enumeration;
 import java.io.*;
-import com.sun.j3d.utils.behaviors.vp.*;
 import java.net.URL;
-import java.net.MalformedURLException;
+import com.sun.j3d.utils.behaviors.vp.*;
+import java.io.FileNotFoundException;
+import javax.swing.JOptionPane;
+import org.jdesktop.j3d.examples.Resources;
 
-public class ObjLoadCg extends Applet {
+/**
+ * Simple Java 3D example program to display an .obj object with shader programs.
+ */
+public class ObjLoadCg extends javax.swing.JFrame {
 
     private boolean spin = false;
     private boolean noTriangulate = false;
     private boolean noStripify = false;
     private double creaseAngle = 60.0;
     private URL filename = null;
-    private SimpleUniverse u;
-    private BoundingSphere bounds;
+
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
 
     public BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
@@ -119,8 +123,8 @@ public class ObjLoadCg extends Applet {
 	String vertexProgram = null;
 	String fragmentProgram = null;
 	try {
-	    vertexProgram = StringIO.readFully("./simple_vp.cg");
-	    fragmentProgram = StringIO.readFully("./simple_fp.cg");
+	    vertexProgram = StringIO.readFully(Resources.getResource("cg_shader/simple_vp.cg"));
+	    fragmentProgram = StringIO.readFully(Resources.getResource("cg_shader/simple_fp.cg"));
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -139,7 +143,7 @@ public class ObjLoadCg extends Applet {
 
 	objTrans.addChild(s.getSceneGroup());
 
-	bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
+	BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
         if (spin) {
 	  Transform3D yAxis = new Transform3D();
@@ -163,49 +167,32 @@ public class ObjLoadCg extends Applet {
 
 	return objRoot;
     }
+    
+    private Canvas3D createUniverse() {
+	// Get the preferred graphics configuration for the default screen
+	GraphicsConfiguration config =
+	    SimpleUniverse.getPreferredConfiguration();
 
-    private void usage()
-    {
-      System.out.println(
-	"Usage: java ObjLoadCg [-s] [-n] [-t] [-c degrees] <.obj file>");
-      System.out.println("  -s Spin (no user interaction)");
-      System.out.println("  -n No triangulation");
-      System.out.println("  -t No stripification");
-      System.out.println(
-	"  -c Set crease angle for normal generation (default is 60 without");
-      System.out.println(
-	"     smoothing group info, otherwise 180 within smoothing groups)");
-      System.exit(0);
-    } // End of usage
+	// Create a Canvas3D using the preferred configuration
+	Canvas3D canvas3d = new Canvas3D(config);
 
+	// Create simple universe with view branch
+	univ = new SimpleUniverse(canvas3d);
+        BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
-
-    public void init() {
-	if (filename == null) {
-            // Applet
-            try {
-                URL path = getCodeBase();
-                filename = new URL(path.toString() + "./galleon.obj");
+        // Add a ShaderErrorListener
+        univ.addShaderErrorListener(new ShaderErrorListener() {
+            public void errorOccurred(ShaderError error) {
+                error.printVerbose();
+                JOptionPane.showMessageDialog(ObjLoadCg.this,
+                              error.toString(),
+                              "ShaderError",
+                              JOptionPane.ERROR_MESSAGE);
             }
-            catch (MalformedURLException e) {
-	      System.err.println(e);
-	      System.exit(1);
-            }
-	}
+        });
 
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
-
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
-
-	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
-	u = new SimpleUniverse(c);
-	
 	// add mouse behaviors to the ViewingPlatform
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+	ViewingPlatform viewingPlatform = univ.getViewingPlatform();
 
 	PlatformGeometry pg = new PlatformGeometry();
 
@@ -216,10 +203,10 @@ public class ObjLoadCg extends Applet {
 	pg.addChild(ambientLightNode);
 
 	// Set up the directional lights
-	Color3f light1Color = new Color3f(1.0f, 0.2f, 0.4f);
-	Vector3f light1Direction  = new Vector3f(-1.0f, -1.0f, -1.0f);
-	Color3f light2Color = new Color3f(1.0f, 1.0f, 0.9f);
-	Vector3f light2Direction  = new Vector3f(1.0f, 1.0f, 1.0f);
+	Color3f light1Color = new Color3f(1.0f, 1.0f, 0.9f);
+	Vector3f light1Direction  = new Vector3f(1.0f, 1.0f, 1.0f);
+	Color3f light2Color = new Color3f(1.0f, 1.0f, 1.0f);
+	Vector3f light2Direction  = new Vector3f(-1.0f, -1.0f, -1.0f);
 
 	DirectionalLight light1
 	    = new DirectionalLight(light1Color, light1Direction);
@@ -238,21 +225,30 @@ public class ObjLoadCg extends Applet {
 	viewingPlatform.setNominalViewingTransform();
 
 	if (!spin) {
-            OrbitBehavior orbit = new OrbitBehavior(c,
+            OrbitBehavior orbit = new OrbitBehavior(canvas3d,
 						    OrbitBehavior.REVERSE_ALL);
-            BoundingSphere bounds =
-                new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
             orbit.setSchedulingBounds(bounds);
             viewingPlatform.setViewPlatformBehavior(orbit);	    
-	}
+	}        
+        
+        // Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
 
-	/*
-	// Limit the frame rate to 100 Hz
-	u.getViewer().getView().setMinimumFrameCycleTime(10);
-	*/
-
-	u.addBranchGraph(scene);
+	return canvas3d;
     }
+
+    private void usage() {
+      System.out.println(
+	"Usage: java ObjLoadCg [-s] [-n] [-t] [-c degrees] <.obj file>");
+      System.out.println("  -s Spin (no user interaction)");
+      System.out.println("  -n No triangulation");
+      System.out.println("  -t No stripification");
+      System.out.println(
+	"  -c Set crease angle for normal generation (default is 60 without");
+      System.out.println(
+	"     smoothing group info, otherwise 180 within smoothing groups)");
+      System.exit(0);
+    } // End of usage
 
     // Set shader program for all nodes in specified branch graph
     private void setShaderProgram(BranchGroup g, ShaderProgram shaderProgram) {
@@ -283,63 +279,99 @@ public class ObjLoadCg extends Applet {
 	}
     }
 
-    // Caled if running as a program
-    public ObjLoadCg(String[] args) {
-      if (args.length != 0) {
-	for (int i = 0 ; i < args.length ; i++) {
-	  if (args[i].startsWith("-")) {
-	    if (args[i].equals("-s")) {
-	      spin = true;
-	    } else if (args[i].equals("-n")) {
-	      noTriangulate = true;
-	    } else if (args[i].equals("-t")) {
-	      noStripify = true;
-	    } else if (args[i].equals("-c")) {
-	      if (i < args.length - 1) {
-		creaseAngle = (new Double(args[++i])).doubleValue();
-	      } else usage();
-	    } else {
-	      usage();
-	    }
-	  } else {
-	    try {
-	      if ((args[i].indexOf("file:") == 0) ||
-		  (args[i].indexOf("http") == 0)) {
-		  filename = new URL(args[i]);
-	      }
-	      else if (args[i].charAt(0) != '/') {
-		  filename = new URL("file:./" + args[i]);
-	      }
-	      else {
-		  filename = new URL("file:" + args[i]);
-	      }
+    /**
+     * Creates new form ObjLoadCg
+     */
+    public ObjLoadCg(String args[]) {
+        if (args.length != 0) {
+            for (int i = 0 ; i < args.length ; i++) {
+                if (args[i].startsWith("-")) {
+                    if (args[i].equals("-s")) {
+                        spin = true;
+                    } else if (args[i].equals("-n")) {
+                        noTriangulate = true;
+                    } else if (args[i].equals("-t")) {
+                        noStripify = true;
+                    } else if (args[i].equals("-c")) {
+                        if (i < args.length - 1) {
+                            creaseAngle = (new Double(args[++i])).doubleValue();
+                        } else usage();
+                    } else {
+                        usage();
+                    }
+                } else {
+                    try {
+                        if ((args[i].indexOf("file:") == 0) ||
+                                (args[i].indexOf("http") == 0)) {
+                            filename = new URL(args[i]);
+                        } else if (args[i].charAt(0) != '/') {
+                            filename = new URL("file:./" + args[i]);
+                        } else {
+                            filename = new URL("file:" + args[i]);
+                        }
+                    } catch (MalformedURLException e) {
+                        System.err.println(e);
+                        System.exit(1);
+                    }
+                }
             }
-	    catch (MalformedURLException e) {
-	      System.err.println(e);
-	      System.exit(1);
-	    }
-	  }
-	}
-      }
+        }
+        
+        if (filename == null) {
+            filename = Resources.getResource("resources/geometry/galleon.obj");
+            if (filename == null) {
+                System.err.println("resources/geometry/galleon.obj not found");
+                System.exit(1);
+            }
+        }
+        
+        // Initialize the GUI components
+        initComponents();
+        
+        // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
+        Canvas3D c = createUniverse();
+        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        
+        // Create the content branch and add it to the universe
+        scene = createSceneGraph();
+        univ.addBranchGraph(scene);
     }
 
+    // ----------------------------------------------------------------
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        drawingPanel = new javax.swing.JPanel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ObjLoadCg");
+        drawingPanel.setLayout(new java.awt.BorderLayout());
 
-    // Running as an applet
-    public ObjLoadCg() {
+        drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
+        getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(final String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ObjLoadCg objLoadCg = new ObjLoadCg(args);
+                objLoadCg.setVisible(true);
+            }
+        });
     }
-
-    public void destroy() {
-	u.cleanup();
-    }
-
-
-
-    //
-    // The following allows ObjLoadCg to be run as an application
-    // as well as an applet
-    //
-    public static void main(String[] args) {
-      new MainFrame(new ObjLoadCg(args), 700, 700);
-    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    // End of variables declaration//GEN-END:variables
+    
 }

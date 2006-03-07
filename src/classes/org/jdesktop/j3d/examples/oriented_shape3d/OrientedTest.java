@@ -46,7 +46,6 @@ package org.jdesktop.j3d.examples.oriented_shape3d;
 
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.*;
@@ -54,6 +53,7 @@ import com.sun.j3d.utils.universe.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import com.sun.j3d.utils.behaviors.mouse.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class OrientedTest extends Applet {
 
@@ -208,26 +208,18 @@ public class OrientedTest extends Applet {
 
     public void init() {
         // the paths to the image files for an applet
+        earthImage = Resources.getResource("resources/images/earth.jpg");
         if (earthImage == null) {
-	    try {
-	        earthImage = new java.net.URL(getCodeBase().toString() +
-					      "../images/earth.jpg");
-	    }
-	    catch (java.net.MalformedURLException ex) {
-	        System.out.println(ex.getMessage());
-		System.exit(1);
-	    }
-	}
-	if (stoneImage == null) {
-	  try {
-	      stoneImage = new java.net.URL(getCodeBase().toString() +
-					    "../images/stone.jpg");
-	  }
-	  catch (java.net.MalformedURLException ex) {
-	      System.out.println(ex.getMessage());
-	      System.exit(1);
-	  }
-	}
+            System.err.println("resources/images/earth.jpg not found");
+            System.exit(1);
+        }
+
+        stoneImage = Resources.getResource("resources/images/stone.jpg");
+        if (stoneImage == null) {
+            System.err.println("resources/images/stone.jpg not found");
+            System.exit(1);
+        }
+
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
            SimpleUniverse.getPreferredConfiguration();
@@ -290,15 +282,18 @@ public class OrientedTest extends Applet {
     public static void main(String[] args) {
         java.net.URL earthURL = null;
 	java.net.URL stoneURL = null;
-	try {
-	    // the paths to the image files for an application
-	    earthURL = new java.net.URL("file:../images/earth.jpg");
-	    stoneURL = new java.net.URL("file:../images/stone.jpg");
-	}
-	catch (java.net.MalformedURLException ex) {
-	    System.out.println(ex.getMessage());
-	    System.exit(1);
-	}
+                
+        earthURL = Resources.getResource("resources/images/earth.jpg");
+        if (earthURL == null) {
+            System.err.println("resources/images/earth.jpg not found");
+            System.exit(1);
+        }
+
+        stoneURL = Resources.getResource("resources/images/stone.jpg");
+        if (stoneURL == null) {
+            System.err.println("resources/images/stone.jpg not found");
+            System.exit(1);
+        }
 	    
 	new MainFrame(new OrientedTest(earthURL, stoneURL), 400, 400);
     }

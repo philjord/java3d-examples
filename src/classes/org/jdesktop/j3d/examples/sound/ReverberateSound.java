@@ -56,22 +56,19 @@ package org.jdesktop.j3d.examples.sound;
 
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.*;
-import java.io.File;
+import java.net.URL;
 import javax.media.j3d.*;
+import javax.swing.JOptionPane;
 import javax.vecmath.*;
+import org.jdesktop.j3d.examples.Resources;
 
 public class ReverberateSound extends Applet {
 
     // File name of sound sample
-    private static String[] filename = new String[1];
-    private static String path = null;
-    private static int filenamesGiven = 0;
-    private static boolean filenamesSet = false;
-
+    private static URL  url = null;
     private SimpleUniverse u = null;
 
     public BranchGroup createSceneGraph() {
@@ -134,11 +131,9 @@ public class ReverberateSound extends Applet {
         //
 	// Create a new Behavior object that will play the sound
 	//
-	AudioReverberate player = new AudioReverberate(sound, filename[0],
-                 attributes2);
+	AudioReverberate player = new AudioReverberate(sound, url, attributes2);
 	player.setSchedulingBounds(bounds);
 	objTrans.addChild(player);
-
 
 	return objRoot;
     }
@@ -147,25 +142,11 @@ public class ReverberateSound extends Applet {
     }
 
     public void init() {
-        if (!filenamesSet) {
-            // path is null if started from applet
-            if (path == null) {
-	        // the path for an applet
-	        path = getCodeBase().toString();
+            url = Resources.getResource("resources/audio/hello_universe.au");
+            if (url == null) {
+                System.err.println("resources/audio/hello_universe.au not found");
+                System.exit(1);
             }
-    
-            /*
-             * append given file name to given URL path
-             */
-            if (filenamesGiven > 0) {
-                filename[0] = new String(path + "/" + filename[0]);
-            }
-            else {
-                // fill in default file names if all three not given
-                filename[0] = new String(path + "/hello_universe.au");
-            }
-            filenamesSet = true;
-        }
 
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -186,6 +167,12 @@ public class ReverberateSound extends Applet {
         u.getViewingPlatform().setNominalViewingTransform();
 
 	u.addBranchGraph(scene);
+        
+        JOptionPane.showMessageDialog(this,
+                ("This program is still a work in progress.\n" +
+                "Please check back in Java 3D 1.5.\n"),
+                "Incomplete Work",
+                JOptionPane.INFORMATION_MESSAGE);                
     }
 
     public void destroy() {
@@ -197,26 +184,6 @@ public class ReverberateSound extends Applet {
     // as well as an applet
     //
     public static void main(String[] args) {
-        if (args.length > 0) {
-            if ( (args[0].startsWith("file"+File.pathSeparator)) ||
-                 (args[0].startsWith("http"+File.pathSeparator))   ) {
-                path = args[0];
-            }
-            else {
-                path = "file:" + args[0];
-            }
-        }
-        else {
-            path = "file:.";
-        } 
-
-        if (args.length > 1) {
-            filename[0] = args[1];
-            if (filename[0] != null) {
-                filenamesGiven++ ;
-            }   
-        }
-
 	new MainFrame(new ReverberateSound(), 256, 256);
     }
 }
