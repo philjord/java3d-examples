@@ -50,7 +50,6 @@
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
             <compilation-unit>
                 <package-root>src/classes</package-root>
-                <classpath mode="compile">../j3d-core/build/linux-i586/debug/lib/ext/j3dcore.jar:../j3d-core/build/linux-i586/debug/lib/ext/j3dutils.jar:../vecmath/build/debug/lib/ext/vecmath.jar</classpath>
                 <source-level>1.4</source-level>
             </compilation-unit>
         </java-data>
