@@ -54,7 +54,7 @@
     <property name="build"      location="build"/>
     <property name="dist"       location="dist"/>
     <property name="output.jar" location="dist/j3d-examples.jar"/>
-    <property name="output.zip" location="dist/j3d-examples-src.zip"/>
+    <property name="output.zip" location="dist/j3d-examples-1_4_0-src.zip"/>
   </target>
 
   <target name="compile" depends="init">
@@ -99,13 +99,13 @@
   <target name="zip" depends="init">
     <mkdir dir="${dist}"/>
     <zip destfile="${output.zip}">
-      <fileset dir="." includes="src/**"/>
-      <fileset dir="." includes="COPYRIGHT.txt"/>
-      <fileset dir="." includes="README*.*"/>
-      <fileset dir="." includes="*LICENSE*.*"/>
-      <fileset dir="." includes="build.xml"/>
-      <fileset dir="." includes="manifest.mf"/>
-      <fileset dir="." includes="nbproject/**" excludes="nbproject/private/**"/>
+      <fileset dir=".." includes="j3d-examples/src/**"/>
+      <fileset dir=".." includes="j3d-examples/COPYRIGHT.txt"/>
+      <fileset dir=".." includes="j3d-examples/README*.*"/>
+      <fileset dir=".." includes="j3d-examples/*LICENSE*.*"/>
+      <fileset dir=".." includes="j3d-examples/build.xml"/>
+      <fileset dir=".." includes="j3d-examples/manifest.mf"/>
+      <fileset dir=".." includes="j3d-examples/nbproject/**" excludes="j3d-examples/nbproject/private/**"/>
     </zip>
   </target>
 
