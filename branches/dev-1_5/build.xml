@@ -63,7 +63,7 @@
     <property name="native.dir"   location="${j3ddir}/native"/>
   </target>
 
-  <target name="compile" depends="init">
+  <target name="compile" depends="init-compile">
     <!-- Create the build directory -->
     <mkdir dir="${build}/classes"/>
 
@@ -74,6 +74,7 @@
 	   target="1.5"
 	   debug="true"
            deprecation="off">
+      <classpath refid="comp.classpath"/>
     </javac>
 
     <!-- Copy resources to build in preparation for jarring -->
@@ -121,6 +122,14 @@
   <target name="clean" depends="init">
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
+  </target>
+
+  <target name="init-compile" depends="init">
+    <path id="comp.classpath">
+      <pathelement location="${j3dcore.jar}"/>
+      <pathelement location="${j3dutils.jar}"/>
+      <pathelement location="${vecmath.jar}"/>
+    </path>
   </target>
 
   <target name="init-run" depends="init,jar">
