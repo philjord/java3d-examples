@@ -4,7 +4,7 @@
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
             <!-- Do not use Project Properties customizer when editing this file manually. -->
-            <name>j3d-examples-1.4.0</name>
+            <name>j3d-examples-1.5.0</name>
             <properties/>
             <folders>
                 <source-folder>
@@ -21,13 +21,18 @@
                     <target>clean</target>
                 </action>
                 <action name="run">
-                    <target>run</target>
+                    <target>run.HelloUniverse</target>
                 </action>
                 <action name="rebuild">
                     <target>clean</target>
                     <target>jar</target>
                 </action>
             </ide-actions>
+            <export>
+                <type>jar</type>
+                <location>dist/j3d-examples.jar</location>
+                <build-target>jar</build-target>
+            </export>
             <view>
                 <items>
                     <source-folder style="packages">
@@ -45,12 +50,17 @@
                     <ide-action name="rebuild"/>
                 </context-menu>
             </view>
-            <subprojects/>
+            <subprojects>
+                <project>../j3d-core</project>
+                <project>../vecmath</project>
+            </subprojects>
         </general-data>
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
             <compilation-unit>
                 <package-root>src/classes</package-root>
-                <source-level>1.4</source-level>
+                <classpath mode="compile">../j3d-core/build/default/debug/lib/ext/j3dcore.jar:../j3d-core/build/default/debug/lib/ext/j3dutils.jar:../vecmath/build/debug/lib/ext/vecmath.jar</classpath>
+                <built-to>dist/j3d-examples.jar</built-to>
+                <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
     </configuration>
