@@ -55,7 +55,8 @@ import javax.vecmath.*;
 import org.jdesktop.j3d.examples.Resources;
 
 public class TextureImage extends Applet {
-  
+
+    private static final String defaultFileName = "resources/images/stone.jpg";
     private java.net.URL texImage = null;
 
     private SimpleUniverse u = null;
@@ -118,9 +119,9 @@ public class TextureImage extends Applet {
     public void init() {
         if (texImage == null) {
   	    // the path to the image for an applet
-            texImage = Resources.getResource("resources/images/stone.jpg");
+            texImage = Resources.getResource(defaultFileName);
             if (texImage == null) {
-                System.err.println("resources/images/stone.jpg not found");
+                System.err.println(defaultFileName + " not found");
                 System.exit(1);
             }
 	}
@@ -161,9 +162,9 @@ public class TextureImage extends Applet {
             }
         } else {
             // the path to the image for an application
-            url = Resources.getResource("resources/images/stone.jpg");
+            url = Resources.getResource(defaultFileName);
             if (url == null) {
-                System.err.println("resources/images/stone.jpg not found");
+                System.err.println(defaultFileName + " not found");
                 System.exit(1);
             }
         }
