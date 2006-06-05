@@ -1,0 +1,22 @@
+The following additional provisions apply to third party software
+included as part of this product.
+
+    src/resources/geometry/
+        beethoven.obj
+        galleon.obj
+        p51_mustang.obj
+
+# Courtesy of:
+#
+#       Viewpoint Animation Engineering
+#       870 West Center
+#       Orem, Utah 84057
+#       (801)224-2222
+#       1-800-DATASET
+#
+#       (c) Copyright 1992 Viewpoint Animation Engineering Inc.
+#       Sun Microsystems has been authorized to freely distribute
+#       these Datasets.  They are provided for unlimited use in
+#       existing or modified form.  The actual Dataset (ie, geometry)
+#       may not, however, be resold in existing or modified form.
+#
