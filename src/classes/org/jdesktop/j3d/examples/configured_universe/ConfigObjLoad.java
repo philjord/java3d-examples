@@ -189,9 +189,12 @@ public class ConfigObjLoad {
 
 	// Get the config file URL from the j3d.configURL property or use the
 	// default config file "j3d1x1-window" in the current directory.
-	//URL configURL = ConfiguredUniverse.getConfigURL("file:j3d1x1-window");
-        URL configURL = Resources.getResource("configured_universe/j3d1x1-windows.cfg");
-	// Create a simple scene and attach it to the virtual universe
+        URL configURL = ConfiguredUniverse.getConfigURL(null);
+        if(configURL == null) {
+            configURL = Resources.getResource("configured_universe/j3d1x1-window.cfg");
+        }
+        
+        // Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();
 
 	u = new ConfiguredUniverse(configURL);
