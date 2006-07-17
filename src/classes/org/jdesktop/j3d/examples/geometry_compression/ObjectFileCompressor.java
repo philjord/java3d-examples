@@ -44,15 +44,17 @@
 
 package org.jdesktop.j3d.examples.geometry_compression;
 
-import com.sun.j3d.utils.compression.* ;
-import com.sun.j3d.loaders.objectfile.ObjectFile ;
-import com.sun.j3d.loaders.ParsingErrorException ;
-import com.sun.j3d.loaders.IncorrectFormatException ;
-import com.sun.j3d.loaders.Scene ;
-import javax.media.j3d.* ;
-import java.util.* ;
-import java.net.* ;
-import java.io.* ;
+import com.sun.j3d.loaders.IncorrectFormatException;
+import com.sun.j3d.loaders.ParsingErrorException;
+import com.sun.j3d.loaders.Scene;
+import com.sun.j3d.loaders.objectfile.ObjectFile;
+import com.sun.j3d.utils.geometry.compression.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
+import java.net.URL;
+import java.util.Hashtable;
+import javax.media.j3d.Shape3D;
 
 /**
  * This extension of ObjectFile provides the methods setQuantization() and
@@ -104,12 +106,12 @@ public class ObjectFileCompressor extends ObjectFile {
     }
 
     /**
-     * Compress the specified .obj file into a CompressedGeometry node
+     * Compress the specified .obj file into a CompressedGeometryData node
      * component.  
      * @param objFileName String object representing the path to a .obj file
-     * @return a CompressedGeometry node component
+     * @return a CompressedGeometryData node component
      */
-    public CompressedGeometry compress(String objFileName) {
+    public CompressedGeometryData compress(String objFileName) {
 	return compressScene(getScene(objFileName)) ;
     }
 	    
@@ -126,12 +128,12 @@ public class ObjectFileCompressor extends ObjectFile {
     }
 
     /**
-     * Compress the specified .obj file into a CompressedGeometry node
+     * Compress the specified .obj file into a CompressedGeometryData node
      * component.
      * @param reader an open .obj file
-     * @return a CompressedGeometry node component
+     * @return a CompressedGeometryData node component
      */
-    public CompressedGeometry compress(Reader reader) {
+    public CompressedGeometryData compress(Reader reader) {
 	return compressScene(getScene(reader)) ;
     }
 
@@ -148,12 +150,12 @@ public class ObjectFileCompressor extends ObjectFile {
     }
 
     /**
-     * Compress the specified .obj file into a CompressedGeometry node
+     * Compress the specified .obj file into a CompressedGeometryData node
      * component.
      * @param url Uniform Resource Locator for the .obj file
-     * @return a CompressedGeometry node component
+     * @return a CompressedGeometryData node component
      */
-    public CompressedGeometry compress(URL url) {
+    public CompressedGeometryData compress(URL url) {
 	return compressScene(getScene(url)) ;
     }
 
@@ -169,7 +171,7 @@ public class ObjectFileCompressor extends ObjectFile {
 	compressScene(getScene(url), file) ;
     }
 
-    private CompressedGeometry compressScene(Scene scene) {
+    private CompressedGeometryData compressScene(Scene scene) {
 	return compressor.compress(getStream(scene)) ;
     }
 

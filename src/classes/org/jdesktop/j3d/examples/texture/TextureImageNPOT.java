@@ -52,14 +52,17 @@ import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.geometry.Box;
 import javax.media.j3d.*;
 import javax.vecmath.*;
+import java.util.Map;
 import org.jdesktop.j3d.examples.Resources;
 
-public class TextureImage extends Applet {
-
-    private static final String defaultFileName = "resources/images/stone.jpg";
+public class TextureImageNPOT extends Applet {
+  
+    private static final String defaultFileName = "resources/images/Java3d.jpg";
     private java.net.URL texImage = null;
 
     private SimpleUniverse u = null;
+    private boolean allowNonPowerOfTwo = true;
+    private boolean mipmap = true;
 
     public BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
@@ -73,9 +76,30 @@ public class TextureImage extends Applet {
 	objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 	objRoot.addChild(objTrans);
 
+	// Create the scaling transform group node and initialize it to the
+	// identity.  Enable the TRANSFORM_WRITE capability so that
+	// our behavior code can modify it at runtime.  Add it to the
+	// objTrans group
+	TransformGroup objScale = new TransformGroup();
+	objScale.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+	objTrans.addChild(objScale);
+
 	// Create appearance object for textured cube
 	Appearance app = new Appearance();
-	Texture tex = new TextureLoader(texImage, this).getTexture();
+	int flags = 0;
+	if (allowNonPowerOfTwo) {
+	    flags |= TextureLoader.ALLOW_NON_POWER_OF_TWO;
+        }
+	if (mipmap) {
+	    flags |= TextureLoader.GENERATE_MIPMAP;
+	}
+	Texture tex = new TextureLoader(texImage, flags, this).getTexture();
+	tex.setMagFilter(Texture.BASE_LEVEL_LINEAR);
+	if (mipmap) {
+	    tex.setMinFilter(Texture.MULTI_LEVEL_LINEAR);
+	} else {
+	    tex.setMinFilter(Texture.BASE_LEVEL_LINEAR);
+        }
 	app.setTexture(tex);
 	TextureAttributes texAttr = new TextureAttributes();
 	texAttr.setTextureMode(TextureAttributes.MODULATE);
@@ -84,7 +108,7 @@ public class TextureImage extends Applet {
 	// Create textured cube and add it to the scene graph.
 	Box textureCube = new Box(0.4f, 0.4f, 0.4f,
 				  Box.GENERATE_TEXTURE_COORDS, app);
-	objTrans.addChild(textureCube);
+	objScale.addChild(textureCube);
 
 	// Create a new Behavior object that will perform the desired
 	// operation on the specified transform object and add it into
@@ -92,7 +116,7 @@ public class TextureImage extends Applet {
 	Transform3D yAxis = new Transform3D();
 	Alpha rotationAlpha = new Alpha(-1, Alpha.INCREASING_ENABLE,
 					0, 0,
-					4000, 0, 0,
+					50000, 0, 0,
 					0, 0, 0);
 
 	RotationInterpolator rotator =
@@ -103,16 +127,31 @@ public class TextureImage extends Applet {
 	rotator.setSchedulingBounds(bounds);
 	objTrans.addChild(rotator);
 
+	// Create a new Behavior object that will perform the desired
+	// operation on the specified transform object and add it into
+	// the scene graph.
+        Alpha scaleAlpha = new Alpha(-1,
+                Alpha.INCREASING_ENABLE | Alpha.DECREASING_ENABLE,
+                0, 0,
+                8000, 0, 0,
+                8000, 0, 0);
+
+	ScaleInterpolator scaler =
+	    new ScaleInterpolator(scaleAlpha, objScale, yAxis,
+				     0.01f, 1.5f);
+	scaler.setSchedulingBounds(bounds);
+	objScale.addChild(scaler);
+
         // Have Java 3D perform optimizations on this scene graph.
         objRoot.compile();
 
 	return objRoot;
     }
 
-    public TextureImage() {
+    public TextureImageNPOT() {
     }
 
-    public TextureImage(java.net.URL url) {
+    public TextureImageNPOT(java.net.URL url) {
         texImage = url;
     }
 
@@ -130,6 +169,15 @@ public class TextureImage extends Applet {
            SimpleUniverse.getPreferredConfiguration();
 
         Canvas3D c = new Canvas3D(config);
+
+	Map map = c.queryProperties();
+        Boolean value = (Boolean) map.get("textureNonPowerOfTwoAvailable");
+	if (value != null) {
+	    System.out.println("textureNonPowerOfTwoAvailable property = " + value); 
+	} else {
+	    System.out.println("textureNonPowerOfTwoAvailable property not found"); 
+	}
+
 	add("Center", c);
 
 	// Create a simple scene and attach it to the virtual universe
@@ -148,7 +196,7 @@ public class TextureImage extends Applet {
     }
 
     //
-    // The following allows TextureImage to be run as an application
+    // The following allows TextureImageNPOT to be run as an application
     // as well as an applet
     //
     public static void main(String[] args) {
@@ -168,7 +216,7 @@ public class TextureImage extends Applet {
                 System.exit(1);
             }
         }
-        new MainFrame(new TextureImage(url), 256, 256);
+	new MainFrame(new TextureImageNPOT(url), 512, 512);
     }
 
 }
