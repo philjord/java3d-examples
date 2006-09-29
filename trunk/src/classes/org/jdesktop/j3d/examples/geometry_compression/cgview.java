@@ -44,22 +44,21 @@
 
 package org.jdesktop.j3d.examples.geometry_compression;
 
-import com.sun.j3d.utils.compression.* ;
-import com.sun.j3d.utils.behaviors.vp.* ;
-import com.sun.j3d.utils.applet.MainFrame ;
-import com.sun.j3d.utils.universe.* ;
-import javax.media.j3d.* ;
-import javax.vecmath.* ;
-import java.applet.Applet ;
-import java.awt.BorderLayout ;
-import java.awt.event.* ;
-import java.io.* ;
+import com.sun.j3d.utils.applet.MainFrame;
+import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
+import com.sun.j3d.utils.geometry.compression.*;
+import com.sun.j3d.utils.universe.*;
+import java.applet.Applet;
+import java.awt.BorderLayout;
+import java.io.IOException;
+import javax.media.j3d.*;
+import javax.vecmath.*;
 
 public class cgview extends Applet {
 
     private SimpleUniverse u = null;
 
-    public BranchGroup createSceneGraph(CompressedGeometry cg) {
+    public BranchGroup createSceneGraph(CompressedGeometryData cg) {
 	// Create the root of the branch graph
 	BranchGroup objRoot = new BranchGroup() ;
 
@@ -81,27 +80,15 @@ public class cgview extends Applet {
 	objScale.addChild(objTrans) ;
 
 	// Add compressed geometry to the scene graph.
-	CompressedGeometryHeader hdr = new CompressedGeometryHeader() ;
+	CompressedGeometryData.Header hdr = new CompressedGeometryData.Header() ;
 	cg.getCompressedGeometryHeader(hdr) ;
 
-	// There isn't really enough information in the compressed geometry
-	// header to unamiguously determine the proper rendering attributes.
-	// The bufferDataPresent field specifies whether or not normals are
-	// bundled with vertices, but the compressed buffer can still contain
-	// normals that should be lit.  Assume that any surface geometry
-	// should be lit and that lines and points should not unless the
-	// header contains the NORMAL_IN_BUFFER bit.
-	Material m = new Material() ;
-	if ((hdr.bufferType == hdr.TRIANGLE_BUFFER) ||
-	    ((hdr.bufferDataPresent & hdr.NORMAL_IN_BUFFER) == 1))
-	    m.setLightingEnable(true) ;
-	else
-	    m.setLightingEnable(false) ;
-
-	Appearance a = new Appearance() ;
-	a.setMaterial(m) ;
-
-	objTrans.addChild(new Shape3D(cg, a)) ;
+        Shape3D[] shapes = cg.decompress();
+        if (shapes != null) {
+            for (int i = 0; i < shapes.length; i++) {
+                objTrans.addChild(shapes[i]);
+            }
+        }
 
 	// Create mouse behavior scheduling bounds.
 	BoundingSphere bounds =
@@ -158,7 +145,7 @@ public class cgview extends Applet {
 	    usage() ;
 
 	// Read the compressed geometry.
-	CompressedGeometry cg = null ;
+	CompressedGeometryData cg = null ;
 	try {
 	    CompressedGeometryFile cgf ;
 	    cgf = new CompressedGeometryFile(filename, false) ;
