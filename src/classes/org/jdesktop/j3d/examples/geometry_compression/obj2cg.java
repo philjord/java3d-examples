@@ -44,9 +44,8 @@
 
 package org.jdesktop.j3d.examples.geometry_compression;
 
-import com.sun.j3d.utils.compression.* ;
-import javax.media.j3d.* ;
-import java.io.* ;
+import com.sun.j3d.utils.geometry.compression.*;
+import java.io.IOException;
 
 class obj2cg {
 

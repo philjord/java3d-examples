@@ -46,28 +46,35 @@
  */
  -->
 
-<project name="j3d-examples-1.4.0" default="jar">
+<project name="j3d-examples-1.5.0" default="jar">
 
   <target name="init">
     <!-- Set global properties for this build -->
-    <property name="src"        location="src"/>
-    <property name="build"      location="build"/>
-    <property name="dist"       location="dist"/>
-    <property name="output.jar" location="dist/j3d-examples.jar"/>
-    <property name="output.zip" location="dist/j3d-examples-1_4_0-src.zip"/>
+    <property name="src"          location="src"/>
+    <property name="build"        location="build"/>
+    <property name="dist"         location="dist"/>
+    <property name="output.jar"   location="dist/j3d-examples.jar"/>
+    <property name="output.zip"   location="dist/j3d-examples-1_5_0-src.zip"/>
+    <property name="j3ddir"       location="../j3d-core/build/default/debug"/>
+    <property name="vecmathdir"   location="../vecmath/build/debug"/>
+    <property name="j3dcore.jar"  location="${j3ddir}/lib/ext/j3dcore.jar"/>
+    <property name="j3dutils.jar" location="${j3ddir}/lib/ext/j3dutils.jar"/>
+    <property name="vecmath.jar"  location="${vecmathdir}/lib/ext/vecmath.jar"/>
+    <property name="native.dir"   location="${j3ddir}/native"/>
   </target>
 
-  <target name="compile" depends="init">
+  <target name="compile" depends="init-compile">
     <!-- Create the build directory -->
     <mkdir dir="${build}/classes"/>
 
     <!-- Compile the java code from ${src}/classes into ${build}/classes -->
     <javac srcdir="${src}/classes"
            destdir="${build}/classes"
-	   source="1.4"
-	   target="1.4"
+	   source="1.5"
+	   target="1.5"
 	   debug="true"
            deprecation="off">
+      <classpath refid="comp.classpath"/>
     </javac>
 
     <!-- Copy resources to build in preparation for jarring -->
@@ -117,9 +124,20 @@
     <delete dir="${dist}"/>
   </target>
 
+  <target name="init-compile" depends="init">
+    <path id="comp.classpath">
+      <pathelement location="${j3dcore.jar}"/>
+      <pathelement location="${j3dutils.jar}"/>
+      <pathelement location="${vecmath.jar}"/>
+    </path>
+  </target>
+
   <target name="init-run" depends="init,jar">
     <path id="run.classpath">
       <pathelement location="${output.jar}"/>
+      <pathelement location="${j3dcore.jar}"/>
+      <pathelement location="${j3dutils.jar}"/>
+      <pathelement location="${vecmath.jar}"/>
     </path>
   </target>
 
@@ -136,6 +154,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.appearance.AppearanceMixed">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -143,6 +162,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.appearance.AppearanceTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -150,6 +170,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.applet3d.Applet3D">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -157,6 +178,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.background.BackgroundGeometry">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -164,6 +186,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.configured_universe.ConfigObjLoad">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -171,6 +194,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.depth_func.DepthFuncTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -178,6 +202,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.distort_glyph.DistortGlyphTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -185,6 +210,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.dot3.Dot3Demo">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -192,6 +218,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.EnvironmentMappingGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -199,6 +226,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.four_by_four.FourByFour">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
  
@@ -206,6 +234,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.fps_counter.FPSCounterDemo">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
    
@@ -213,6 +242,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.gears.GearBox">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -220,6 +250,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.gears.GearTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -227,6 +258,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.hello_universe.HelloUniverse">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -234,6 +266,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.geometry_by_ref.ImageComponentByReferenceTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
  
@@ -241,6 +274,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.geometry_by_ref.InterleavedNIOBuffer">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target> 
   
@@ -248,6 +282,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.geometry_by_ref.InterleavedTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target> 
   
@@ -255,6 +290,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.lod.LOD">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -262,6 +298,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.morphing.Morphing">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
     
@@ -269,6 +306,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.texture.MultiTextureTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -276,6 +314,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.objload.ObjLoad">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -283,6 +322,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.cg_shader.ObjLoadCg">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
       <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
   </target> 
@@ -291,6 +331,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.ObjLoadGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -298,6 +339,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.oriented_shape3d.OrientedPtTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target> 
 
@@ -305,6 +347,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.oriented_shape3d.OrientedTest">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target> 
   
@@ -312,6 +355,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.print_canvas3d.PrintCanvas3D">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target> 
   
@@ -319,6 +363,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.PhongShadingGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -326,6 +371,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediate">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -333,6 +379,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.pure_immediate.PureImmediateStereo">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -340,6 +387,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.morphing.Pyramid2Cube">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
     
@@ -347,6 +395,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
  
@@ -354,6 +403,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -361,6 +411,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.ShaderTestGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -368,6 +419,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.sphere_motion.SphereMotion">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -375,6 +427,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.SphereGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
  
@@ -382,6 +435,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.cg_shader.SphereCg">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
       <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
   </target> 
@@ -390,6 +444,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.texture_by_ref.TextureByReference">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
   
@@ -397,6 +452,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.texture.TextureImage">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -404,6 +460,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.collision.TickTockCollision">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -411,6 +468,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.VertexAttrTestGLSL">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
     </java>
   </target>
 
@@ -418,6 +476,7 @@
     <java fork="true"
           classname="org.jdesktop.j3d.examples.cg_shader.VertexAttrTestCg">
       <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
       <sysproperty key="j3d.shadingLanguage" value="Cg"/>
     </java>
   </target>

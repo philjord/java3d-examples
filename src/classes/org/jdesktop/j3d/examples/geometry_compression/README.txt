@@ -1,5 +1,5 @@
 This directory contains example code for using compressed geometry in
-Java 3D through the com.sun.j3d.utils.compression package.
+Java 3D through the com.sun.j3d.utils.geometry.compression package.
 
 Applications:
 
