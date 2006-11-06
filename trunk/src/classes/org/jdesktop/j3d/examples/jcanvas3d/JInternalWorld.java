@@ -52,11 +52,9 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
 import javax.media.j3d.Alpha;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
-import javax.media.j3d.GraphicsConfigTemplate3D;
 import javax.media.j3d.RotationInterpolator;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -95,9 +93,7 @@ public class JInternalWorld extends JInternalFrame {
         this.model = model;
         model.addRow( new Object[]{new Integer( hashCode()), Integer.valueOf(0) });
 
-        GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
-
-        c = new JCanvas3D( new GraphicsConfigTemplate3D() );
+        c = new JCanvas3D();
 
         if (true == isDelayed) {
             c.setResizeMode(c.RESIZE_DELAYED);
