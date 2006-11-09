@@ -137,7 +137,7 @@ public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.eve
         getContentPane().add(splitPane, java.awt.BorderLayout.CENTER);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1020)/2, (screenSize.height-402)/2, 1020, 402);
+        setBounds((screenSize.width-1011)/2, (screenSize.height-733)/2, 1011, 733);
     }
 
     // Code for dispatching events from components to event handlers.
@@ -158,9 +158,9 @@ public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.eve
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         JInternalWorld iWorld;
         // we create an internal world to be added within the JDesktop.
-        iWorld = new JInternalWorld( interactiveCheckBox.isSelected(), 
-            this.randomCheckBox.isSelected() && ( false == interactiveCheckBox.isSelected() )
-            );
+        iWorld = new JInternalWorld( interactiveCheckBox.isSelected(),
+                delayCheckBox.isSelected(),
+                randomCheckBox.isSelected() );
         iWorld.setSize( 256, 256 );
         iWorld.setLocation( 50, 50 );
         iWorld.setResizable( true );
