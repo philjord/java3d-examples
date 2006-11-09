@@ -87,7 +87,7 @@ public class JInternalWorld extends JInternalFrame {
      * @param isInteractive tells the world to be constructed as interactive
      * @param isDelayed tells the rotator to start at a random alpha.
      */
-    public JInternalWorld(boolean isInteractive, boolean isDelayed) {
+    public JInternalWorld(boolean isInteractive, boolean isDelayed, boolean isRandom) {
         super();
         setSize(256, 256);
         setClosable(true);
@@ -108,7 +108,7 @@ public class JInternalWorld extends JInternalFrame {
         pack();
 
         // Create a simple scene and attach it to the virtual universe
-        BranchGroup scene = createSceneGraph(isInteractive, isDelayed);
+        BranchGroup scene = createSceneGraph(isInteractive, isRandom);
         SimpleUniverse universe = new SimpleUniverse(canvas.getOffscreenCanvas3D()); //TODO: this is awful and must not be done like that in final version
 
         // This will move the ViewPlatform back a bit so the
@@ -126,8 +126,7 @@ public class JInternalWorld extends JInternalFrame {
      *
      * @return a global branchgroup containing the world, as desired.
      */
-    private BranchGroup createSceneGraph(boolean isInteractive,
-        boolean isDelayed) {
+    private BranchGroup createSceneGraph(boolean isInteractive, boolean isRandom) {
         // Create the root of the branch graph
         BranchGroup objRoot = new BranchGroup();
 
@@ -165,15 +164,15 @@ public class JInternalWorld extends JInternalFrame {
 
             // rotation speed is randomized a bit so that it does not go at the same speed on every canvases,
             // which will make it more natural and express the differences between every present universes
-            int duration = Math.max(2000, (int) (Math.random() * 8000.));
             Alpha rotationAlpha = null;
 
-            if (true == isDelayed) {
+            if (true == isRandom) {
+                int duration = Math.max(2000, (int) (Math.random() * 8000.));
                 rotationAlpha = new Alpha(-1,
                         (int) ((double) duration * Math.random()), 0, duration,
                         0, 0);
             } else {
-                rotationAlpha = new Alpha(-1, duration);
+                rotationAlpha = new Alpha(-1, 4000);
             }
 
             RotationInterpolator rotator = new RotationInterpolator(rotationAlpha,
