@@ -44,16 +44,16 @@
 
 package org.jdesktop.j3d.examples.jcanvas3d;
 
+
+/**
+ * Simple Java 3D example program that displays universes within lightweight swing components, layed in JInternalFrame objects.
+ */
 import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author  pepe
- */
 public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.event.ActionListener
 {
-
+    
     /**
      * Creates new form JCanvas3DExample
      */
@@ -63,7 +63,7 @@ public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.eve
         Toolkit.getDefaultToolkit().setDynamicLayout( true );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
     }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -73,101 +73,71 @@ public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.eve
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        splitPane = new javax.swing.JSplitPane();
+        scrollPane = new javax.swing.JScrollPane();
+        panel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         delayCheckBox = new javax.swing.JCheckBox();
         interactiveCheckBox = new javax.swing.JCheckBox();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        dataTable = new javax.swing.JTable();
+        randomCheckBox = new javax.swing.JCheckBox();
         desktopPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JCanvas3D Example");
-        jSplitPane1.setDividerLocation(300);
-        jSplitPane1.setDividerSize(8);
-        jSplitPane1.setContinuousLayout(true);
-        jSplitPane1.setOneTouchExpandable(true);
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(1000, 685));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        splitPane.setDividerLocation(300);
+        splitPane.setDividerSize(8);
+        splitPane.setContinuousLayout(true);
+        splitPane.setOneTouchExpandable(true);
+        panel.setLayout(new java.awt.GridBagLayout());
 
         addButton.setText("Create New Frame");
         addButton.setToolTipText("Adds a new frame containing an universe into the desktop pane");
         addButton.addActionListener(this);
 
-        jPanel2.add(addButton, new java.awt.GridBagConstraints());
+        panel.add(addButton, new java.awt.GridBagConstraints());
 
         delayCheckBox.setText("Resize Delayed");
         delayCheckBox.setToolTipText("Shows the effect of using a delayed resizing to the internal frames.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        jPanel2.add(delayCheckBox, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        panel.add(delayCheckBox, gridBagConstraints);
 
+        interactiveCheckBox.setSelected(true);
         interactiveCheckBox.setText("Interactive Cube");
         interactiveCheckBox.setToolTipText("Tests the use of AWT behaviors on the displayed component.");
         interactiveCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         interactiveCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        interactiveCheckBox.addActionListener(this);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        jPanel2.add(interactiveCheckBox, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        panel.add(interactiveCheckBox, gridBagConstraints);
 
-        jTabbedPane1.addTab("Content Creation", jPanel2);
+        randomCheckBox.setText("Random start angle");
+        randomCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        randomCheckBox.setEnabled(false);
+        randomCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        panel.add(randomCheckBox, gridBagConstraints);
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        scrollPane.setViewportView(panel);
 
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(100, 100));
-        dataTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "canvas", "Title 2"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Long.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(dataTable);
-
-        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
-
-        jTabbedPane1.addTab("Data Report", jPanel3);
-
-        jPanel1.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
-
-        jScrollPane1.setViewportView(jPanel1);
-        jPanel1.getAccessibleContext().setAccessibleName("parameter panel");
-        jPanel1.getAccessibleContext().setAccessibleDescription("panel used to set parameters and create internal frames");
-
-        jSplitPane1.setLeftComponent(jScrollPane1);
+        splitPane.setLeftComponent(scrollPane);
 
         desktopPane.setBackground(new java.awt.Color(153, 153, 201));
-        jSplitPane1.setRightComponent(desktopPane);
+        desktopPane.setPreferredSize(new java.awt.Dimension(300, 300));
+        splitPane.setRightComponent(desktopPane);
 
-        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(splitPane, java.awt.BorderLayout.CENTER);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1010)/2, (screenSize.height-715)/2, 1010, 715);
+        setBounds((screenSize.width-1020)/2, (screenSize.height-402)/2, 1020, 402);
     }
 
     // Code for dispatching events from components to event handlers.
@@ -176,26 +146,28 @@ public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.eve
         if (evt.getSource() == addButton) {
             JCanvas3DExample.this.addButtonActionPerformed(evt);
         }
+        else if (evt.getSource() == interactiveCheckBox) {
+            JCanvas3DExample.this.interactiveCheckBoxActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addButtonActionPerformed
-    {//GEN-HEADEREND:event_addButtonActionPerformed
+    private void interactiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interactiveCheckBoxActionPerformed
+        randomCheckBox.setEnabled( interactiveCheckBox.isSelected() ? false:true );
+    }//GEN-LAST:event_interactiveCheckBoxActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         JInternalWorld iWorld;
-//        if ( true == filteredCheckBox.isSelected() )
-//        {
-            iWorld = new JInternalWorld( delayCheckBox.isSelected(), interactiveCheckBox.isSelected(), (DefaultTableModel)dataTable.getModel() );
-//        }
-//        else
-//        {
-//            iWorld = new JInternalWorldFiltered( delayCheckBox.isSelected(), interactiveCheckBox.isSelected() );
-//        }
+        // we create an internal world to be added within the JDesktop.
+        iWorld = new JInternalWorld( interactiveCheckBox.isSelected(), 
+            this.randomCheckBox.isSelected() && ( false == interactiveCheckBox.isSelected() )
+            );
         iWorld.setSize( 256, 256 );
         iWorld.setLocation( 50, 50 );
         iWorld.setResizable( true );
         desktopPane.add( iWorld );
         iWorld.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
-
+        
     /**
      * @param args the command line arguments
      */
@@ -209,20 +181,16 @@ public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.eve
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
-    private javax.swing.JTable dataTable;
     private javax.swing.JCheckBox delayCheckBox;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JCheckBox interactiveCheckBox;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel panel;
+    private javax.swing.JCheckBox randomCheckBox;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
-
+    
 }
