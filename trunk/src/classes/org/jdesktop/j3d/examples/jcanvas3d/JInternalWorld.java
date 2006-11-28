@@ -45,27 +45,36 @@ package org.jdesktop.j3d.examples.jcanvas3d;
 
 import com.sun.j3d.exp.swing.JCanvas3D;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
-import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
+import java.awt.Font;
 
 import javax.media.j3d.Alpha;
+import javax.media.j3d.AmbientLight;
+import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.DirectionalLight;
+import javax.media.j3d.Font3D;
+import javax.media.j3d.FontExtrusion;
 import javax.media.j3d.GraphicsConfigTemplate3D;
+import javax.media.j3d.Material;
 import javax.media.j3d.RotationInterpolator;
+import javax.media.j3d.Shape3D;
+import javax.media.j3d.Text3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 
 import javax.swing.JInternalFrame;
+import javax.vecmath.Color3f;
 
 import javax.vecmath.Point3d;
+import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 
 
 /**
@@ -145,11 +154,47 @@ public class JInternalWorld extends JInternalFrame {
         objTrans.addChild(objRot);
 
         // Create a simple Shape3D node; add it to the scene graph.
-        ColorCube cube = new ColorCube(0.75);
-        objRot.addChild(cube);
+        // issue 383: changed the cube to a text, so that any graphical problem related to Yup can be seen.
+	Font3D f3d = new Font3D(new Font("dialog", Font.PLAIN, 1),
+			     new FontExtrusion());
+        Text3D text = new Text3D(f3d, "JCanvas3D",
+			     new Point3f( -2.3f, -0.5f, 0.f));
+
+        Shape3D sh = new Shape3D();
+	Appearance app = new Appearance();
+	Material mm = new Material();
+	mm.setLightingEnable(true);
+	app.setMaterial(mm);
+	sh.setGeometry(text);
+	sh.setAppearance(app);
+
+        objRot.addChild( sh );
 
         BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
                 100.0);
+        
+	// Set up the ambient light
+	Color3f ambientColor = new Color3f(0.3f, 0.3f, 0.3f);
+	AmbientLight ambientLightNode = new AmbientLight(ambientColor);
+	ambientLightNode.setInfluencingBounds(bounds);
+	objRoot.addChild(ambientLightNode);
+	
+	// Set up the directional lights
+	Color3f light1Color = new Color3f(1.0f, 1.0f, 0.9f);
+	Vector3f light1Direction  = new Vector3f(1.0f, 1.0f, 1.0f);
+	Color3f light2Color = new Color3f(1.0f, 1.0f, 0.9f);
+	Vector3f light2Direction  = new Vector3f(-1.0f, -1.0f, -1.0f);
+	
+	DirectionalLight light1
+	    = new DirectionalLight(light1Color, light1Direction);
+	light1.setInfluencingBounds(bounds);
+	objRoot.addChild(light1);
+	
+	DirectionalLight light2
+	    = new DirectionalLight(light2Color, light2Direction);
+	light2.setInfluencingBounds(bounds);
+	objRoot.addChild(light2);
+
 
         if (true == isInteractive) {
             MouseRotate mr = new MouseRotate(comp, objRot);
