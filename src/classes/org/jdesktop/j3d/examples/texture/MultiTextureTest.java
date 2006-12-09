@@ -111,7 +111,7 @@ public class MultiTextureTest extends Applet implements ItemListener{
     bimage.setRGB(0, 0, width, height, rgbArray, 0, width);
 
 	
-    ImageComponent2D grayImage = new ImageComponent2D(ImageComponent.FORMAT_RGB, bimage);
+    ImageComponent2D grayImage = new ImageComponent2D(ImageComponent.FORMAT_RGB, bimage, true, true);
 
     lightTex = new Texture2D(Texture.BASE_LEVEL, Texture.RGB, width, height);
     lightTex.setImage(0, grayImage);
