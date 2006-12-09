@@ -88,7 +88,7 @@ public class PrintFromButton extends javax.swing.JFrame {
 	BufferedImage bImage = new BufferedImage(200, 200 ,
 						 BufferedImage.TYPE_INT_ARGB);        
 	ImageComponent2D buffer =
-	    new ImageComponent2D(ImageComponent.FORMAT_RGBA, bImage);
+	    new ImageComponent2D(ImageComponent.FORMAT_RGBA, bImage, true, true);
 	buffer.setCapability(ImageComponent2D.ALLOW_IMAGE_READ);
 	
 	drawRaster = new Raster(new Point3f(0.0f, 0.0f, 0.0f),

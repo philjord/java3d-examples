@@ -70,7 +70,7 @@ public class ReadRaster extends Applet {
 	// Create a Raster shape. Add it to the root of the subgraph
 
         ImageComponent2D drawImageComponent = new ImageComponent2D(
-		ImageComponent.FORMAT_RGB, bImage);
+		ImageComponent.FORMAT_RGB, bImage, true, true);
 
         Raster drawRaster= new Raster(new Point3f(0.0f, 0.0f, 0.0f),
 		Raster.RASTER_COLOR, 0, 0, bImage.getWidth(), 
@@ -129,7 +129,7 @@ public class ReadRaster extends Applet {
 	int height = 128;
 
 	ImageComponent2D readImageComponent = new ImageComponent2D(
-		ImageComponent.FORMAT_RGB, width, height);
+		ImageComponent.FORMAT_RGB, width, height, false, true);
 
 	Raster readRaster = new Raster(new Point3f(0.0f,0.0f,0.0f),
 				       Raster.RASTER_COLOR, 0, 0, width,
@@ -144,7 +144,7 @@ public class ReadRaster extends Applet {
 
 	// Create a simple scene and attach it to the virtual universe
 	BufferedImage bImage = new BufferedImage(width, height,
-						 BufferedImage.TYPE_INT_ARGB);
+						 BufferedImage.TYPE_INT_RGB);
 
 	BranchGroup scene = createSceneGraph(bImage, readRaster);
 	u = new SimpleUniverse(c);
@@ -217,7 +217,7 @@ class myRotationInterpolator extends RotationInterpolator {
 	    bImage = readRaster.getImage().getImage();
 	}
         newImageComponent = new ImageComponent2D(ImageComponent.FORMAT_RGB, 
-						bImage);
+						bImage, true, true);
 	drawRaster.setImage(newImageComponent);
 	super.processStimulus(criteria);
     }
