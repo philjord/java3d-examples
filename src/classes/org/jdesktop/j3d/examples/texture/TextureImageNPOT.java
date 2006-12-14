@@ -44,15 +44,17 @@
 
 package org.jdesktop.j3d.examples.texture;
 
-import java.applet.Applet;
-import java.awt.*;
 import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.geometry.Box;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import com.sun.j3d.utils.image.TextureLoader;
+import com.sun.j3d.utils.universe.SimpleUniverse;
+import java.applet.Applet;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
 import java.util.Map;
+import javax.media.j3d.*;
+import javax.swing.JOptionPane;
+import javax.vecmath.Point3d;
 import org.jdesktop.j3d.examples.Resources;
 
 public class TextureImageNPOT extends Applet {
@@ -170,13 +172,24 @@ public class TextureImageNPOT extends Applet {
 
         Canvas3D c = new Canvas3D(config);
 
-	Map map = c.queryProperties();
+        Map map = c.queryProperties();
         Boolean value = (Boolean) map.get("textureNonPowerOfTwoAvailable");
-	if (value != null) {
-	    System.out.println("textureNonPowerOfTwoAvailable property = " + value); 
-	} else {
-	    System.out.println("textureNonPowerOfTwoAvailable property not found"); 
-	}
+        String errorStr = null;
+        if (value == null) {
+            errorStr = "Canvas3D: textureNonPowerOfTwoAvailable property not found";
+        } else if (!value) {
+            errorStr = "Non-power-of-two textures are not available";
+        }
+
+        if (errorStr != null) {
+            String errorMessage = errorStr + "\n" +
+                    "You should expect to see a white cube as a result";
+            System.err.println(errorMessage);
+            JOptionPane.showMessageDialog(this,
+                    errorMessage,
+                    "Insufficient Capabilities",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
 	add("Center", c);
 
