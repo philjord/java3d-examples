@@ -184,7 +184,7 @@ public class TextureImageNPOT extends Applet {
         if (errorStr != null) {
             String errorMessage = errorStr + "\n" +
                     "You should expect to see a white cube as a result";
-            System.err.println(errorMessage);
+//            System.err.println(errorMessage);
             JOptionPane.showMessageDialog(this,
                     errorMessage,
                     "Insufficient Capabilities",
