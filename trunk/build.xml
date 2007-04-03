@@ -103,7 +103,7 @@
     </jar>
   </target>
 
-  <target name="zip" depends="init">
+  <target name="src" depends="init">
     <mkdir dir="${dist}"/>
     <zip destfile="${output.zip}">
       <fileset dir=".." includes="j3d-examples/src/**"/>
@@ -116,7 +116,7 @@
     </zip>
   </target>
 
-  <target name="all" depends="init,jar,zip">
+  <target name="all" depends="init,jar,src">
   </target>
 
   <target name="clean" depends="init">
@@ -399,6 +399,16 @@
     </java>
   </target>
  
+  <target name="run.QueryPropertiesJOGL" depends="init-run">
+    <java fork="true"
+          classname="org.jdesktop.j3d.examples.package_info.QueryProperties">
+      <classpath refid="run.classpath"/>
+      <sysproperty key="java.library.path" value="${native.dir}"/>
+      <sysproperty key="j3d.rend" value="jogl"/>
+    </java>
+  </target>
+
+
   <target name="run.SamplerTestGLSL" depends="init-run">
     <java fork="true"
           classname="org.jdesktop.j3d.examples.glsl_shader.SamplerTestGLSL">
