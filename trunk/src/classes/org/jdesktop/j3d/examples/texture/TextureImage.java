@@ -155,7 +155,15 @@ public class TextureImage extends Applet {
         java.net.URL url = null;
         if (args.length > 0) {
             try {
-                url = new java.net.URL("file:" + args[0]);
+                final String name = args[0];
+                if (name.startsWith("http:") ||
+                        name.startsWith("https:") ||
+                        name.startsWith("ftp:") ||
+                        name.startsWith("file:")) {
+                    url = new java.net.URL(name);
+                } else {
+                    url = new java.net.URL("file:" + name);
+                }
             } catch (java.net.MalformedURLException ex) {
                 System.out.println(ex.getMessage());
                 System.exit(1);
