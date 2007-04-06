@@ -98,7 +98,7 @@
     <jar jarfile="${output.jar}"
          manifest="manifest.mf"
          update="no"
-         compress="true">
+         compress="false">
 	<fileset dir="${build}/classes" includes="org/**/*"/>
     </jar>
   </target>
