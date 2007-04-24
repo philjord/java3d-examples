@@ -83,15 +83,18 @@ public class BackgroundGeometry extends javax.swing.JFrame {
         bg.setApplicationBounds(bounds);
 	BranchGroup backGeoBranch = new BranchGroup();
         Sphere sphereObj = new Sphere(1.0f, Sphere.GENERATE_NORMALS |
-			          Sphere.GENERATE_NORMALS_INWARD |
-				  Sphere.GENERATE_TEXTURE_COORDS, 45);
+                Sphere.GENERATE_NORMALS_INWARD |
+                Sphere.GENERATE_TEXTURE_COORDS |
+                Sphere.GENERATE_TEXTURE_COORDS_Y_UP, 45);        
         Appearance backgroundApp = sphereObj.getAppearance();
         backGeoBranch.addChild(sphereObj);
         bg.setGeometry(backGeoBranch);
         objTrans.addChild(bg);
 
         TextureLoader tex = new TextureLoader(bgImage,
-					      new String("RGB"), this);
+                new String("RGB"),
+                TextureLoader.BY_REFERENCE | TextureLoader.Y_UP,
+                this);
         if (tex != null) 
 	    backgroundApp.setTexture(tex.getTexture());
 

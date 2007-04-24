@@ -175,7 +175,7 @@ public class MultiTextureTest extends Applet implements ItemListener{
     //Create a Box
     Box BoxObj = new Box(1.5f, 1.5f, 0.8f, Box.GENERATE_NORMALS |
             Box.GENERATE_TEXTURE_COORDS |
-            Box.GENERATE_TEXTURE_COORDS_YUP, ap, 2);
+            Box.GENERATE_TEXTURE_COORDS_Y_UP, ap, 2);
     // add it to the scene graph.
     objTrans.addChild(BoxObj);
 
