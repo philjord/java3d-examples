@@ -143,7 +143,7 @@ public class OrientedTest extends Applet {
 	coneTrans.setTransform(coneMat);
         coneTrans.addChild(new Cone(.2f, 0.8f, Cone.GENERATE_NORMALS |
                 Cone.GENERATE_TEXTURE_COORDS |
-                Cone.GENERATE_TEXTURE_COORDS_YUP, apStone));
+                Cone.GENERATE_TEXTURE_COORDS_Y_UP, apStone));
         objTrans.addChild(coneTrans);
 
         TextureLoader earthTex = new TextureLoader(earthImage, new String("RGB"),
@@ -158,7 +158,7 @@ public class OrientedTest extends Applet {
 	cylinderTrans.setTransform(cylinderMat);
         cylinderTrans.addChild(new Cylinder(.35f, 2.0f, Cylinder.GENERATE_NORMALS |
                 Cylinder.GENERATE_TEXTURE_COORDS |
-                Cylinder.GENERATE_TEXTURE_COORDS_YUP, apEarth));
+                Cylinder.GENERATE_TEXTURE_COORDS_Y_UP, apEarth));
         objTrans.addChild(cylinderTrans);
 
         objTrans.addChild(objScale);
