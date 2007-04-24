@@ -88,7 +88,8 @@ public class TextureImageNPOT extends Applet {
 
 	// Create appearance object for textured cube
 	Appearance app = new Appearance();
-	int flags = 0;
+	int flags = TextureLoader.BY_REFERENCE | TextureLoader.Y_UP;
+        
 	if (allowNonPowerOfTwo) {
 	    flags |= TextureLoader.ALLOW_NON_POWER_OF_TWO;
         }
@@ -108,8 +109,9 @@ public class TextureImageNPOT extends Applet {
 	app.setTextureAttributes(texAttr);
 
 	// Create textured cube and add it to the scene graph.
-	Box textureCube = new Box(0.4f, 0.4f, 0.4f,
-				  Box.GENERATE_TEXTURE_COORDS, app);
+        Box textureCube = new Box(0.4f, 0.4f, 0.4f,
+                Box.GENERATE_TEXTURE_COORDS |
+                Box.GENERATE_TEXTURE_COORDS_YUP, app);
 	objScale.addChild(textureCube);
 
 	// Create a new Behavior object that will perform the desired

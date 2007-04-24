@@ -75,7 +75,9 @@ public class TextureImage extends Applet {
 
 	// Create appearance object for textured cube
 	Appearance app = new Appearance();
-	Texture tex = new TextureLoader(texImage, this).getTexture();
+        Texture tex = new TextureLoader(texImage,
+                TextureLoader.BY_REFERENCE | TextureLoader.Y_UP,
+                this).getTexture();
 	app.setTexture(tex);
 	TextureAttributes texAttr = new TextureAttributes();
 	texAttr.setTextureMode(TextureAttributes.MODULATE);
@@ -83,7 +85,8 @@ public class TextureImage extends Applet {
 
 	// Create textured cube and add it to the scene graph.
 	Box textureCube = new Box(0.4f, 0.4f, 0.4f,
-				  Box.GENERATE_TEXTURE_COORDS, app);
+                Box.GENERATE_TEXTURE_COORDS |
+                Box.GENERATE_TEXTURE_COORDS_YUP, app);
 	objTrans.addChild(textureCube);
 
 	// Create a new Behavior object that will perform the desired

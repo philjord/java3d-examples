@@ -147,12 +147,16 @@ public class MultiTextureTest extends Applet implements ItemListener{
     TextureAttributes texAttr2 = new TextureAttributes();
     texAttr2.setTextureMode(TextureAttributes.MODULATE);
 
-    TextureLoader tex = new TextureLoader(stoneImage, new String("RGB"), this);
+    TextureLoader tex = new TextureLoader(stoneImage, new String("RGB"), 
+            TextureLoader.BY_REFERENCE | TextureLoader.Y_UP,
+            this);
     if (tex == null) 
 	return null;
     stoneTex = tex.getTexture();
 
-    tex = new TextureLoader(skyImage, new String("RGB"), this);
+    tex = new TextureLoader(skyImage, new String("RGB"),
+            TextureLoader.BY_REFERENCE | TextureLoader.Y_UP,
+            this);
     if (tex == null)
 	return null;
     skyTex = tex.getTexture();
@@ -170,7 +174,8 @@ public class MultiTextureTest extends Applet implements ItemListener{
 
     //Create a Box
     Box BoxObj = new Box(1.5f, 1.5f, 0.8f, Box.GENERATE_NORMALS |
-			    Box.GENERATE_TEXTURE_COORDS, ap, 2);
+            Box.GENERATE_TEXTURE_COORDS |
+            Box.GENERATE_TEXTURE_COORDS_YUP, ap, 2);
     // add it to the scene graph.
     objTrans.addChild(BoxObj);
 

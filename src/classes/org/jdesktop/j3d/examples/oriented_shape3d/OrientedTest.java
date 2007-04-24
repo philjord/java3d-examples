@@ -128,7 +128,8 @@ public class OrientedTest extends Applet {
 	cubeTrans.addChild(new ColorCube(0.3));
         objTrans.addChild(cubeTrans);
 
-        TextureLoader stoneTex = new TextureLoader(stoneImage, new String("RGB"), this);
+        TextureLoader stoneTex = new TextureLoader(stoneImage, new String("RGB"),
+                TextureLoader.BY_REFERENCE | TextureLoader.Y_UP, this);
         if (stoneTex != null) apStone.setTexture(stoneTex.getTexture());
 
  	TextureAttributes texAttr = new TextureAttributes();
@@ -140,11 +141,13 @@ public class OrientedTest extends Applet {
 	TransformGroup coneTrans = new TransformGroup(coneMat);
 	coneMat.set(new Vector3d(0.0, 0.0, 0.0));
 	coneTrans.setTransform(coneMat);
-	coneTrans.addChild(new Cone(.2f, 0.8f,Cone.GENERATE_NORMALS |
-				    Cone.GENERATE_TEXTURE_COORDS, apStone));
+        coneTrans.addChild(new Cone(.2f, 0.8f, Cone.GENERATE_NORMALS |
+                Cone.GENERATE_TEXTURE_COORDS |
+                Cone.GENERATE_TEXTURE_COORDS_YUP, apStone));
         objTrans.addChild(coneTrans);
 
-        TextureLoader earthTex = new TextureLoader(earthImage, new String("RGB"), this);
+        TextureLoader earthTex = new TextureLoader(earthImage, new String("RGB"),
+                TextureLoader.BY_REFERENCE | TextureLoader.Y_UP, this);
         if (earthTex != null) apEarth.setTexture(earthTex.getTexture());
 
  	apEarth.setTextureAttributes(texAttr);
@@ -153,8 +156,9 @@ public class OrientedTest extends Applet {
 	TransformGroup cylinderTrans = new TransformGroup(cylinderMat);
 	cylinderMat.set(new Vector3d(-0.9, 0.5, -1.0));
 	cylinderTrans.setTransform(cylinderMat);
-	cylinderTrans.addChild(new Cylinder(.35f, 2.0f,Cylinder.GENERATE_NORMALS |
-						      Cylinder.GENERATE_TEXTURE_COORDS, apEarth));
+        cylinderTrans.addChild(new Cylinder(.35f, 2.0f, Cylinder.GENERATE_NORMALS |
+                Cylinder.GENERATE_TEXTURE_COORDS |
+                Cylinder.GENERATE_TEXTURE_COORDS_YUP, apEarth));
         objTrans.addChild(cylinderTrans);
 
         objTrans.addChild(objScale);
