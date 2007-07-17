@@ -46,7 +46,7 @@
  */
  -->
 
-<project name="j3d-examples-1.5.1" default="jar">
+<project name="j3d-examples-1.5.2" default="jar">
 
   <target name="init">
     <!-- Set global properties for this build -->
@@ -54,7 +54,7 @@
     <property name="build"        location="build"/>
     <property name="dist"         location="dist"/>
     <property name="output.jar"   location="dist/j3d-examples.jar"/>
-    <property name="output.zip"   location="dist/j3d-examples-1_5_1-src.zip"/>
+    <property name="output.zip"   location="dist/j3d-examples-1_5_2-src.zip"/>
     <property name="j3ddir"       location="../j3d-core/build/default/debug"/>
     <property name="vecmathdir"   location="../vecmath/build/debug"/>
     <property name="j3dcore.jar"  location="${j3ddir}/lib/ext/j3dcore.jar"/>
