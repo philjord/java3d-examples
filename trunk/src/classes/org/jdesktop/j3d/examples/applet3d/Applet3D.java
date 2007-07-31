@@ -44,86 +44,219 @@
 
 package org.jdesktop.j3d.examples.applet3d;
 
-import java.applet.Applet;
-import java.awt.BorderLayout;
-import java.awt.event.*;
-import java.awt.GraphicsConfiguration;
-import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import com.sun.j3d.utils.universe.SimpleUniverse;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
+import javax.media.j3d.Alpha;
+import javax.media.j3d.BoundingSphere;
+import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Canvas3D;
+import javax.media.j3d.RotationInterpolator;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
+import javax.swing.JApplet;
+import javax.swing.JFrame;
+import javax.swing.JPopupMenu;
+import javax.swing.WindowConstants;
+import javax.vecmath.Point3d;
 
-public class Applet3D extends Applet {
-
-    private SimpleUniverse u = null;
+/**
+ * Simple Java 3D program that can be run as an application or as an applet.
+ */
+public class Applet3D extends javax.swing.JPanel {
     
+    private SimpleUniverse univ = null;
+    private BranchGroup scene = null;
+
+    private Alpha rotationAlpha1;
+    private Alpha rotationAlpha2;
+
     public BranchGroup createSceneGraph() {
 	// Create the root of the branch graph
 	BranchGroup objRoot = new BranchGroup();
 
-	// Create the TransformGroup node and initialize it to the
-	// identity. Enable the TRANSFORM_WRITE capability so that
-	// our behavior code can modify it at run time. Add it to
-	// the root of the subgraph.
-	TransformGroup objTrans = new TransformGroup();
-	objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-	objRoot.addChild(objTrans);
+	// Create two TransformGroup nodes in series
+	TransformGroup objTrans1 = new TransformGroup();
+	objTrans1.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+	objRoot.addChild(objTrans1);
+
+	// Create two TransformGroup nodes in series
+	TransformGroup objTrans2 = new TransformGroup();
+	objTrans2.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+	objTrans1.addChild(objTrans2);
 
 	// Create a simple Shape3D node; add it to the scene graph.
-	objTrans.addChild(new ColorCube(0.4));
+	objTrans2.addChild(new ColorCube(0.4));
 
-	// Create a new Behavior object that will perform the
-	// desired operation on the specified transform and add
-	// it into the scene graph.
-	Transform3D yAxis = new Transform3D();
-	Alpha rotationAlpha = new Alpha(-1, 4000);
-
-	RotationInterpolator rotator =
-	    new RotationInterpolator(rotationAlpha, objTrans, yAxis,
-				     0.0f, (float) Math.PI*2.0f);
+	// Create 2 new Behavior objects that will perform the
+	// desired operations on the specified transforms and add
+	// them into the scene graph.
 	BoundingSphere bounds =
 	    new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
-	rotator.setSchedulingBounds(bounds);
-	objRoot.addChild(rotator);
 
-        // Have Java 3D perform optimizations on this scene graph.
-        objRoot.compile();
+        Transform3D yAxis1 = new Transform3D();
+        rotationAlpha1 = new Alpha(-1, 4000);
+
+	RotationInterpolator rotator1 =
+	    new RotationInterpolator(rotationAlpha1, objTrans1, yAxis1,
+				     0.0f, (float) Math.PI*2.0f);
+	rotator1.setSchedulingBounds(bounds);
+	objRoot.addChild(rotator1);
+
+        Transform3D yAxis2 = new Transform3D();
+        yAxis2.rotX(Math.PI/4.0);
+        rotationAlpha2 = new Alpha(-1, 10000);
+
+	RotationInterpolator rotator2 =
+	    new RotationInterpolator(rotationAlpha2, objTrans2, yAxis2,
+				     0.0f, (float) Math.PI*2.0f);
+	rotator2.setSchedulingBounds(bounds);
+	objRoot.addChild(rotator2);
 
 	return objRoot;
     }
 
-    public Applet3D() {
-    }
-
-    public void init() {
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+    private Canvas3D createUniverse() {
+	GraphicsConfiguration config =
+	    SimpleUniverse.getPreferredConfiguration();
 
 	Canvas3D c = new Canvas3D(config);
-	add("Center", c);
 
-	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
-	u = new SimpleUniverse(c);
+	univ = new SimpleUniverse(c);
 
-        // This will move the ViewPlatform back a bit so the
-        // objects in the scene can be viewed.
-        u.getViewingPlatform().setNominalViewingTransform();
+	// This will move the ViewPlatform back a bit so the
+	// objects in the scene can be viewed.
+        univ.getViewingPlatform().setNominalViewingTransform();
 
-	u.addBranchGraph(scene);
+	// Ensure at least 5 msec per frame (i.e., < 200Hz)
+	univ.getViewer().getView().setMinimumFrameCycleTime(5);
+
+	return c;
+    }
+    
+    private void destroy() {
+        univ.cleanup();
     }
 
-    public void destroy() {
-	u.cleanup();
+    /**
+     * Creates new form Applet3D
+     */
+    public Applet3D() {
+        // Initialize the GUI components
+        JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+        initComponents();
+
+        // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
+        Canvas3D c = createUniverse();
+        drawingPanel.add(c, BorderLayout.CENTER);
+
+        // Create the content branch and add it to the universe
+        scene = createSceneGraph();
+        univ.addBranchGraph(scene);
     }
 
-    //
-    // The following allows Applet3D to be run as an application
-    // as well as an applet
-    //
-    public static void main(String[] args) {
-	new MainFrame(new Applet3D(), 256, 256);
+    // ----------------------------------------------------------------
+    
+    // Applet framework
+
+    public static class MyApplet extends JApplet {
+        Applet3D mainPanel;
+
+        public void init() {
+            setLayout(new BorderLayout());
+            mainPanel = new Applet3D();
+            add(mainPanel, BorderLayout.CENTER);
+        }
+
+        public void destroy() {
+            mainPanel.destroy();
+        }
     }
+
+    // Application framework
+
+    private static class MyFrame extends JFrame {
+        MyFrame() {
+            setLayout(new BorderLayout());
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            setTitle("Simple 3D Applet");
+            getContentPane().add(new Applet3D(), BorderLayout.CENTER);
+            pack();
+        }
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MyFrame().setVisible(true);
+            }
+        });
+    }
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        guiPanel = new javax.swing.JPanel();
+        pauseButton = new javax.swing.JButton();
+        resumeButton = new javax.swing.JButton();
+        drawingPanel = new javax.swing.JPanel();
+
+        setLayout(new java.awt.BorderLayout());
+
+        guiPanel.setLayout(new java.awt.GridBagLayout());
+
+        pauseButton.setText("Pause");
+        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        guiPanel.add(pauseButton, gridBagConstraints);
+
+        resumeButton.setText("Resume");
+        resumeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resumeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        guiPanel.add(resumeButton, gridBagConstraints);
+
+        add(guiPanel, java.awt.BorderLayout.NORTH);
+
+        drawingPanel.setPreferredSize(new java.awt.Dimension(500, 500));
+        drawingPanel.setLayout(new java.awt.BorderLayout());
+        add(drawingPanel, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void resumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumeButtonActionPerformed
+        rotationAlpha1.resume();
+        rotationAlpha2.resume();
+    }//GEN-LAST:event_resumeButtonActionPerformed
+
+    private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
+        rotationAlpha1.pause();
+        rotationAlpha2.pause();
+    }//GEN-LAST:event_pauseButtonActionPerformed
+            
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel drawingPanel;
+    private javax.swing.JPanel guiPanel;
+    private javax.swing.JButton pauseButton;
+    private javax.swing.JButton resumeButton;
+    // End of variables declaration//GEN-END:variables
+    
 }
