@@ -125,15 +125,12 @@ public class Applet3D extends javax.swing.JPanel {
         GraphicsDevice graphicsDevice;
         if (container.getGraphicsConfiguration() != null) {
             graphicsDevice = container.getGraphicsConfiguration().getDevice();
-            System.err.println("graphics device = " + graphicsDevice);
         } else {
             graphicsDevice =
                     GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            System.err.println("*** using default screen graphics device = ( " + graphicsDevice + " )");
         }
         GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
 	GraphicsConfiguration config = graphicsDevice.getBestConfiguration(template);
-        System.err.println("graphics config = " + config);
 
 	Canvas3D c = new Canvas3D(config);
 
