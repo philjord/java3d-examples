@@ -47,11 +47,15 @@ package org.jdesktop.j3d.examples.applet3d;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import javax.media.j3d.Alpha;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
+import javax.media.j3d.GraphicsConfigTemplate3D;
 import javax.media.j3d.RotationInterpolator;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -106,7 +110,7 @@ public class Applet3D extends javax.swing.JPanel {
 
         Transform3D yAxis2 = new Transform3D();
         yAxis2.rotX(Math.PI/4.0);
-        rotationAlpha2 = new Alpha(-1, 10000);
+        rotationAlpha2 = new Alpha(-1, 13000);
 
 	RotationInterpolator rotator2 =
 	    new RotationInterpolator(rotationAlpha2, objTrans2, yAxis2,
@@ -117,9 +121,19 @@ public class Applet3D extends javax.swing.JPanel {
 	return objRoot;
     }
 
-    private Canvas3D createUniverse() {
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+    private Canvas3D createUniverse(Container container) {
+        GraphicsDevice graphicsDevice;
+        if (container.getGraphicsConfiguration() != null) {
+            graphicsDevice = container.getGraphicsConfiguration().getDevice();
+            System.err.println("graphics device = " + graphicsDevice);
+        } else {
+            graphicsDevice =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            System.err.println("*** using default screen graphics device = ( " + graphicsDevice + " )");
+        }
+        GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
+	GraphicsConfiguration config = graphicsDevice.getBestConfiguration(template);
+        System.err.println("graphics config = " + config);
 
 	Canvas3D c = new Canvas3D(config);
 
@@ -142,13 +156,13 @@ public class Applet3D extends javax.swing.JPanel {
     /**
      * Creates new form Applet3D
      */
-    public Applet3D() {
+    public Applet3D(Container container) {
         // Initialize the GUI components
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
         initComponents();
 
         // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
-        Canvas3D c = createUniverse();
+        Canvas3D c = createUniverse(container);
         drawingPanel.add(c, BorderLayout.CENTER);
 
         // Create the content branch and add it to the universe
@@ -165,7 +179,7 @@ public class Applet3D extends javax.swing.JPanel {
 
         public void init() {
             setLayout(new BorderLayout());
-            mainPanel = new Applet3D();
+            mainPanel = new Applet3D(this);
             add(mainPanel, BorderLayout.CENTER);
         }
 
@@ -181,7 +195,7 @@ public class Applet3D extends javax.swing.JPanel {
             setLayout(new BorderLayout());
             setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             setTitle("Simple 3D Applet");
-            getContentPane().add(new Applet3D(), BorderLayout.CENTER);
+            getContentPane().add(new Applet3D(this), BorderLayout.CENTER);
             pack();
         }
     }
