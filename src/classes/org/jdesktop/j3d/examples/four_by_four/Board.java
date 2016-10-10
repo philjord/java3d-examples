@@ -44,7 +44,8 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 /**
  *  Class:       Board

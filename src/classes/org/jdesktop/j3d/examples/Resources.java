@@ -44,6 +44,8 @@
 
 package org.jdesktop.j3d.examples;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -62,7 +64,19 @@ public class Resources {
      * Return the URL of the filename under the resources directory
      */
     public static URL getResource(String filename) {    
-         URL url = Resources.class.getResource(filename); 
+         URL url = Resources.class.getClassLoader().getResource(filename); 
+         
+         if(url == null)
+         {
+        	try
+			{
+				url = new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/"+filename).toURL();
+			}
+			catch (MalformedURLException e)
+			{
+				e.printStackTrace();
+			}
+         }
          return url;
     }
     

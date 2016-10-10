@@ -44,12 +44,37 @@
 
 package org.jdesktop.j3d.examples.appearance;
 
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.GraphicsContext3D;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.IndexedTriangleArray;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.PointAttributes;
+import org.jogamp.java3d.PolygonAttributes;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.TransparencyAttributes;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class AppearanceMixed extends javax.swing.JFrame {
 
@@ -509,7 +534,7 @@ public class AppearanceMixed extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AppearanceMixed().setVisible(true);

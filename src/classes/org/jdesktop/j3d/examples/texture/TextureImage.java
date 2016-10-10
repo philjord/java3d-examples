@@ -45,14 +45,25 @@
 package org.jdesktop.j3d.examples.texture;
 
 import java.applet.Applet;
-import java.awt.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.geometry.Box;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.Box;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 public class TextureImage extends Applet {
 
@@ -119,7 +130,7 @@ public class TextureImage extends Applet {
         texImage = url;
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
         if (texImage == null) {
   	    // the path to the image for an applet
             texImage = Resources.getResource(defaultFileName);
@@ -154,7 +165,7 @@ public class TextureImage extends Applet {
     // The following allows TextureImage to be run as an application
     // as well as an applet
     //
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.net.URL url = null;
         if (args.length > 0) {
             try {

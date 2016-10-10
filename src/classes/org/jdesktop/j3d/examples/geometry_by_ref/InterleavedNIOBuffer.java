@@ -44,18 +44,55 @@
 
 package org.jdesktop.j3d.examples.geometry_by_ref;
 
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.image.TextureLoader;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import com.sun.j3d.utils.behaviors.vp.*;
-import java.nio.*;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
+import javax.swing.BoxLayout;
+import javax.swing.JApplet;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.IndexedTriangleArray;
+import org.jogamp.java3d.IndexedTriangleStripArray;
+import org.jogamp.java3d.J3DBuffer;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.RenderingAttributes;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.TextureUnitState;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.TransparencyAttributes;
+import org.jogamp.java3d.TriangleArray;
+import org.jogamp.java3d.TriangleStripArray;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point2f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 public class InterleavedNIOBuffer extends JApplet implements ActionListener {
 
@@ -331,7 +368,7 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
 	texImage2 = texURL2;
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
 	// create textures
         texImage1 = Resources.getResource("resources/images/bg.jpg");
@@ -412,7 +449,7 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
 
 
 			   
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.net.URL texURL1 = null;
         java.net.URL texURL2 = null;
         // the path to the image for an application

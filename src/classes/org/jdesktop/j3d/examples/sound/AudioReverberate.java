@@ -45,9 +45,15 @@
 package org.jdesktop.j3d.examples.sound;
 
 import java.net.URL;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.util.Enumeration;
+
+import org.jogamp.java3d.AuralAttributes;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.MediaContainer;
+import org.jogamp.java3d.PointSound;
+import org.jogamp.java3d.WakeupOnBehaviorPost;
+import org.jogamp.java3d.WakeupOnElapsedTime;
+import org.jogamp.vecmath.Point3f;
 
 /*
  * Pick the JavaSound reverb type that matches the input parameters

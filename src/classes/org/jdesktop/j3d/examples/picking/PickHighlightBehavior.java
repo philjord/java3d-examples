@@ -44,16 +44,16 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import javax.media.j3d.*;
-import com.sun.j3d.utils.picking.PickTool;
-import com.sun.j3d.utils.picking.PickResult;
-import com.sun.j3d.utils.picking.behaviors.PickMouseBehavior;
-import java.util.*;
-import java.awt.*;
-import java.awt.Event;
-import java.awt.AWTEvent;
-import java.awt.event.MouseEvent;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Bounds;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.picking.PickResult;
+import org.jogamp.java3d.utils.picking.PickTool;
+import org.jogamp.java3d.utils.picking.behaviors.PickMouseBehavior;
+import org.jogamp.vecmath.Color3f;
 
 public class PickHighlightBehavior extends PickMouseBehavior {
   Appearance savedAppearance = null;

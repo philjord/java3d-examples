@@ -44,8 +44,11 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Geometry;
+import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.vecmath.Vector3f;
 
 public class Cube extends Shape3D {
     private static final float[] verts = {

@@ -44,18 +44,20 @@
 
 package org.jdesktop.j3d.examples.package_info;
 
-import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.media.j3d.Canvas3D;
-import javax.media.j3d.GraphicsConfigTemplate3D;
-import javax.media.j3d.VirtualUniverse;
+
 import javax.swing.JTextArea;
+
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.GraphicsConfigTemplate3D;
+import org.jogamp.java3d.VirtualUniverse;
 
 public class QueryProperties extends javax.swing.JFrame {
 
@@ -185,7 +187,7 @@ public class QueryProperties extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new QueryProperties().setVisible(true);

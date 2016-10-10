@@ -44,8 +44,9 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.Shape3D;
 
 public class Cylinder {
    

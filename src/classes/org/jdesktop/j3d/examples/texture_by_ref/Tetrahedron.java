@@ -44,8 +44,13 @@
 
 package org.jdesktop.j3d.examples.texture_by_ref;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.TriangleArray;
+import org.jogamp.vecmath.Point2f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.TexCoord2f;
+import org.jogamp.vecmath.Vector3f;
 
 
 public class Tetrahedron extends Shape3D {

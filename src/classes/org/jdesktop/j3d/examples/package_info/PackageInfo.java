@@ -90,8 +90,8 @@ public class PackageInfo extends javax.swing.JFrame {
 
 	ClassLoader classLoader = getClass().getClassLoader();
 
-	pkgInfo(myTextArea, classLoader, "javax.vecmath", "Point3d");
-	pkgInfo(myTextArea, classLoader, "javax.media.j3d", "SceneGraphObject");
+	pkgInfo(myTextArea, classLoader, "org.jogamp.vecmath", "Point3d");
+	pkgInfo(myTextArea, classLoader, "org.jogamp.java3d", "SceneGraphObject");
 	pkgInfo(myTextArea, classLoader, "com.sun.j3d.utils.universe", "SimpleUniverse");
     }
 
@@ -123,7 +123,7 @@ public class PackageInfo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PackageInfo().setVisible(true);

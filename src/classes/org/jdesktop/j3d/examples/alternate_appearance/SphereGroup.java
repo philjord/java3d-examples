@@ -44,9 +44,16 @@
 
 package org.jdesktop.j3d.examples.alternate_appearance;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.geometry.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.Primitive;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Vector3d;
 
 public class SphereGroup
 	extends Group

@@ -45,13 +45,21 @@
 package org.jdesktop.j3d.examples.virtual_input_device;
 
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.InputDevice;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 public class VirtualInputDeviceTest extends Applet {
 
@@ -84,7 +92,7 @@ public class VirtualInputDeviceTest extends Applet {
 
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	// These are the string arguments given to the VirtualInputDevice
         // constructor.  These are settable parameters.  Look in the 
         // VirtualInputDevice constructor for a complete list.
@@ -130,7 +138,7 @@ public class VirtualInputDeviceTest extends Applet {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new VirtualInputDeviceTest(), 350, 350);
     }
 }

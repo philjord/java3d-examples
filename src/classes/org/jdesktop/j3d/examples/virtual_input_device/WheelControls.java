@@ -44,9 +44,18 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 
 public class WheelControls extends Canvas implements RotationControls, MouseMotionListener, MouseListener {
 

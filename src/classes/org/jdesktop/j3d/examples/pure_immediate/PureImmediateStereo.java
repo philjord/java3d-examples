@@ -44,13 +44,25 @@
 
 package org.jdesktop.j3d.examples.pure_immediate;
 
-import java.util.*;
-import com.sun.j3d.utils.geometry.*;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
+import java.util.Map;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.GraphicsConfigTemplate3D;
+import org.jogamp.java3d.GraphicsContext3D;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.utils.geometry.Cone;
+import org.jogamp.java3d.utils.geometry.Primitive;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Pure immediate mode stereo example program for stereo. In pure 
@@ -281,7 +293,7 @@ public class PureImmediateStereo extends javax.swing.JFrame implements Runnable 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PureImmediateStereo().setVisible(true);

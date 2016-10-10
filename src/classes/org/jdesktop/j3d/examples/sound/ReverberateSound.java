@@ -55,15 +55,28 @@ package org.jdesktop.j3d.examples.sound;
  */
 
 import java.applet.Applet;
-import java.awt.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.*;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
 import java.net.URL;
-import javax.media.j3d.*;
+
 import javax.swing.JOptionPane;
-import javax.vecmath.*;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AudioDevice;
+import org.jogamp.java3d.AuralAttributes;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.PointSound;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Soundscape;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 public class ReverberateSound extends Applet {
 
@@ -141,7 +154,7 @@ public class ReverberateSound extends Applet {
     public ReverberateSound() { 
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
             url = Resources.getResource("resources/audio/hello_universe.au");
             if (url == null) {
                 System.err.println("resources/audio/hello_universe.au not found");
@@ -183,7 +196,7 @@ public class ReverberateSound extends Applet {
     // The following allows ReverberateSound to be run as an application
     // as well as an applet
     //
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new ReverberateSound(), 256, 256);
     }
 }

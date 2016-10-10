@@ -44,23 +44,51 @@
 
 package org.jdesktop.j3d.examples.spline_anim;
 
-import java.io.*;
 import java.applet.Applet;
+import java.awt.Button;
+import java.awt.Choice;
 import java.awt.FlowLayout;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Hashtable;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.*;
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.loaders.Scene;
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-import com.sun.j3d.loaders.ParsingErrorException;
-import com.sun.j3d.loaders.IncorrectFormatException;
-import com.sun.j3d.utils.behaviors.vp.*;
-import com.sun.j3d.utils.behaviors.interpolators.*;
+import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.ItemSelectable;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.Scrollbar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Light;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.interpolators.KBKeyFrame;
+import org.jogamp.java3d.utils.behaviors.interpolators.KBRotPosScaleSplinePathInterpolator;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.geometry.Cone;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 
 
@@ -136,7 +164,7 @@ public class SplineAnim extends Applet implements ActionListener,
     public SplineAnim() {
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	this.setLayout(new FlowLayout());   
 
         // Create the canvas and the UI
@@ -597,7 +625,7 @@ public class SplineAnim extends Applet implements ActionListener,
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         Frame frame = new MainFrame(new SplineAnim(), 500, 600);
     }
 }

@@ -46,18 +46,38 @@ package org.jdesktop.j3d.examples.oriented_shape3d;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.geometry.Cone;
-import com.sun.j3d.utils.geometry.Cylinder;
-import com.sun.j3d.utils.geometry.Sphere;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.awt.*;
-import com.sun.j3d.utils.behaviors.vp.*;
+import java.awt.Font;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Font3D;
+import org.jogamp.java3d.FontExtrusion;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.OrientedShape3D;
+import org.jogamp.java3d.Text3D;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.geometry.Cone;
+import org.jogamp.java3d.utils.geometry.Cylinder;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class OrientedPtTest extends Applet {
 
@@ -222,7 +242,7 @@ public class OrientedPtTest extends Applet {
 	stoneImage = stoneURL;
     }
       
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
         // the paths to the image files for an applet
         earthImage = Resources.getResource("resources/images/earth.jpg");
         if (earthImage == null) {
@@ -269,7 +289,7 @@ public class OrientedPtTest extends Applet {
     // The following allows OrientedPtTest to be run as an application
     // as well as an applet
     //
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.net.URL earthURL = null;
 	java.net.URL stoneURL = null;
         earthURL = Resources.getResource("resources/images/earth.jpg");

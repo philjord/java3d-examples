@@ -43,17 +43,35 @@
  */
 package org.jdesktop.j3d.examples.sound;
 
-import com.sun.j3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
-import com.sun.j3d.utils.geometry.Sphere;
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.geometry.ColorCube;
-import java.net.URL;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFrame;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
+import java.net.URL;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BackgroundSound;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.Bounds;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.LineArray;
+import org.jogamp.java3d.LineAttributes;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.PolygonAttributes;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Sound;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.Viewer;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * This is a test for a BackgroundSound. 
@@ -256,7 +274,7 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BackgroundSoundTest().setVisible(true);

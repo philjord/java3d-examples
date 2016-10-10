@@ -44,17 +44,39 @@
 
 package org.jdesktop.j3d.examples.geometry_by_ref;
 
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import javax.swing.*;
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.geometry.Box;
-import java.awt.image.*;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+
+import javax.swing.BoxLayout;
+import javax.swing.JApplet;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.ImageComponent;
+import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.Raster;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.Texture2D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.Box;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 public class ImageComponentByReferenceTest extends JApplet implements ActionListener {
 
@@ -73,7 +95,7 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
     ImageComponent2D[] image = new ImageComponent2D[8];
     Appearance dummyApp = new Appearance();
     Texture2D texOne, texCheckBoard;
-    javax.media.j3d.Raster raster;
+    Raster raster;
     Box textureCube;
     Shape3D boxShape;
     int w1 = 64, h1 = 32, checkw = 16 , checkh = 16;
@@ -242,7 +264,7 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
         texImage = url;
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
         
         texImage = Resources.getResource("resources/images/one.jpg");
         if (texImage == null) {
@@ -271,7 +293,7 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
 	u.cleanup();
     }
  
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.net.URL url = null;
         // the path to the image file for an application
         url = Resources.getResource("resources/images/one.jpg");
@@ -290,11 +312,11 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
 	TransformGroup tg;
 
 	// Left
-	raster = new javax.media.j3d.Raster( );
-	raster.setCapability(javax.media.j3d.Raster.ALLOW_IMAGE_WRITE);
-	raster.setCapability(javax.media.j3d.Raster.ALLOW_SIZE_WRITE);
+	raster = new Raster( );
+	raster.setCapability(Raster.ALLOW_IMAGE_WRITE);
+	raster.setCapability(Raster.ALLOW_SIZE_WRITE);
 	raster.setPosition( new Point3f( -0.9f, 0.75f, 0.0f ) );
-	raster.setType( javax.media.j3d.Raster.RASTER_COLOR );
+	raster.setType( Raster.RASTER_COLOR );
 	raster.setOffset( 0, 0 );
 
 	raster.setSize( image[2].getWidth(), image[2].getHeight() );

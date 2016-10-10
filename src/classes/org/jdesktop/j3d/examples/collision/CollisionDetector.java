@@ -45,8 +45,14 @@
 package org.jdesktop.j3d.examples.collision;
 
 import java.util.Enumeration;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.WakeupOnCollisionEntry;
+import org.jogamp.java3d.WakeupOnCollisionExit;
+import org.jogamp.vecmath.Color3f;
 
 public class CollisionDetector extends Behavior {
     private static final Color3f highlightColor =

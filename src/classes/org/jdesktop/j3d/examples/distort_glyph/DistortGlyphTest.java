@@ -44,15 +44,37 @@
 
 package org.jdesktop.j3d.examples.distort_glyph;
 
-import com.sun.j3d.utils.behaviors.mouse.*;
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.universe.*;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Font3D;
+import org.jogamp.java3d.FontExtrusion;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.GraphicsConfigTemplate3D;
+import org.jogamp.java3d.Light;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.PointLight;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.TexCoordGeneration;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseTranslate;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseZoom;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 public class DistortGlyphTest extends javax.swing.JFrame {
 
@@ -217,7 +239,7 @@ public class DistortGlyphTest extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DistortGlyphTest().setVisible(true);

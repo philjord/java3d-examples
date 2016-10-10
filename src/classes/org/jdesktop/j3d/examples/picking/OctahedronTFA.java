@@ -44,8 +44,10 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.TriangleFanArray;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3f;
 
 class OctahedronTFA extends TriangleFanArray {
   private static final int[] sVertCnt = {

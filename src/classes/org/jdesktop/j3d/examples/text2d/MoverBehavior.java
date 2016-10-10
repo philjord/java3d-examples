@@ -44,11 +44,21 @@
 
 package org.jdesktop.j3d.examples.text2d;
 
-import java.awt.event.*;
 import java.awt.AWTEvent;
-import javax.media.j3d.*;
+import java.awt.event.KeyEvent;
 import java.util.Enumeration;
-import javax.vecmath.*;
+
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.Bounds;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCondition;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnAWTEvent;
+import org.jogamp.java3d.WakeupOr;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 // Mover behavior class - used to allow viewer to move using arrow keys
 class MoverBehavior extends Behavior

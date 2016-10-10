@@ -46,16 +46,37 @@ package org.jdesktop.j3d.examples.picking;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import com.sun.j3d.utils.picking.PickTool;
-import com.sun.j3d.utils.picking.behaviors.*;
-import com.sun.j3d.utils.geometry.Sphere;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.util.Enumeration;
-import java.awt.*;
-import java.lang.String;
+import java.awt.Font;
+import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.Font3D;
+import org.jogamp.java3d.FontExtrusion;
+import org.jogamp.java3d.Geometry;
+import org.jogamp.java3d.Light;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.PointLight;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Text3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.picking.PickTool;
+import org.jogamp.java3d.utils.picking.behaviors.PickRotateBehavior;
+import org.jogamp.java3d.utils.picking.behaviors.PickTranslateBehavior;
+import org.jogamp.java3d.utils.picking.behaviors.PickZoomBehavior;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
 
 public class PickText3DGeometry extends Applet {
 
@@ -221,7 +242,7 @@ public class PickText3DGeometry extends Applet {
   public PickText3DGeometry() {
   }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
 	GraphicsConfiguration config =
 	    SimpleUniverse.getPreferredConfiguration();
@@ -246,7 +267,7 @@ public class PickText3DGeometry extends Applet {
   // The following allows Text3DMotion to be run as an application
   // as well as an applet
     //
-  public static void main(String[] args) {
+  public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
     new MainFrame(new PickText3DGeometry(), 700, 700);
   }
 }

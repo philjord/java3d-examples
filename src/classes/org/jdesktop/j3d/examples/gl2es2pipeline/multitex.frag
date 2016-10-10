@@ -42,36 +42,23 @@
  * $State$
  */
 
+uniform float cloudFactor;
+uniform sampler2D earthTex;
+uniform sampler2D cloudTex;
 
-// define inputs from application
-struct appin
+uniform sampler2D EnvMap;
+
+varying vec2 texCoord0;
+varying vec2 texCoord1;
+
+void main (void)
 {
-    float4 Position   : POSITION;
-    float4 Normal     : NORMAL;
-};
+    vec2  tc0 = texCoord0.xy;
+    vec2  tc1 = texCoord1.xy;
 
-// define outputs from vertex shader
-struct vertout
-{
-    float4 Position  : POSITION;
-    float4 Color0    : COLOR0;
-};
+    vec3 color0 = vec3(texture2D(cloudTex, tc0));
+    vec3 color1 = vec3(texture2D(earthTex, tc1));
+    vec3 finalColor = color0*cloudFactor + color1;
 
-
-vertout main(appin IN,
-             float3 temperature,
-             float weight,
-             uniform float4x4 ModelViewProj)
-{
-    vertout OUT;
-
-    ModelViewProj = glstate.matrix.mvp;
-
-    // transform vertex position into homogenous clip-space
-    OUT.Position = mul(ModelViewProj, IN.Position);
-
-    // Compute color from temperature, weight
-    OUT.Color0 = float4(temperature * weight, 1.0);
-
-    return OUT;
+    gl_FragColor = vec4(finalColor, 1.0);
 }

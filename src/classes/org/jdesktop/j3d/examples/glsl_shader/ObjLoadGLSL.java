@@ -44,23 +44,49 @@
 
 package org.jdesktop.j3d.examples.glsl_shader;
 
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-import com.sun.j3d.loaders.ParsingErrorException;
-import com.sun.j3d.loaders.IncorrectFormatException;
-import com.sun.j3d.loaders.Scene;
-import com.sun.j3d.utils.shader.StringIO;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
-import java.net.MalformedURLException;
-import java.util.Enumeration;
-import java.io.*;
-import java.net.URL;
-import com.sun.j3d.utils.behaviors.vp.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
+
 import javax.swing.JOptionPane;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.GLSLShaderProgram;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Node;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Shader;
+import org.jogamp.java3d.ShaderAppearance;
+import org.jogamp.java3d.ShaderError;
+import org.jogamp.java3d.ShaderErrorListener;
+import org.jogamp.java3d.ShaderProgram;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.SourceCodeShader;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.loaders.IncorrectFormatException;
+import org.jogamp.java3d.loaders.ParsingErrorException;
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.objectfile.ObjectFile;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.shader.StringIO;
+import org.jogamp.java3d.utils.universe.PlatformGeometry;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Simple Java 3D example program to display an .obj object with shader programs.

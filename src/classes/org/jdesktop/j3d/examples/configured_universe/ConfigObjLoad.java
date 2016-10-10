@@ -44,21 +44,36 @@
 
 package org.jdesktop.j3d.examples.configured_universe;
 
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-import com.sun.j3d.loaders.ParsingErrorException;
-import com.sun.j3d.loaders.IncorrectFormatException;
-import com.sun.j3d.loaders.Scene;
-import java.awt.event.*;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.io.*;
-import com.sun.j3d.utils.behaviors.vp.*;
-import com.sun.j3d.utils.behaviors.sensor.Mouse6DPointerBehavior;
-import java.net.URL;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Sensor;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.loaders.IncorrectFormatException;
+import org.jogamp.java3d.loaders.ParsingErrorException;
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.objectfile.ObjectFile;
+import org.jogamp.java3d.utils.behaviors.sensor.Mouse6DPointerBehavior;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.universe.ConfiguredUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class ConfigObjLoad {
 
@@ -178,7 +193,7 @@ public class ConfigObjLoad {
     } // End of usage
 
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	if (filename == null) {
             filename = Resources.getResource("resources/geometry/galleon.obj");
             if (filename == null) {
@@ -306,7 +321,7 @@ public class ConfigObjLoad {
       init();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
       new ConfigObjLoad(args);
     }
 }

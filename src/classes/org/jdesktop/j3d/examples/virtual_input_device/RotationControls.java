@@ -44,8 +44,6 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import java.awt.Component;
-
 // Classes that implement this interface must be a subclass
 // of java.awt.Component
 

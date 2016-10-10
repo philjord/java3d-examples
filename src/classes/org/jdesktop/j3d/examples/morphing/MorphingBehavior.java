@@ -45,8 +45,11 @@
 package org.jdesktop.j3d.examples.morphing;
 
 import java.util.Enumeration;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.Morph;
+import org.jogamp.java3d.WakeupOnElapsedFrames;
 
 // User-defined morphing behavior class
 public class MorphingBehavior extends Behavior {

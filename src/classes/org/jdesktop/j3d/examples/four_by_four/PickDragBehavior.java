@@ -44,12 +44,28 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.geometry.Sphere;
+import java.awt.AWTEvent;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.CapabilityNotSetException;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Node;
+import org.jogamp.java3d.PickRay;
+import org.jogamp.java3d.SceneGraphPath;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnAWTEvent;
+import org.jogamp.java3d.WakeupOr;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3d;
 
 /**
  * Class:       PickDragBehavior

@@ -44,8 +44,8 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.CompressedGeometry;
+import org.jogamp.java3d.CompressedGeometryHeader;
 
 class BoltCG extends CompressedGeometry {
 

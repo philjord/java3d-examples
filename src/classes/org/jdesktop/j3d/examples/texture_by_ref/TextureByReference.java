@@ -45,17 +45,51 @@
 package org.jdesktop.j3d.examples.texture_by_ref;
 
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.awt.image.*;
-import com.sun.j3d.utils.image.TextureLoader;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.Texture2D;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 
 public class TextureByReference extends Applet 
@@ -109,7 +143,7 @@ implements ItemListener, ActionListener, ChangeListener {
      urls = fnamesP;
    }
 
-  public void init() {
+  public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
     if (urls == null) {
       urls = new java.net.URL[defaultFiles.length];
       for (int i = 0; i < defaultFiles.length; i++) {
@@ -502,7 +536,7 @@ implements ItemListener, ActionListener, ChangeListener {
   }
 
   // allows TextureByReference to be run as an application as well as an applet
-  public static void main(String[] args) {
+  public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
     java.net.URL fnames[] = null;
     if (args.length > 1) {
       fnames = new java.net.URL[args.length];

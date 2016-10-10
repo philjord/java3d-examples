@@ -44,9 +44,11 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
+import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Class:       Canvas2D

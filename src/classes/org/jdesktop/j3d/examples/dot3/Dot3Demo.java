@@ -44,48 +44,45 @@
 
 package org.jdesktop.j3d.examples.dot3;
 
-import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
-import com.sun.j3d.utils.geometry.GeometryInfo;
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.universe.SimpleUniverse;
-import com.sun.j3d.utils.universe.ViewingPlatform;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.image.BufferedImage;
-
 import java.util.Enumeration;
-
-import javax.media.j3d.AmbientLight;
-import javax.media.j3d.Appearance;
-import javax.media.j3d.Background;
-import javax.media.j3d.Behavior;
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Canvas3D;
-import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.GeometryArray;
-import javax.media.j3d.ImageComponent2D;
-import javax.media.j3d.Material;
-import javax.media.j3d.PolygonAttributes;
-import javax.media.j3d.Shape3D;
-import javax.media.j3d.TexCoordGeneration;
-import javax.media.j3d.Texture;
-import javax.media.j3d.Texture2D;
-import javax.media.j3d.TextureAttributes;
-import javax.media.j3d.TextureUnitState;
-import javax.media.j3d.WakeupOnElapsedFrames;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import javax.vecmath.Color3f;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3f;
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.PolygonAttributes;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.TexCoordGeneration;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.Texture2D;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.TextureUnitState;
+import org.jogamp.java3d.WakeupOnElapsedFrames;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * This example program is contributed by Alessandro Borges
@@ -512,7 +509,7 @@ public class Dot3Demo extends JFrame {
      * main method
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Dot3Demo();

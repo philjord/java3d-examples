@@ -44,7 +44,7 @@
 
 package org.jdesktop.j3d.examples.depth_func;
 
-import javax.media.j3d.*;
+import org.jogamp.java3d.RenderingAttributes;
 
 
 /**
@@ -331,7 +331,7 @@ public class DepthFuncTest extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 DepthFuncTest dpt = new DepthFuncTest();

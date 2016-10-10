@@ -46,17 +46,16 @@ package org.jdesktop.j3d.examples.distort_glyph;
 
 import java.util.Enumeration;
 
-import javax.media.j3d.Appearance;
-import javax.media.j3d.Behavior;
-import javax.media.j3d.GeometryArray;
-import javax.media.j3d.Shape3D;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.WakeupCondition;
-import javax.media.j3d.WakeupCriterion;
-import javax.media.j3d.WakeupOnElapsedFrames;
-import javax.media.j3d.WakeupOnElapsedTime;
-
-import javax.vecmath.Vector3f;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.WakeupCondition;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnElapsedFrames;
+import org.jogamp.java3d.WakeupOnElapsedTime;
+import org.jogamp.vecmath.Vector3f;
 
 public class DistortBehavior extends Behavior {
     // the wake up condition for the behavior

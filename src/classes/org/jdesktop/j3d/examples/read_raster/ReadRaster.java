@@ -46,16 +46,28 @@ package org.jdesktop.j3d.examples.read_raster;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.event.*;
-import java.awt.image.DataBufferInt;
-import java.awt.image.BufferedImage;
 import java.awt.GraphicsConfiguration;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import java.awt.image.BufferedImage;
 import java.util.Enumeration;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.GraphicsContext3D;
+import org.jogamp.java3d.ImageComponent;
+import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.Raster;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
 
 public class ReadRaster extends Applet {
 
@@ -123,7 +135,7 @@ public class ReadRaster extends Applet {
     public ReadRaster() {
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	
     	int width = 128;
 	int height = 128;
@@ -164,7 +176,7 @@ public class ReadRaster extends Applet {
     // The following allows ReadRaster to be run as an application
     // as well as an applet
     //
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new ReadRaster(), 256, 256);
     }
 }

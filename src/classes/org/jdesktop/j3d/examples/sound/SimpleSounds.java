@@ -45,15 +45,27 @@
 package org.jdesktop.j3d.examples.sound;
 
 import java.applet.Applet;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
 import java.net.URL;
-import java.awt.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
+
 import javax.swing.JOptionPane;
-import javax.vecmath.*;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AudioDevice;
+import org.jogamp.java3d.BackgroundSound;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.PointSound;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 /*
  * This Java3D program:
@@ -189,7 +201,7 @@ public class SimpleSounds extends Applet {
     public SimpleSounds() {
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
 	setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -244,7 +256,7 @@ public class SimpleSounds extends Applet {
      * The following allows SimpleSounds to be run as an application
      * as well as an applet
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new SimpleSounds(), args, 256, 256);
     }
 }

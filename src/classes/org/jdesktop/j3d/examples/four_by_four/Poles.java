@@ -44,10 +44,8 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import java.applet.Applet;
-import java.awt.event.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Group;
 
 /**
  * Class:       Poles

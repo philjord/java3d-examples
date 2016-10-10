@@ -44,13 +44,31 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.pickfast.*;
-import com.sun.j3d.utils.geometry.*;
+import java.awt.AWTEvent;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Node;
+import org.jogamp.java3d.PickInfo;
+import org.jogamp.java3d.PolygonAttributes;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnAWTEvent;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.pickfast.PickCanvas;
+import org.jogamp.java3d.utils.pickfast.PickIntersection;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Color4f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Class:       IntersectInfoBehavior

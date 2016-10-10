@@ -7,7 +7,7 @@
  * modification, are permitted provided that the following conditions
  * are met:
  *
- * - Redistribution of source code must retain the above copyright
+ * - Redistribution of source code must retain the above copyright	
  *   notice, this list of conditions and the following disclaimer.
  *
  * - Redistribution in binary form must reproduce the above copyright
@@ -44,18 +44,36 @@
 
 package org.jdesktop.j3d.examples.alternate_appearance;
 
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.*;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.border.*;
-import com.sun.j3d.utils.behaviors.mouse.*;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JApplet;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+
+import org.jogamp.java3d.AlternateAppearance;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingLeaf;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.Bounds;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class AlternateAppearanceBoundsTest extends JApplet 
 implements ActionListener {
@@ -104,7 +122,7 @@ implements ActionListener {
     public AlternateAppearanceBoundsTest() {
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	Container contentPane = getContentPane();
 	
         Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
@@ -303,7 +321,7 @@ implements ActionListener {
     }
 			   
 			   
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	Frame frame = new MainFrame(new AlternateAppearanceBoundsTest(), 800, 800);
     }
 

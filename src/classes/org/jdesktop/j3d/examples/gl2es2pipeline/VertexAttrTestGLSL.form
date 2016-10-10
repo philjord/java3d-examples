@@ -23,7 +23,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="title" type="java.lang.String" value="Vertex Attribute Test"/>
+    <Property name="title" type="java.lang.String" value="VertexAttrTestGLSL"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>

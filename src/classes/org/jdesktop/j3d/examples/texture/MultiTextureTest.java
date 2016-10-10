@@ -44,18 +44,37 @@
 
 package org.jdesktop.j3d.examples.texture;
 
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.geometry.Box;
-import com.sun.j3d.utils.behaviors.vp.*;
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import java.awt.BorderLayout;
+import java.awt.Choice;
+import java.awt.GraphicsConfiguration;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.ImageComponent;
+import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.Texture2D;
+import org.jogamp.java3d.TextureAttributes;
+import org.jogamp.java3d.TextureUnitState;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.geometry.Box;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class MultiTextureTest extends Applet implements ItemListener{
 
@@ -208,7 +227,7 @@ public class MultiTextureTest extends Applet implements ItemListener{
     skyImage = skyURL;
   }
 
-  public void init() {
+  public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
       if (stoneImage == null) {
           // the path to the image for an applet
           stoneImage = Resources.getResource("resources/images/stone.jpg");

@@ -46,13 +46,29 @@ package org.jdesktop.j3d.examples.picking;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.event.*;
 import java.awt.GraphicsConfiguration;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.behaviors.keyboard.*;
+
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.LineArray;
+import org.jogamp.java3d.PointArray;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.View;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class IntersectTest extends Applet {
 
@@ -177,7 +193,7 @@ public class IntersectTest extends Applet {
   public IntersectTest () {
   }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
 	
 	GraphicsConfiguration config =
@@ -219,7 +235,7 @@ public class IntersectTest extends Applet {
   // The following allows IntersectTest to be run as an application
   // as well as an applet
   //
-  public static void main(String[] args) {
+  public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
     String s = "\n\nIntersectTest:\n-----------\n";
     s += "Pick with the mouse over the primitives\n";
     s += "- A sphere will be placed to indicate the picked point.\n";

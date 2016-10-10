@@ -41,16 +41,30 @@
  * $Date$
  * $State$
  */
+ 
+// GL2ES2: Java3D built-in attributes, these are calculated and passsed in if declared here
+attribute vec4 glVertex;
 
-float4 main(float2 tc0 : TEXCOORD0,
-            float2 tc1: TEXCOORD1,
-            uniform float cloudFactor,
-            uniform sampler2D earthTex : TEXUNIT1,
-            uniform sampler2D cloudTex : TEXUNIT0): COLOR
+// GL2ES2: Java3D built-in uniforms, these are calculated and passsed in if declared here
+uniform mat4 glModelViewProjectionMatrix;
+
+// A simple GLSL vertex program for demo. vertex attributes
+
+attribute float weight;
+attribute vec3 temperature;
+
+//GL2ES2: varying color data needs to be defined
+varying vec4 glFrontColor;
+
+void main()
 {
-    float3 color0 = tex2D(cloudTex, tc0).rgb;
-    float3 color1 = tex2D(earthTex, tc1).rgb;
-    float3 finalColor = color0*cloudFactor + color1;
+    // Transform the vertex
+    vec4 outPosition = glModelViewProjectionMatrix * glVertex;
 
-    return float4(finalColor, 1.0);
+    // Compute color from temperature
+    vec4 outColor;
+    outColor = vec4(temperature * weight, 1);
+    // Assign output parameters
+    glFrontColor = outColor;
+    gl_Position = outPosition;
 }

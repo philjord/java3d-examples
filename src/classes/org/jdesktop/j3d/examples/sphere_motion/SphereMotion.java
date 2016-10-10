@@ -44,11 +44,32 @@
 
 package org.jdesktop.j3d.examples.sphere_motion;
 
-import com.sun.j3d.utils.geometry.Sphere;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ColoringAttributes;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Light;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.PointLight;
+import org.jogamp.java3d.PositionInterpolator;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.SpotLight;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class SphereMotion extends javax.swing.JFrame {
 

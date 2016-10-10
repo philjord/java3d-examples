@@ -49,7 +49,6 @@ package org.jdesktop.j3d.examples.jcanvas3d;
  * Simple Java 3D example program that displays universes within lightweight swing components, layed in JInternalFrame objects.
  */
 import java.awt.Toolkit;
-import javax.swing.table.DefaultTableModel;
 
 public class JCanvas3DExample extends javax.swing.JFrame implements java.awt.event.ActionListener
 {

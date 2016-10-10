@@ -44,8 +44,12 @@
 
 package org.jdesktop.j3d.examples.appearance;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.TriangleArray;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.TexCoord2f;
+import org.jogamp.vecmath.Vector3f;
 
 public class Tetrahedron extends Shape3D {
     private static final float sqrt3 = (float) Math.sqrt(3.0);

@@ -44,12 +44,16 @@
 
 package org.jdesktop.j3d.examples.oriented_shape3d;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.behaviors.mouse.*;
+import java.awt.AWTEvent;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnAWTEvent;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseBehavior;
+import org.jogamp.vecmath.Matrix4d;
+import org.jogamp.vecmath.Vector3d;
 
 /**
  * MouseRotateY is a Java3D behavior object that lets users control the 

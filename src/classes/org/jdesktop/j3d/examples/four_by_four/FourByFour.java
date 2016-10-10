@@ -45,15 +45,48 @@
 package org.jdesktop.j3d.examples.four_by_four;
 
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.net.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import com.sun.j3d.utils.universe.SimpleUniverse;
-import com.sun.j3d.utils.applet.MainFrame;
+import java.awt.Button;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StreamTokenizer;
+import java.net.URL;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingLeaf;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.View;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Class        FourByFour
@@ -126,7 +159,7 @@ public class FourByFour extends Applet implements ActionListener {
    /**
     * Initialization
     */
-   public void init() {
+   public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
       // Set the port number.
       port = 4111;
@@ -852,7 +885,7 @@ public class FourByFour extends Applet implements ActionListener {
   /**
    *  Main method, only used when running as an application.
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
     FourByFour.appletFlag = false;
     new MainFrame(new FourByFour(), 730, 450);
   }

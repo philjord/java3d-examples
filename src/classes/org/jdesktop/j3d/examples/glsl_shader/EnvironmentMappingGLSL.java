@@ -44,17 +44,40 @@
 
 package org.jdesktop.j3d.examples.glsl_shader;
 
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.geometry.Sphere;
-import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.shader.StringIO;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
 import java.io.IOException;
 import java.net.URL;
+
 import javax.swing.JOptionPane;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.GLSLShaderProgram;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Shader;
+import org.jogamp.java3d.ShaderAppearance;
+import org.jogamp.java3d.ShaderAttribute;
+import org.jogamp.java3d.ShaderAttributeSet;
+import org.jogamp.java3d.ShaderAttributeValue;
+import org.jogamp.java3d.ShaderError;
+import org.jogamp.java3d.ShaderErrorListener;
+import org.jogamp.java3d.ShaderProgram;
+import org.jogamp.java3d.SourceCodeShader;
+import org.jogamp.java3d.Texture;
+import org.jogamp.java3d.TextureUnitState;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.StringIO;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
 
 public class EnvironmentMappingGLSL extends javax.swing.JFrame {
 

@@ -44,20 +44,46 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import com.sun.j3d.utils.pickfast.behaviors.*;
-import com.sun.j3d.utils.pickfast.*;
-
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.event.*;
 import java.awt.Component;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.awt.Point;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.BevelBorder;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Geometry;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Morph;
+import org.jogamp.java3d.PickInfo;
+import org.jogamp.java3d.PointAttributes;
+import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.View;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.pickfast.behaviors.PickRotateBehavior;
+import org.jogamp.java3d.utils.pickfast.behaviors.PickTranslateBehavior;
+import org.jogamp.java3d.utils.pickfast.behaviors.PickZoomBehavior;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * PickTest shows how to use the Picking utilities on various GeometryArray
@@ -379,7 +405,7 @@ public class PickTest extends Applet implements ActionListener {
   public PickTest (){
   }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
 	Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 	add("Center", c);

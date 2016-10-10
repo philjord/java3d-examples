@@ -44,26 +44,28 @@
 
 package org.jdesktop.j3d.examples.applet3d;
 
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javax.media.j3d.Alpha;
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Canvas3D;
-import javax.media.j3d.GraphicsConfigTemplate3D;
-import javax.media.j3d.RotationInterpolator;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
+
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
 import javax.swing.WindowConstants;
-import javax.vecmath.Point3d;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.GraphicsConfigTemplate3D;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 /**
  * Simple Java 3D program that can be run as an application or as an applet.
@@ -174,7 +176,7 @@ public class Applet3D extends javax.swing.JPanel {
     public static class MyApplet extends JApplet {
         Applet3D mainPanel;
 
-        public void init() {
+        public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
             setLayout(new BorderLayout());
             mainPanel = new Applet3D(this);
             add(mainPanel, BorderLayout.CENTER);
@@ -200,7 +202,7 @@ public class Applet3D extends javax.swing.JPanel {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MyFrame().setVisible(true);

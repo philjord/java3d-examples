@@ -44,8 +44,13 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import javax.media.j3d.*;
-import java.util.*;
+import java.util.Enumeration;
+
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.Sensor;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupOnElapsedFrames;
 
 public class SensorBehavior extends Behavior {
 

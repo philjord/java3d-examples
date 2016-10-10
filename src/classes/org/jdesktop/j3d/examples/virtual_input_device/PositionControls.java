@@ -44,8 +44,7 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import java.awt.Component;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Vector3f;
 
 // Classes that implement this interface must be a 
 // subclass of java.awt.Component

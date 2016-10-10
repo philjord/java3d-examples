@@ -44,10 +44,15 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.Panel;
+
+import org.jogamp.java3d.InputDevice;
+import org.jogamp.java3d.Sensor;
+import org.jogamp.java3d.SensorRead;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.vecmath.Vector3f;
 
 public class VirtualInputDevice implements InputDevice {
 

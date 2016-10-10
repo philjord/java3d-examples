@@ -51,11 +51,9 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
 import java.net.URL;
 
 import javax.imageio.ImageIO;
-
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -64,6 +62,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import org.jdesktop.j3d.examples.Resources;
 
 /**

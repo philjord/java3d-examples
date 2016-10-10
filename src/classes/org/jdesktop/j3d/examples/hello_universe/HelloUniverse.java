@@ -44,11 +44,18 @@
 
 package org.jdesktop.j3d.examples.hello_universe;
 
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.geometry.ColorCube;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 /**
  * Simple Java 3D example program to display a spinning cube.
@@ -154,7 +161,7 @@ public class HelloUniverse extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HelloUniverse().setVisible(true);

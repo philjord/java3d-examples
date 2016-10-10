@@ -44,15 +44,28 @@
 
 package org.jdesktop.j3d.examples.geometry_compression;
 
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
-import com.sun.j3d.utils.geometry.compression.*;
-import com.sun.j3d.utils.universe.*;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.io.IOException;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.geometry.compression.CompressedGeometryData;
+import org.jogamp.java3d.utils.geometry.compression.CompressedGeometryFile;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class cgview extends Applet {
 
@@ -195,7 +208,7 @@ public class cgview extends Applet {
     // The following allows cgview to be run as an application
     // as well as an applet.
     //
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new cgview(args), 700, 700) ;
     }
 }

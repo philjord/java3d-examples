@@ -44,17 +44,21 @@
 
 package org.jdesktop.j3d.examples.geometry_compression;
 
-import com.sun.j3d.loaders.IncorrectFormatException;
-import com.sun.j3d.loaders.ParsingErrorException;
-import com.sun.j3d.loaders.Scene;
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-import com.sun.j3d.utils.geometry.compression.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Hashtable;
-import javax.media.j3d.Shape3D;
+
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.loaders.IncorrectFormatException;
+import org.jogamp.java3d.loaders.ParsingErrorException;
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.objectfile.ObjectFile;
+import org.jogamp.java3d.utils.geometry.compression.CompressedGeometryData;
+import org.jogamp.java3d.utils.geometry.compression.CompressedGeometryFile;
+import org.jogamp.java3d.utils.geometry.compression.CompressionStream;
+import org.jogamp.java3d.utils.geometry.compression.GeometryCompressor;
 
 /**
  * This extension of ObjectFile provides the methods setQuantization() and

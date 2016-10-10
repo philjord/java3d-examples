@@ -44,20 +44,33 @@
 
 package org.jdesktop.j3d.examples.objload;
 
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-import com.sun.j3d.loaders.ParsingErrorException;
-import com.sun.j3d.loaders.IncorrectFormatException;
-import com.sun.j3d.loaders.Scene;
-
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.sun.j3d.utils.behaviors.vp.*;
-import java.io.FileNotFoundException;
+
 import org.jdesktop.j3d.examples.Resources;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Background;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.loaders.IncorrectFormatException;
+import org.jogamp.java3d.loaders.ParsingErrorException;
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.objectfile.ObjectFile;
+import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.universe.PlatformGeometry;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Simple Java 3D example program to display an .obj object.

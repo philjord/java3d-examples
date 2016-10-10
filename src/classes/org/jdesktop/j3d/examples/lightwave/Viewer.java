@@ -45,20 +45,20 @@
 package org.jdesktop.j3d.examples.lightwave;
 
 import java.applet.Applet;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
 
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Canvas3D;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
-import javax.media.j3d.View;
-import javax.vecmath.Matrix4d;
-
-import com.sun.j3d.loaders.lw3d.Lw3dLoader;
-import com.sun.j3d.loaders.Loader;
-import com.sun.j3d.loaders.Scene;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.View;
+import org.jogamp.java3d.loaders.Loader;
+import org.jogamp.java3d.loaders.Scene;
+import org.jogamp.java3d.loaders.lw3d.Lw3dLoader;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Matrix4d;
 
 
 /**
@@ -80,7 +80,7 @@ public class Viewer extends Applet {
 
     public Viewer() {}
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	if (filename == null) {
 	    // the path to the file for an applet
 	    try {
@@ -172,7 +172,7 @@ public class Viewer extends Applet {
      * file must be reachable from the directory in which you're running
      * this application.
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	java.net.URL url = null;
 	java.net.URL pathUrl = null;
 	if (args.length > 0) {

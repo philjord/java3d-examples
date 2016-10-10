@@ -44,11 +44,15 @@
 
 package org.jdesktop.j3d.examples.gears;
 
-import java.lang.Math.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.TriangleStripArray;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
-public class Gear extends javax.media.j3d.TransformGroup {
+public class Gear extends TransformGroup {
     
     // Specifiers determining whether to generate outward facing normals or
     // inward facing normals.

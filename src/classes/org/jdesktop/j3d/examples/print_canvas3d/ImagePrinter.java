@@ -44,13 +44,16 @@
 
 package org.jdesktop.j3d.examples.print_canvas3d;
 
-import java.awt.print.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.awt.geom.AffineTransform;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 
 class ImagePrinter implements Printable, ImageObserver {
     BufferedImage bImage;

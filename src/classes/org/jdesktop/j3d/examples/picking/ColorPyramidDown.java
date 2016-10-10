@@ -44,8 +44,7 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.QuadArray;
 
 class ColorPyramidDown extends QuadArray {
     private static final float[] verts = {

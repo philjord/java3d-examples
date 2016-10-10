@@ -44,12 +44,18 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import java.applet.Applet;
-import java.awt.event.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.util.BitSet;
-import com.sun.j3d.utils.geometry.Sphere;
+
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Group;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Switch;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Class:       Positions

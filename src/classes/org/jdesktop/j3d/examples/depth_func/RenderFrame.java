@@ -44,13 +44,30 @@
 
 package org.jdesktop.j3d.examples.depth_func;
 
-import com.sun.j3d.utils.behaviors.mouse.*;
-import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import java.awt.GraphicsConfiguration;
-import javax.media.j3d.*;
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.geometry.*;
-import javax.vecmath.*;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.OrderedGroup;
+import org.jogamp.java3d.PointLight;
+import org.jogamp.java3d.PolygonAttributes;
+import org.jogamp.java3d.RenderingAttributes;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.ScaleInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
+import org.jogamp.java3d.utils.geometry.Box;
+import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 
 public class RenderFrame extends javax.swing.JFrame {

@@ -44,12 +44,20 @@
 
 package org.jdesktop.j3d.examples.fps_counter;
 
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.geometry.ColorCube;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
+
 import javax.swing.JOptionPane;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 /**
  * This program demonstrates the use of the frames per second counter.

@@ -44,15 +44,22 @@
 
 package org.jdesktop.j3d.examples.swing_interaction;
 
-import com.sun.j3d.utils.universe.*;
-import com.sun.j3d.utils.geometry.ColorCube;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.awt.GraphicsConfiguration;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.util.Enumeration;
+
 import javax.swing.JPopupMenu;
+
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnBehaviorPost;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Point3d;
 
 /**
  * Simple Java 3D test program created in NetBeans to illustrate interacting
@@ -232,7 +239,7 @@ public class SwingInteraction extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SwingInteraction().setVisible(true);

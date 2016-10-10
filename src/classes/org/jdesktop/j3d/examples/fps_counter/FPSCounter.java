@@ -44,9 +44,10 @@
 
 package org.jdesktop.j3d.examples.fps_counter;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import java.text.*;
+import java.text.NumberFormat;
+
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.WakeupOnElapsedFrames;
 
 /** This behavior calculates the frame rate and average frame rate of a
  * Java3D application.

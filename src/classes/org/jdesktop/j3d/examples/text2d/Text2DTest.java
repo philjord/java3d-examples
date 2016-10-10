@@ -45,14 +45,26 @@
 package org.jdesktop.j3d.examples.text2d;
 
 import java.applet.Applet;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.event.*;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.Text2D;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.PolygonAttributes;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.Text2D;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3f;
 
 public class Text2DTest extends Applet {
 
@@ -154,7 +166,7 @@ public class Text2DTest extends Applet {
     public Text2DTest() {
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
 	GraphicsConfiguration config =
            SimpleUniverse.getPreferredConfiguration();
@@ -187,7 +199,7 @@ public class Text2DTest extends Applet {
     // The following allows HelloUniverse to be run as an application
     // as well as an applet
     //
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new Text2DTest(), 256, 256);
     }
 }

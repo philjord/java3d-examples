@@ -44,38 +44,36 @@
 
 package org.jdesktop.j3d.examples.jcanvas3d;
 
-import com.sun.j3d.exp.swing.JCanvas3D;
-import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
-import com.sun.j3d.utils.universe.SimpleUniverse;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.media.j3d.Alpha;
-import javax.media.j3d.AmbientLight;
-import javax.media.j3d.Appearance;
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.Font3D;
-import javax.media.j3d.FontExtrusion;
-import javax.media.j3d.GraphicsConfigTemplate3D;
-import javax.media.j3d.Material;
-import javax.media.j3d.RotationInterpolator;
-import javax.media.j3d.Shape3D;
-import javax.media.j3d.Text3D;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
-
 import javax.swing.JInternalFrame;
-import javax.vecmath.Color3f;
 
-import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.DirectionalLight;
+import org.jogamp.java3d.Font3D;
+import org.jogamp.java3d.FontExtrusion;
+import org.jogamp.java3d.GraphicsConfigTemplate3D;
+import org.jogamp.java3d.Material;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.Text3D;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.exp.swing.JCanvas3D;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3d;
+import org.jogamp.vecmath.Vector3f;
 
 
 /**

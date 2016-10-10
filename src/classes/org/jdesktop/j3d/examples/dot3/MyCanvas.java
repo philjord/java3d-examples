@@ -44,10 +44,16 @@
 
 package org.jdesktop.j3d.examples.dot3;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 /**

@@ -44,15 +44,28 @@
 
 package org.jdesktop.j3d.examples.platform_geometry;
 
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.geometry.*;
-import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
 import java.applet.Applet;
-import com.sun.j3d.utils.applet.MainFrame;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.Alpha;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.BoundingSphere;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.RotationInterpolator;
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.TransparencyAttributes;
+import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.behaviors.mouse.MouseTranslate;
+import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.geometry.Cylinder;
+import org.jogamp.java3d.utils.universe.PlatformGeometry;
+import org.jogamp.java3d.utils.universe.SimpleUniverse;
+import org.jogamp.java3d.utils.universe.ViewingPlatform;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Vector3d;
 
 /**
  * This class demonstrates the use of the Universe builder for stand-alone
@@ -156,7 +169,7 @@ public class SimpleGeometry extends Applet {
         return pg;
     }
 
-    public void init() {
+    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
         setLayout(new BorderLayout());
         GraphicsConfiguration config =
@@ -194,7 +207,7 @@ public class SimpleGeometry extends Applet {
 	u.cleanup();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
 	new MainFrame(new SimpleGeometry(args), 256, 256);
     }
 }

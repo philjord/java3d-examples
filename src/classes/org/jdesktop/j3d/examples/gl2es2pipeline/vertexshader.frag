@@ -42,27 +42,11 @@
  * $State$
  */
 
-// Simple fragment program to attenuate the input fragment color as a
-// function of the distance of the fragment position from the center
-// of the window
 
-// define inputs from vertex shader to fragment shader
-struct vertin
+//GL2ES2: varying color data needs to be defined
+varying vec4 glFrontColor;
+
+void main()
 {
-    float4 HPosition  : POSITION;
-    float4 FragPos    : TEXCOORD0;
-    float4 Color0     : COLOR0;
-};
-
-float4 main(vertin IN) : COLOR
-{
-    // Compute distance from center in range [0.0, 1.0]
-    float2 dist = min(abs(IN.FragPos.xy), 1.0f);
-    float2 invDist = 1.0f - dist;
-
-    // Compute attenuation
-    float atten = invDist.x * invDist.y;
-    float4 outcolor = float4(IN.Color0 * atten);
-
-    return outcolor;
+    gl_FragColor = glFrontColor;
 }

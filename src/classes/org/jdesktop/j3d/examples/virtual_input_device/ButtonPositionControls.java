@@ -44,10 +44,15 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.vecmath.*;
-import javax.media.j3d.*;
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import org.jogamp.java3d.InputDevice;
+import org.jogamp.vecmath.Vector3f;
 
 public class ButtonPositionControls extends Panel implements PositionControls, MouseListener {
     private final static int STILL=0;

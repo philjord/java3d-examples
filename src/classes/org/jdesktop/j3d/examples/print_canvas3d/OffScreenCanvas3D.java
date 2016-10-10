@@ -46,8 +46,10 @@ package org.jdesktop.j3d.examples.print_canvas3d;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.image.BufferedImage;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+
+import org.jogamp.java3d.Canvas3D;
+import org.jogamp.java3d.ImageComponent;
+import org.jogamp.java3d.ImageComponent2D;
 
 
 class OffScreenCanvas3D extends Canvas3D {

@@ -44,11 +44,17 @@
 
 package org.jdesktop.j3d.examples.texture_by_ref;
 
-import javax.media.j3d.*;
 import java.awt.image.BufferedImage;
-import java.awt.*;
-import com.sun.j3d.utils.image.TextureLoader;
 import java.util.Enumeration;
+
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.ImageComponent;
+import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.Texture2D;
+import org.jogamp.java3d.WakeupCriterion;
+import org.jogamp.java3d.WakeupOnElapsedFrames;
+import org.jogamp.java3d.utils.image.TextureLoader;
 
 public class AnimateTexturesBehavior extends Behavior {
 

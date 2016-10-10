@@ -44,10 +44,19 @@
 
 package org.jdesktop.j3d.examples.geometry_by_ref;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.util.Vector;
+import java.awt.Rectangle;
+import java.awt.Transparency;
 import java.awt.color.ColorSpace;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.ComponentColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.awt.image.RenderedImage;
+import java.awt.image.SampleModel;
+import java.awt.image.WritableRaster;
+import java.util.Vector;
 
 public class TiledImage extends Object implements RenderedImage {
     

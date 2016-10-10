@@ -44,14 +44,22 @@
 
 package org.jdesktop.j3d.examples.print_canvas3d;
 
-import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.awt.event.*;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 
 class ImageDisplayer extends JFrame implements ActionListener {
     BufferedImage bImage;

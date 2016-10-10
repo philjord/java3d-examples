@@ -44,15 +44,9 @@
 
 package org.jdesktop.j3d.examples.offscreen_canvas3d;
 
-import com.sun.j3d.utils.geometry.ColorCube;
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.universe.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import java.awt.GraphicsConfiguration;
+
+import org.jogamp.java3d.Canvas3D;
 
 
 class OnScreenCanvas3D extends Canvas3D {

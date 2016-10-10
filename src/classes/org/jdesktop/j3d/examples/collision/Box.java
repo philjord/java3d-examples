@@ -44,8 +44,10 @@
 
 package org.jdesktop.j3d.examples.collision;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.Shape3D;
+import org.jogamp.vecmath.Point3d;
 
 public class Box extends Shape3D {
 
