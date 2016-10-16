@@ -61,4 +61,7 @@ void main (void)
     vec3 finalColor = color0*cloudFactor + color1;
 
     gl_FragColor = vec4(finalColor, 1.0);
+    
+   // if(tc1.x > 0.0)
+   //	gl_FragColor = vec4(tc1.y,0.0,0.0,1.0);  
 }

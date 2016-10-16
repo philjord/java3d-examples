@@ -63,7 +63,6 @@ void main()
     // Transform the vertex
     gl_Position = glModelViewProjectionMatrix * glVertex;
     
-    texCoord0 = object_linear(gl_Position, vec4(3.0, 1.5, 0.3, 0.0),vec4(1.0, 2.5, 0.24, 0.0)); 
-	texCoord1 = sphere_map(gl_Position.xyz, Normal);
-    
+    texCoord0 = object_linear(glVertex, vec4(3.0, 1.5, 0.3, 0.0),vec4(1.0, 2.5, 0.24, 0.0)); 
+	texCoord1 = sphere_map(normalize(vec3(glModelViewMatrix*glVertex)), Normal);
 }
