@@ -55,11 +55,11 @@ uniform mat4 glModelViewMatrix;
 uniform mat4 glModelViewProjectionMatrix;
 uniform mat3 glNormalMatrix;
 
+uniform vec4 glFrontMaterialambient;
 uniform vec4 glFrontMaterialdiffuse;
 uniform vec4 glFrontMaterialemission;
 uniform vec3 glFrontMaterialspecular;
 uniform float glFrontMaterialshininess;
-uniform int ignoreVertexColors;
 
 uniform vec4 glLightModelambient;
 
@@ -135,11 +135,8 @@ void main()
 	directionalLight(i, tnorm, amb, diff, spec);
     }
 
-	vec4 sceneColor;
-	if( ignoreVertexColors != 0) 
-		sceneColor = glFrontMaterialdiffuse; 
-	else
-		sceneColor = glColor;
+	//GL2ES2: sceneColor Derived. Ecm + Acm * Acs (Acs is normal glLightModelambient)
+ 	vec4 sceneColor = glFrontMaterialemission + glFrontMaterialambient * glLightModelambient;
 
     // Apply the result of the lighting equation
     vec4 outSecondaryColor = vec4(vec3(spec * glFrontMaterialspecular), 1.0);

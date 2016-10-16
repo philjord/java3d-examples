@@ -64,5 +64,5 @@ void main()
     float atten = invDist.x * invDist.y;
     vec4 outcolor = (glFrontColor + glFrontSecondaryColor) * atten;
 
-    gl_FragColor = outcolor;
+    gl_FragColor = outcolor;  
 }

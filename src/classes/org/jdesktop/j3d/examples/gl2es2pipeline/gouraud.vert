@@ -54,15 +54,42 @@ uniform mat4 glModelViewMatrix;
 uniform mat4 glModelViewProjectionMatrix;
 uniform mat3 glNormalMatrix;
 
+uniform vec4 glFrontMaterialambient;
+uniform vec4 glFrontMaterialdiffuse;
+uniform vec4 glFrontMaterialemission;
+uniform vec3 glFrontMaterialspecular;
+uniform float glFrontMaterialshininess;
+
+uniform vec4 glLightModelambient;
+
+uniform vec4 glLightSource0position;
+uniform vec4 glLightSource0diffuse;
+
+//GL2ES2: varying color data needs to be defined
+varying vec4 glFrontColor;
+varying vec4 glFrontSecondaryColor;
+
 void directionalLight0(
     in    vec3 normal,
     inout vec4 ambient,
     inout vec4 diffuse,
-    inout vec4 specular)
+    inout vec3 specular)
 {
     // Normalized light direction and half vector
-    vec3 lightDirection = normalize(vec3(gl_LightSource[0].position));
-    vec3 halfVector = normalize(vec3(gl_LightSource[0].halfVector));
+    vec3 lightDirection = normalize(vec3(glLightSource0position));
+   
+    //GL2ES2: half vector must be calculated
+    //vec3 halfVector = normalize(vec3(gl_LightSource[0].halfVector));
+    //http://stackoverflow.com/questions/3744038/what-is-half-vector-in-modern-glsl
+    vec3 ecPos = vec3(glModelViewMatrix * glVertex);	
+    vec3 ecL;
+    if(	glLightSource0position.w == 0.0)
+    	ecL = vec3(glLightSource0position.xyz);// no -ecPos in case of dir lights?
+  	else
+		ecL = vec3(glLightSource0position.xyz - ecPos);
+    vec3 L = normalize(ecL.xyz);
+ 	vec3 V = -ecPos.xyz; 
+ 	vec3 halfVector = normalize(L + V);
 
     float nDotVP; // normal . light_direction
     float nDotHV; // normal . light_half_vector
@@ -75,12 +102,12 @@ void directionalLight0(
 	pf = 0.0;
     }
     else {
-	pf = pow(nDotHV, gl_FrontMaterial.shininess);
+	pf = pow(nDotHV, glFrontMaterialshininess);
     }
 
-    ambient += gl_LightSource[0].ambient;
-    diffuse += gl_LightSource[0].diffuse * nDotVP;
-    specular += gl_LightSource[0].specular * pf;
+    ambient += glLightModelambient;
+    diffuse += glLightSource0diffuse * nDotVP;
+    specular += glFrontMaterialspecular * pf;
 }
 
 
@@ -89,21 +116,24 @@ void main()
     vec3 tnorm = normalize(vec3(glNormalMatrix * glNormal));
     vec4 amb = vec4(0.0);
     vec4 diff = vec4(0.0);
-    vec4 spec = vec4(0.0);
+    vec3 spec = vec3(0.0);
     int i;
 
     // Transform the vertex
     vec4 outPosition = glModelViewProjectionMatrix * glVertex;
 
     directionalLight0(tnorm, amb, diff, spec);
+    
+    //GL2ES2: sceneColor Derived. Ecm + Acm * Acs (Acs is normal glLightModelambient)
+ 	vec4 sceneColor = glFrontMaterialemission + glFrontMaterialambient * glLightModelambient;
 
     // Apply the result of the lighting equation
-    vec4 outSecondaryColor = vec4(vec3(spec * gl_FrontMaterial.specular), 1.0);
-    vec4 outColor = vec4(vec3(gl_FrontLightModelProduct.sceneColor +
-		       amb * gl_FrontMaterial.ambient +
-		       diff * gl_FrontMaterial.diffuse), 1.0);
+    vec4 outSecondaryColor = vec4(vec3(spec * glFrontMaterialspecular), 1.0);
+    vec4 outColor = vec4(vec3( sceneColor +
+		       amb * glFrontMaterialambient +
+		       diff * glFrontMaterialdiffuse), 1.0);
 
-    gl_FrontColor = outColor;
-    gl_FrontSecondaryColor = outSecondaryColor;
+    glFrontColor = outColor;
+    glFrontSecondaryColor = outSecondaryColor;
     gl_Position = outPosition;
 }

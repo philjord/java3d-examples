@@ -45,6 +45,8 @@
 // A simple GLSL vertex program for handling 2 directional lights with
 // separate specular
 
+varying vec4 glFrontColor;
+
 void directionalLight(
     in    int  i,
     in    vec3 normal,

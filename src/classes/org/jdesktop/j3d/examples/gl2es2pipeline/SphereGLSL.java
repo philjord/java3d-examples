@@ -81,7 +81,6 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleStripArray;
 import org.jogamp.java3d.utils.geometry.Sphere;
-//import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
@@ -103,7 +102,7 @@ public class SphereGLSL extends javax.swing.JFrame
 
 	// Flag indicates type of lights: directional, point, or spot
 	// lights.  This flag is set based on command line argument
-	private static int lightType = DIRECTIONAL_LIGHT;
+	private static int lightType = POINT_LIGHT;//DIRECTIONAL_LIGHT;
 	private SimpleUniverse univ = null;
 	private BranchGroup scene = null;
 
@@ -198,16 +197,19 @@ public class SphereGLSL extends javax.swing.JFrame
 		ColoringAttributes caL2 = new ColoringAttributes();
 		caL1.setColor(lColor1);
 		caL2.setColor(lColor2);
-		Appearance appL1 = new Appearance();
-		Appearance appL2 = new Appearance();
+
+		Appearance appL1 = makeGouraudShaderAppearance();
+		Appearance appL2 = makeGouraudShaderAppearance();
 		appL1.setColoringAttributes(caL1);
 		appL2.setColoringAttributes(caL2);
 
 		Sphere sph2 = new Sphere(0.05f, appL1);
 		makeNIO(sph2);
+
 		l1Trans.addChild(sph2);
 		Sphere sph3 = new Sphere(0.05f, appL2);
 		makeNIO(sph3);
+
 		l2Trans.addChild(sph3);
 
 		// Create lights
@@ -283,7 +285,40 @@ public class SphereGLSL extends javax.swing.JFrame
 		return objRoot;
 	}
 
-	
+	/**
+	 * GL2ES2: this should be a trivial emissive color shader, but gouraud will do for now
+	 * @return
+	 */
+	private Appearance makeGouraudShaderAppearance()
+	{
+		// Create a Sphere object, generate one copy of the sphere,
+		// and add it into the scene graph.
+		ShaderAppearance a = new ShaderAppearance();
+		Material m = new Material();
+		m.setLightingEnable(true);
+		String vertexProgram = null;
+		String fragmentProgram = null;
+		try
+		{
+			vertexProgram = StringIO.readFully(
+					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/gouraud.vert"));
+			fragmentProgram = StringIO.readFully(
+					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/gouraud.frag"));
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		Shader[] shaders = new Shader[2];
+		shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL, Shader.SHADER_TYPE_VERTEX, vertexProgram);
+		shaders[1] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL, Shader.SHADER_TYPE_FRAGMENT, fragmentProgram);
+		ShaderProgram shaderProgram = new GLSLShaderProgram();
+		shaderProgram.setShaders(shaders);
+
+		a.setShaderProgram(shaderProgram);
+		a.setMaterial(m);
+		return a;
+	}
 
 	private Canvas3D createUniverse()
 	{
@@ -374,9 +409,7 @@ public class SphereGLSL extends javax.swing.JFrame
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel drawingPanel;
-	
-	
-	
+
 	// End of variables declaration//GEN-END:variables
 	public static void makeNIO(Sphere sph)
 	{

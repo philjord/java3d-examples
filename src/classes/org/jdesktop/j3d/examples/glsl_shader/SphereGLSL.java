@@ -95,7 +95,7 @@ public class SphereGLSL extends javax.swing.JFrame {
 
     // Flag indicates type of lights: directional, point, or spot
     // lights.  This flag is set based on command line argument
-    private static int lightType = DIRECTIONAL_LIGHT;
+    private static int lightType =  POINT_LIGHT;//DIRECTIONAL_LIGHT;
     private SimpleUniverse univ = null;
     private BranchGroup scene = null;
 
@@ -173,7 +173,7 @@ public class SphereGLSL extends javax.swing.JFrame {
 
 	// Create transformations for the positional lights
 	t = new Transform3D();
-	Vector3d lPos1 =  new Vector3d(0.0, 0.0, 2.0);
+	Vector3d lPos1 =  new Vector3d(0.0, 0.5, 2.0);
 	t.set(lPos1);
 	TransformGroup l1Trans = new TransformGroup(t);
 	l1RotTrans.addChild(l1Trans);

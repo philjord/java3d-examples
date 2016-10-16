@@ -42,6 +42,9 @@
  * $State$
  */
 
+
+varying vec4 glFrontColor;
+
 // Simple GLSL fragment program to attenuate the input fragment color as a
 // function of the distance of the fragment position from the center
 // of the window

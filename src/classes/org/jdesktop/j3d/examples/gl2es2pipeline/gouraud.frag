@@ -44,7 +44,11 @@
 
 // Simple GLSL fragment program to add the primary and secondary (specular) colors
 
+//GL2ES2: varying color data needs to be defined
+varying vec4 glFrontColor;
+varying vec4 glFrontSecondaryColor;
+
 void main()
 {
-    gl_FragColor = gl_Color + gl_SecondaryColor;
+    gl_FragColor = glFrontColor + glFrontSecondaryColor;
 }

@@ -54,13 +54,24 @@ uniform mat4 glModelViewProjectionMatrix;
 uniform mat4 glModelViewMatrix;
 uniform mat3 glNormalMatrix;
 
+uniform vec4 glLightModelambient;
+
+uniform vec4 glFrontMaterialambient;
+uniform vec4 glFrontMaterialemission;
+
 // Per-pixel normal (output to fragment shader)
 varying vec3  Normal;
 varying vec3 worldPos;
 
+varying vec4 sceneColor;
+
 
 void main()
 {
+
+  	//GL2ES2: sceneColor Derived. Ecm + Acm * Acs (Acs is normal glLightModelambient)
+ 	sceneColor = glFrontMaterialemission + glFrontMaterialambient * glLightModelambient;
+ 	
     Normal = normalize(vec3(glNormalMatrix * glNormal));
     
     worldPos = vec3(glModelViewMatrix * glVertex);		

@@ -45,6 +45,10 @@
 // A GLSL fragment program for handling 1 directional light with specular.
 // This implements per-pixel lighting (Phong shading)
 
+// GL2ES2: Java3D built-in uniforms, these are calculated and passsed in if declared here
+uniform mat4 glModelViewMatrix;
+
+
 uniform vec4 glLightSource0position;
 uniform vec4 glLightSource0diffuse;
 
@@ -56,18 +60,26 @@ uniform vec3 glFrontMaterialspecular;
 
 varying vec3 worldPos;
 
+varying vec4 sceneColor;
+
 void directionalLight0(in vec3 normal, inout vec4 ambient,  inout vec4 diffuse,  inout vec3 specular)
 {
     // Normalized light direction and half vector
     vec3 lightDirection = normalize(vec3(glLightSource0position));
     
-    
-    // half vector requires a few calcs 
-    //vec3 halfVector = normalize(vec3(gl_LightSource[0].halfVector));    
    
- 	vec3 L = normalize(glLightSource0position.xyz - worldPos);
- 	vec3 V = vec3(0,0,1);//eye position
- 	vec3 halfVector = (L + V);
+ 	//GL2ES2: half vector must be calculated
+    //vec3 halfVector = normalize(vec3(gl_LightSource[0].halfVector));
+    //http://stackoverflow.com/questions/3744038/what-is-half-vector-in-modern-glsl
+    vec3 ecPos = vec3(glModelViewMatrix * vec4(worldPos,1.0));	
+    vec3 ecL;
+    if(	glLightSource0position.w == 0.0)
+    	ecL = vec3(glLightSource0position.xyz);// no -ecPos in case of dir lights?
+  	else
+		ecL = vec3(glLightSource0position.xyz - ecPos);
+    vec3 L = normalize(ecL.xyz);
+ 	vec3 V = -ecPos.xyz; 
+ 	vec3 halfVector = normalize(L + V);
     
 
     float nDotVP; // normal . light_direction
@@ -112,10 +124,9 @@ void main()
 
     // Apply the result of the lighting equation
     vec4 secondaryColor = vec4(spec * glFrontMaterialspecular, 1.0);
-    // GL2ES2: need to look up the calculations on sceneColor
+    // GL2ES2: change to calc'ed sceneColor
     //vec4 color = vec4(vec3(gl_FrontLightModelProduct.sceneColor +
-		      // amb * glFrontMaterialambient +
-	vec4 color = vec4(vec3(glFrontMaterialdiffuse +      
+	 vec4 color = vec4(vec3(sceneColor + 
 		      	amb * glLightModelambient +
 		       diff * glFrontMaterialdiffuse), 1.0);
 
