@@ -141,6 +141,7 @@ public class StencilOutline extends javax.swing.JFrame
 			System.exit(1);
 		}
 
+		//Uncomment to use the gl2es2 pipeline, also see other commented code
 		// Set vertex and fragment shader program for all Shape3D nodes in scene
 		/*		String vertexProgram = null;
 				String fragmentProgram = null;
@@ -256,6 +257,13 @@ public class StencilOutline extends javax.swing.JFrame
 
 		// Ensure at least 5 msec per frame (i.e., < 200Hz)
 		univ.getViewer().getView().setMinimumFrameCycleTime(5);
+		
+		
+		
+		//add some other non rendering attribute transparent things in front of the boat
+		// and with the clear in reset taken out see it's bad and then good
+		
+		
 
 		return canvas3d;
 	}
@@ -321,7 +329,6 @@ public class StencilOutline extends javax.swing.JFrame
 			{
 				// start by giving the current appearance a rendering attribute
 				Shape3D s = (Shape3D) n;
-				System.out.println("outlining an shape ");
 				Appearance sapp = s.getAppearance();
 
 				// get and ensure rend atts exist
@@ -346,7 +353,11 @@ public class StencilOutline extends javax.swing.JFrame
 
 				////////////////////////////////
 				//Outliner gear, note empty geom should be ignored
+				
+				//Uncomment to use the gl2es2 pipeline, also see other commented code
 				//Appearance app = new SimpleShaderAppearance(c);
+				
+				//Comment to use the gl2es2 pipeline, also see other commented code
 				Appearance app = new Appearance();
 
 				// lineAntialiasing MUST be true, to force this to be done during rendering pass (otherwise it's hidden)
@@ -508,6 +519,7 @@ public class StencilOutline extends javax.swing.JFrame
 		// DO I need this? does this default to true now?
 		System.setProperty("j3d.stencilClear", "true");
 
+		//Uncomment to use the gl2es2 pipeline, also see other commented code
 		//System.setProperty("j3d.rend", "jogl2es2");
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
