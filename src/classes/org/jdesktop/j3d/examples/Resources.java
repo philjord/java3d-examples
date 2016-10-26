@@ -51,34 +51,40 @@ import java.net.URL;
 /**
  * 
  */
-public class Resources {
-    
-    /**
-     * Do not construct an instance of this class.
-     */
-    private Resources() {
-        
-    }
+public class Resources
+{
 
-    /**
-     * Return the URL of the filename under the resources directory
-     */
-    public static URL getResource(String filename) {    
-         URL url = Resources.class.getClassLoader().getResource(filename); 
-         
-         if(url == null)
-         {
-        	try
+	/**
+	 * Do not construct an instance of this class.
+	 */
+	private Resources()
+	{
+
+	}
+
+	/**
+	 * Return the URL of the filename under the resources directory
+	 */
+	public static URL getResource(String filename)
+	{
+		URL url = Resources.class.getClassLoader().getResource(filename);
+
+		if (url == null)
+		{
+			try
 			{
-				url = new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/"+filename).toURL();
+				File f = new File(System.getProperty("user.dir") + "/src/" + filename);
+				if (!f.exists())
+					f = new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/" + filename);
+
+				url = f.toURL();
 			}
 			catch (MalformedURLException e)
 			{
 				e.printStackTrace();
 			}
-         }
-         return url;
-    }
-    
-    
+		}
+		return url;
+	}
+
 }

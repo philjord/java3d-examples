@@ -48,9 +48,6 @@ import java.awt.GraphicsConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 
 import javax.swing.JOptionPane;
 
@@ -60,8 +57,6 @@ import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.GLSLShaderProgram;
-import org.jogamp.java3d.GeometryArray;
-import org.jogamp.java3d.J3DBuffer;
 import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Shader;
 import org.jogamp.java3d.ShaderAppearance;
@@ -72,19 +67,16 @@ import org.jogamp.java3d.ShaderError;
 import org.jogamp.java3d.ShaderErrorListener;
 import org.jogamp.java3d.ShaderProgram;
 import org.jogamp.java3d.SourceCodeShader;
-import org.jogamp.java3d.TexCoordGeneration;
 import org.jogamp.java3d.Texture;
 import org.jogamp.java3d.TextureUnitState;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.TriangleStripArray;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.image.TextureLoader;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Point3d;
-import org.jogamp.vecmath.Vector4f;
 
 public class SamplerTestGLSL extends javax.swing.JFrame
 {
