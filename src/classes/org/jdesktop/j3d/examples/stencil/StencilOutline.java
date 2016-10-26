@@ -24,9 +24,7 @@ package org.jdesktop.j3d.examples.stencil;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -34,7 +32,6 @@ import java.util.Enumeration;
 import javax.swing.JOptionPane;
 
 import org.jdesktop.j3d.examples.Resources;
-import org.jdesktop.j3d.examples.gl2es2pipeline.SimpleShaderAppearance;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
 import org.jogamp.java3d.Appearance;
@@ -44,7 +41,6 @@ import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.ColoringAttributes;
 import org.jogamp.java3d.DirectionalLight;
-import org.jogamp.java3d.GLSLShaderProgram;
 import org.jogamp.java3d.GraphicsConfigTemplate3D;
 import org.jogamp.java3d.Group;
 import org.jogamp.java3d.LineAttributes;
@@ -53,13 +49,11 @@ import org.jogamp.java3d.Node;
 import org.jogamp.java3d.PolygonAttributes;
 import org.jogamp.java3d.RenderingAttributes;
 import org.jogamp.java3d.RotationInterpolator;
-import org.jogamp.java3d.Shader;
 import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.ShaderError;
 import org.jogamp.java3d.ShaderErrorListener;
 import org.jogamp.java3d.ShaderProgram;
 import org.jogamp.java3d.Shape3D;
-import org.jogamp.java3d.SourceCodeShader;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.loaders.IncorrectFormatException;
@@ -67,7 +61,6 @@ import org.jogamp.java3d.loaders.ParsingErrorException;
 import org.jogamp.java3d.loaders.Scene;
 import org.jogamp.java3d.loaders.objectfile.ObjectFile;
 import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
-import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.PlatformGeometry;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
@@ -257,13 +250,6 @@ public class StencilOutline extends javax.swing.JFrame
 
 		// Ensure at least 5 msec per frame (i.e., < 200Hz)
 		univ.getViewer().getView().setMinimumFrameCycleTime(5);
-		
-		
-		
-		//add some other non rendering attribute transparent things in front of the boat
-		// and with the clear in reset taken out see it's bad and then good
-		
-		
 
 		return canvas3d;
 	}
@@ -500,7 +486,7 @@ public class StencilOutline extends javax.swing.JFrame
 		drawingPanel = new javax.swing.JPanel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("ObjLoadGLSL");
+		setTitle("StencilOutline");
 		drawingPanel.setLayout(new java.awt.BorderLayout());
 
 		drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
@@ -516,7 +502,6 @@ public class StencilOutline extends javax.swing.JFrame
 	{
 		System.setProperty("sun.awt.noerasebackground", "true");
 
-		// DO I need this? does this default to true now?
 		System.setProperty("j3d.stencilClear", "true");
 
 		//Uncomment to use the gl2es2 pipeline, also see other commented code
