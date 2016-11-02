@@ -35,7 +35,7 @@ void main(void)
     // compute the transformed normal
     // GL2ES2: swap built-in variable for Java3d built-in uniforms and attributes gl_* = gl* + declaration (at top)
     //vec3  Normal                = normalize(gl_NormalMatrix * gl_Normal);
-    vec3  Normal                = normalize(glNormalMatrix * glNormal);
+    Normal                = normalize(glNormalMatrix * glNormal);
     
     // GL2ES2: swap built-in variable for Java3d built-in uniforms and attributes gl_* = gl* + declaration (at top)
     //vec4 pos       = gl_ModelViewMatrix * gl_Vertex;
