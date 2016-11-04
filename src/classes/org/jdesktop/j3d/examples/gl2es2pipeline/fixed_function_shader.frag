@@ -7,12 +7,16 @@ uniform int alphaTestEnabled;
 uniform int alphaTestFunction;
 uniform float alphaTestValue;
 
-uniform int fogEnabled;
-uniform vec4 expColor;
-uniform float expDensity;
-uniform vec4 linearColor;
-uniform float linearStart;
-uniform float linearEnd;
+struct fogData
+{
+	int fogEnabled = -1;
+	vec3 expColor = new Vector3f();
+	float expDensity;
+	vec3 linearColor = new Vector3f();
+	float linearStart;
+	float linearEnd;
+};
+uniform fogData fogData;
 
 //End of FFP inputs
 in vec2 glTexCoord0;
@@ -85,7 +89,7 @@ void main( void )
 	color.rgb = albedo * (diffuse + emissive) + spec;
 	color.a = C.a * baseMap.a;
 	
-	if(fogEnabled == 1)
+	if(fogData.fogEnabled == 1)
 	{
 		//distance
 		float dist = 0.0;
@@ -94,21 +98,21 @@ void main( void )
 		//compute distance used in fog equations
 		dist = length(ViewDir);		 
 		 
-		if(linearEnd > 0.0)//linear fog
+		if(fogData.linearEnd > 0.0)//linear fog
 		{
-		   fogFactor = (linearEnd - dist)/(linearEnd - linearStart);
+		   fogFactor = (fogData.linearEnd - dist)/(fogData.linearEnd - fogData.linearStart);
 		   fogFactor = clamp( fogFactor, 0.0, 1.0 );
 		 
 		   //if you inverse color in glsl mix function you have to put 1.0 - fogFactor
-		   color = mix(linearColor, color, fogFactor);
+		   color = mix(fogData.linearColor, color, fogFactor);
 		}
-		else if( expDensity > 0.0)// exponential fog
+		else if( fogData.expDensity > 0.0)// exponential fog
 		{
-		    fogFactor = 1.0 /exp(dist * expDensity);
+		    fogFactor = 1.0 /exp(dist * fogData.expDensity);
 		    fogFactor = clamp( fogFactor, 0.0, 1.0 );
 		 
 		    // mix function fogColor-(1-fogFactor) + lightColor-fogFactor
-		    color = mix(expColor, color, fogFactor);
+		    color = mix(fogData.expColor, color, fogFactor);
 		}
 	}
 

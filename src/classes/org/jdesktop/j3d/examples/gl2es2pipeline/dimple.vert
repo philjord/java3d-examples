@@ -18,7 +18,6 @@ uniform mat4 glModelViewMatrix;
 uniform mat4 glModelViewProjectionMatrix;
 uniform mat3 glNormalMatrix;
 
-uniform vec4 glFrontMaterialdiffuse;
 uniform int ignoreVertexColors;
 
 // GL2ES2: new output varyings, these replace gl_TexCoord[] and gl_FrontColor (along with A and D)
@@ -52,7 +51,7 @@ void main(void)
     //gl_FrontColor = gl_Color;
     
 	if( ignoreVertexColors != 0) 
-		C = glFrontMaterialdiffuse; 
+		C = vec4(1,1,1,1); 
 	else
 		C = glColor;
 	

@@ -20,17 +20,13 @@
  *
  */
 
-package org.jdesktop.j3d.examples.gl2es2pipeline;
+package org.jdesktop.j3d.examples.sphere_motion;
 
 import java.awt.GraphicsConfiguration;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 
-import javax.swing.JOptionPane;
-
+import org.jdesktop.j3d.examples.gl2es2pipeline.SimpleShaderAppearance;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
 import org.jogamp.java3d.Appearance;
@@ -41,8 +37,6 @@ import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.ColoringAttributes;
 import org.jogamp.java3d.DirectionalLight;
 import org.jogamp.java3d.GLSLShaderProgram;
-import org.jogamp.java3d.GeometryArray;
-import org.jogamp.java3d.J3DBuffer;
 import org.jogamp.java3d.Light;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.PointLight;
@@ -50,14 +44,11 @@ import org.jogamp.java3d.PositionInterpolator;
 import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Shader;
 import org.jogamp.java3d.ShaderAppearance;
-import org.jogamp.java3d.ShaderError;
-import org.jogamp.java3d.ShaderErrorListener;
 import org.jogamp.java3d.ShaderProgram;
 import org.jogamp.java3d.SourceCodeShader;
 import org.jogamp.java3d.SpotLight;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.TriangleStripArray;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
@@ -67,11 +58,11 @@ import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
 
-/**
- * Simple Java 3D example program with programmable shader.
- */
-public class SphereGLSL extends javax.swing.JFrame
+public class SphereMotionGL2ES2 extends javax.swing.JFrame
 {
+
+	private SimpleUniverse univ = null;
+	private BranchGroup scene = null;
 
 	// Constants for type of light to use
 	private static final int DIRECTIONAL_LIGHT = 0;
@@ -80,9 +71,7 @@ public class SphereGLSL extends javax.swing.JFrame
 
 	// Flag indicates type of lights: directional, point, or spot
 	// lights.  This flag is set based on command line argument
-	private static int lightType = POINT_LIGHT;//DIRECTIONAL_LIGHT;
-	private SimpleUniverse univ = null;
-	private BranchGroup scene = null;
+	private static int lightType = POINT_LIGHT;
 
 	public BranchGroup createSceneGraph()
 	{
@@ -125,9 +114,9 @@ public class SphereGLSL extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/simple.vert"));
+					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/sphere_motion/phong_gl2es2.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/simple.frag"));
+					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/sphere_motion/phong_gl2es2.frag"));
 		}
 		catch (IOException e)
 		{
@@ -142,7 +131,6 @@ public class SphereGLSL extends javax.swing.JFrame
 		a.setShaderProgram(shaderProgram);
 		a.setMaterial(m);
 		Sphere sph = new Sphere(1.0f, Sphere.GENERATE_NORMALS, 200, a);
-		makeNIO(sph);
 		objScale.addChild(sph);
 
 		// Create the transform group node for the each light and initialize
@@ -175,20 +163,12 @@ public class SphereGLSL extends javax.swing.JFrame
 		ColoringAttributes caL2 = new ColoringAttributes();
 		caL1.setColor(lColor1);
 		caL2.setColor(lColor2);
-
 		Appearance appL1 = new SimpleShaderAppearance(false, false);
 		Appearance appL2 = new SimpleShaderAppearance(false, false);
 		appL1.setColoringAttributes(caL1);
 		appL2.setColoringAttributes(caL2);
-
-		Sphere sph2 = new Sphere(0.05f, appL1);
-		makeNIO(sph2);
-
-		l1Trans.addChild(sph2);
-		Sphere sph3 = new Sphere(0.05f, appL2);
-		makeNIO(sph3);
-
-		l2Trans.addChild(sph3);
+		l1Trans.addChild(new Sphere(0.05f, appL1));
+		l2Trans.addChild(new Sphere(0.05f, appL2));
 
 		// Create lights
 		AmbientLight aLgt = new AmbientLight(alColor);
@@ -269,21 +249,10 @@ public class SphereGLSL extends javax.swing.JFrame
 		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
 		// Create a Canvas3D using the preferred configuration
-		Canvas3D canvas3d = new Canvas3D(config);
+		Canvas3D c = new Canvas3D(config);
 
 		// Create simple universe with view branch
-		univ = new SimpleUniverse(canvas3d);
-		//BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-
-		// Add a ShaderErrorListener
-		univ.addShaderErrorListener(new ShaderErrorListener() {
-			@Override
-			public void errorOccurred(ShaderError error)
-			{
-				error.printVerbose();
-				JOptionPane.showMessageDialog(SphereGLSL.this, error.toString(), "ShaderError", JOptionPane.ERROR_MESSAGE);
-			}
-		});
+		univ = new SimpleUniverse(c);
 
 		// This will move the ViewPlatform back a bit so the
 		// objects in the scene can be viewed.
@@ -292,14 +261,48 @@ public class SphereGLSL extends javax.swing.JFrame
 		// Ensure at least 5 msec per frame (i.e., < 200Hz)
 		univ.getViewer().getView().setMinimumFrameCycleTime(5);
 
-		return canvas3d;
+		return c;
 	}
 
 	/**
-	 * Creates new form SphereGLSL
+	 * Creates new form SphereMotion
 	 */
-	public SphereGLSL()
+	public SphereMotionGL2ES2(final String[] args)
 	{
+
+		// Parse the Input Arguments
+		String usage = "Usage: java SphereMotion [-point | -spot | -dir]";
+		for (int i = 0; i < args.length; i++)
+		{
+			if (args[i].startsWith("-"))
+			{
+				if (args[i].equals("-point"))
+				{
+					System.out.println("Using point lights");
+					lightType = POINT_LIGHT;
+				}
+				else if (args[i].equals("-spot"))
+				{
+					System.out.println("Using spot lights");
+					lightType = SPOT_LIGHT;
+				}
+				else if (args[i].equals("-dir"))
+				{
+					System.out.println("Using directional lights");
+					lightType = DIRECTIONAL_LIGHT;
+				}
+				else
+				{
+					System.out.println(usage);
+					System.exit(0);
+				}
+			}
+			else
+			{
+				System.out.println(usage);
+				System.exit(0);
+			}
+		}
 
 		// Initialize the GUI components
 		initComponents();
@@ -326,7 +329,7 @@ public class SphereGLSL extends javax.swing.JFrame
 		drawingPanel = new javax.swing.JPanel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("SphereGLSL");
+		setTitle("SphereMotionGL2ES2");
 		drawingPanel.setLayout(new java.awt.BorderLayout());
 
 		drawingPanel.setPreferredSize(new java.awt.Dimension(700, 700));
@@ -342,47 +345,19 @@ public class SphereGLSL extends javax.swing.JFrame
 	{
 		System.setProperty("sun.awt.noerasebackground", "true");
 		System.setProperty("j3d.rend", "jogl2es2");
+		System.setProperty("j3d.displaylist", "false");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()
 			{
-				SphereGLSL sphereGLSL = new SphereGLSL();
-				sphereGLSL.setVisible(true);
+				SphereMotionGL2ES2 sphereMotion = new SphereMotionGL2ES2(args);
+				sphereMotion.setVisible(true);
 			}
 		});
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel drawingPanel;
-
 	// End of variables declaration//GEN-END:variables
-	public static void makeNIO(Sphere sph)
-	{
-		//Make it NIO
-		TriangleStripArray geo = (TriangleStripArray) sph.getShape().getGeometry();
-		int[] stripVertexCounts = new int[geo.getNumStrips()];
-		geo.getStripVertexCounts(stripVertexCounts);
-		TriangleStripArray newGeo = new TriangleStripArray(geo.getVertexCount(), GeometryArray.COORDINATES | GeometryArray.NORMALS
-		//| GeometryArray.TEXTURE_COORDINATE_2 
-				| GeometryArray.USE_NIO_BUFFER | GeometryArray.BY_REFERENCE, stripVertexCounts);
 
-		float[] coords = new float[geo.getValidVertexCount() * 3];
-		geo.getCoordinates(0, coords);
-		newGeo.setCoordRefBuffer(new J3DBuffer(makeFloatBuffer(coords)));
-		float[] norms = new float[geo.getValidVertexCount() * 3];
-		geo.getNormals(0, norms);
-		newGeo.setNormalRefBuffer(new J3DBuffer(makeFloatBuffer(norms)));
-		sph.getShape().setGeometry(newGeo);
-
-	}
-
-	private static FloatBuffer makeFloatBuffer(float[] arr)
-	{
-		ByteBuffer bb = ByteBuffer.allocateDirect(arr.length * 4);
-		bb.order(ByteOrder.nativeOrder());
-		FloatBuffer fb = bb.asFloatBuffer();
-		fb.put(arr);
-		fb.position(0);
-		return fb;
-	}
 }

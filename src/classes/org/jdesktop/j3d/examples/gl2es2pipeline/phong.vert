@@ -56,8 +56,16 @@ uniform mat3 glNormalMatrix;
 
 uniform vec4 glLightModelambient;
 
-uniform vec4 glFrontMaterialambient;
-uniform vec4 glFrontMaterialemission;
+struct material
+{
+	int lightEnabled;
+ 	vec4 ambient;
+ 	vec4 diffuse;
+ 	vec4 emission; 
+ 	vec3 specular;
+ 	float shininess;
+};
+uniform material glFrontMaterial;
 
 // Per-pixel normal (output to fragment shader)
 varying vec3  Normal;
@@ -70,7 +78,7 @@ void main()
 {
 
   	//GL2ES2: sceneColor Derived. Ecm + Acm * Acs (Acs is normal glLightModelambient)
- 	sceneColor = glFrontMaterialemission + glFrontMaterialambient * glLightModelambient;
+ 	sceneColor = glFrontMaterial.emission + glFrontMaterial.ambient * glLightModelambient;
  	
     Normal = normalize(vec3(glNormalMatrix * glNormal));
     

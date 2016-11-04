@@ -1,45 +1,23 @@
 /*
- * $RCSfile$
+ * Copyright (c) 2016 JogAmp Community. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
- * Copyright (c) 2007 Sun Microsystems, Inc. All rights reserved.
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation. Sun designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Sun in the LICENSE file that accompanied this code.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
- * - Redistribution of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * - Redistribution in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in
- *   the documentation and/or other materials provided with the
- *   distribution.
- *
- * Neither the name of Sun Microsystems, Inc. or the names of
- * contributors may be used to endorse or promote products derived
- * from this software without specific prior written permission.
- *
- * This software is provided "AS IS," without a warranty of any
- * kind. ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND
- * WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE HEREBY
- * EXCLUDED. SUN MICROSYSTEMS, INC. ("SUN") AND ITS LICENSORS SHALL
- * NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF
- * USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
- * DERIVATIVES. IN NO EVENT WILL SUN OR ITS LICENSORS BE LIABLE FOR
- * ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT, SPECIAL,
- * CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND
- * REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF OR
- * INABILITY TO USE THIS SOFTWARE, EVEN IF SUN HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGES.
- *
- * You acknowledge that this software is not designed, licensed or
- * intended for use in the design, construction, operation or
- * maintenance of any nuclear facility.
- *
- * $Revision$
- * $Date$
- * $State$
  */
 
 package org.jdesktop.j3d.examples.gl2es2pipeline;
@@ -47,9 +25,6 @@ package org.jdesktop.j3d.examples.gl2es2pipeline;
 import java.awt.GraphicsConfiguration;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 
 import javax.swing.JOptionPane;
 
@@ -59,8 +34,6 @@ import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.GLSLShaderProgram;
-import org.jogamp.java3d.GeometryArray;
-import org.jogamp.java3d.J3DBuffer;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.PositionInterpolator;
 import org.jogamp.java3d.Shader;
@@ -75,8 +48,6 @@ import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.SourceCodeShader;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.TriangleStripArray;
-import org.jogamp.java3d.View;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
@@ -102,8 +73,8 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 	static final String[] shaderAttrNames2 = { "BrickColor", "LightPosition" };
 
 	private SimpleUniverse univ = null;
-	private View view;
-	private BranchGroup transpObj;
+	//private View view;
+	//private BranchGroup transpObj;
 	private BranchGroup scene = null;
 	private int shaderSelected = DIMPLE_SHADER;
 	private float density = 16.0f;
@@ -140,7 +111,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		return m;
 	}
 
-	private ShaderProgram createGLSLShaderProgram(int index)
+	private static ShaderProgram createGLSLShaderProgram(int index)
 	{
 		String vertexProgram = null;
 		String fragmentProgram = null;
@@ -348,6 +319,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 
 		// Add a ShaderErrorListener
 		univ.addShaderErrorListener(new ShaderErrorListener() {
+			@Override
 			public void errorOccurred(ShaderError error)
 			{
 				error.printVerbose();
@@ -360,7 +332,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		// objects in the scene can be viewed.
 		viewingPlatform.setNominalViewingTransform();
 
-		view = univ.getViewer().getView();
+		//view = univ.getViewer().getView();
 
 		return c;
 	}
@@ -413,6 +385,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 
 		setTitle("Window Title");
 		addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
 			public void windowClosing(java.awt.event.WindowEvent evt)
 			{
 				exitForm(evt);
@@ -430,6 +403,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		densityButtonGroup.add(zeroButton);
 		zeroButton.setText("Zero");
 		zeroButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				zeroButtonActionPerformed(evt);
@@ -443,6 +417,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		densityButtonGroup.add(halfButton);
 		halfButton.setText("Half");
 		halfButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				halfButtonActionPerformed(evt);
@@ -459,6 +434,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		fullButton.setSelected(true);
 		fullButton.setText("Full");
 		fullButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				fullButtonActionPerformed(evt);
@@ -481,6 +457,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		goldButton.setSelected(true);
 		goldButton.setText("Gold");
 		goldButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				goldButtonActionPerformed(evt);
@@ -494,6 +471,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		colorButtonGroup.add(silverButton);
 		silverButton.setText("Silver");
 		silverButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				silverButtonActionPerformed(evt);
@@ -515,6 +493,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		DetachButton.setSelected(true);
 		DetachButton.setText("Detach");
 		DetachButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				DetachButtonActionPerformed(evt);
@@ -528,6 +507,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		sceneGraphButtonGroup.add(AttachButton);
 		AttachButton.setText("Create");
 		AttachButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				AttachButtonActionPerformed(evt);
@@ -543,6 +523,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		replaceSPButton.setText("Replace Shader");
 		replaceSPButton.setEnabled(false);
 		replaceSPButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				replaceSPButtonActionPerformed(evt);
@@ -569,6 +550,7 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 		fileMenu.setText("File");
 		exitMenuItem.setText("Exit");
 		exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				exitMenuItemActionPerformed(evt);
@@ -698,13 +680,13 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 
 	}//GEN-LAST:event_zeroButtonActionPerformed
 
-	private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt)
+	private static void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt)
 	{//GEN-FIRST:event_exitMenuItemActionPerformed
 		System.exit(0);
 	}//GEN-LAST:event_exitMenuItemActionPerformed
 
 	/** Exit the Application */
-	private void exitForm(java.awt.event.WindowEvent evt)
+	private static void exitForm(java.awt.event.WindowEvent evt)
 	{//GEN-FIRST:event_exitForm
 		System.exit(0);
 	}//GEN-LAST:event_exitForm

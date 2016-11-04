@@ -55,16 +55,34 @@ uniform mat4 glModelViewMatrix;
 uniform mat4 glModelViewProjectionMatrix;
 uniform mat3 glNormalMatrix;
 
-uniform vec4 glFrontMaterialambient;
-uniform vec4 glFrontMaterialdiffuse;
-uniform vec4 glFrontMaterialemission;
-uniform vec3 glFrontMaterialspecular;
-uniform float glFrontMaterialshininess;
-
 uniform vec4 glLightModelambient;
 
-uniform vec4 glLightSource0position;
-uniform vec4 glLightSource0diffuse;
+ 
+struct material
+{
+	int lightEnabled;
+ 	vec4 ambient;
+ 	vec4 diffuse;
+ 	vec4 emission;
+ 	vec3 specular;
+ 	float shininess;
+};
+uniform material glFrontMaterial;
+
+struct lightSource
+{
+	 int enabled;
+	 vec4 position;
+	 vec4 diffuse;
+	 vec4 specular;
+	 float constantAttenuation, linearAttenuation, quadraticAttenuation;
+	 float spotCutoff, spotExponent;
+	 vec3 spotDirection;
+};
+
+uniform int numberOfLights;
+const int maxLights = 1;
+uniform lightSource glLightSource[maxLights];
 
 //GL2ES2: varying color data needs to be defined
 varying vec4 glFrontColor;
@@ -81,12 +99,12 @@ void directionalLight(
     // (shouldn't they be pre-normalized?!)
     
     //GL2ES2 notice not using the i parameter but hard coded to 0
-    vec3 lightDirection = normalize(vec3(glLightSource0position));
+    vec3 lightDirection = normalize(vec3(glLightSource[0].position));
     
     //GL2ES2: half vector must be calculated
     //vec3 halfVector = normalize(vec3(gl_LightSource[0].halfVector));
     vec3 worldPos = vec3(glModelViewMatrix * glVertex);		
-    vec3 L = normalize(glLightSource0position.xyz - worldPos);
+    vec3 L = normalize(glLightSource[0].position.xyz - worldPos);
  	vec3 V = vec3(0,0,1);//eye position
  	vec3 halfVector = (L + V);
  	
@@ -103,12 +121,12 @@ void directionalLight(
 	pf = 0.0;
     }
     else {
-	pf = pow(nDotHV, glFrontMaterialshininess);
+	pf = pow(nDotHV, glFrontMaterial.shininess);
     }
 
     ambient += glLightModelambient;
-    diffuse += glLightSource0diffuse * nDotVP;
-    specular += glFrontMaterialspecular * pf;
+    diffuse += glLightSource[0].diffuse * nDotVP;
+    specular += glFrontMaterial.specular * pf;
 }
 
 //GL2ES2: only a single light for now
@@ -136,13 +154,13 @@ void main()
     }
 
 	//GL2ES2: sceneColor Derived. Ecm + Acm * Acs (Acs is normal glLightModelambient)
- 	vec4 sceneColor = glFrontMaterialemission + glFrontMaterialambient * glLightModelambient;
+ 	vec4 sceneColor = glFrontMaterial.emission + glFrontMaterial.ambient * glLightModelambient;
 
     // Apply the result of the lighting equation
-    vec4 outSecondaryColor = vec4(vec3(spec * glFrontMaterialspecular), 1.0);
+    vec4 outSecondaryColor = vec4(vec3(spec * glFrontMaterial.specular), 1.0);
     vec3 color0 = vec3(sceneColor +
 		       amb * glLightModelambient +
-		       diff * glFrontMaterialdiffuse);
+		       diff * glFrontMaterial.diffuse);
 
     // Generate a pseudo-random noise pattern
     vec3 xyz = clamp((outPosition.xyz + 1.0) * 0.5, 0.0, 1.0);
