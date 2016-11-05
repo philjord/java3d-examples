@@ -81,6 +81,17 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
+					<javadocDirectory>${project.basedir}/src/classes</javadocDirectory>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<links>
+						<link>http://docs.oracle.com/javase/8/docs/api/</link>
+					</links>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
