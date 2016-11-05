@@ -18,7 +18,6 @@ struct fogData
 };
 uniform fogData fogData;
 
-//End of FFP inputs
 in vec2 glTexCoord0;
 
 uniform sampler2D BaseMap;
@@ -31,13 +30,10 @@ in vec3 N;
 in vec4 A;
 in vec4 C;
 in vec4 D;
-
-
+in vec3 S;
 in vec3 emissive;
-in vec3 specular;
+
 in float shininess;
-
-
 
 out vec4 glFragColor;
 
@@ -81,23 +77,17 @@ void main( void )
 	vec3 albedo = baseMap.rgb * C.rgb;
 	vec3 diffuse = A.rgb + (D.rgb * NdotL);
 
-
 	// Specular
-	vec3 spec = specular * pow(NdotH, 0.3*shininess);
-	spec *= D.rgb;
+	vec3 spec = S * pow(NdotH, 0.3*shininess);
 	
 	color.rgb = albedo * (diffuse + emissive) + spec;
 	color.a = C.a * baseMap.a;
-	
-	float fogFactor = 0.0;    
- 	
+	 	
     if(fogData.fogEnabled == 1)
 	{
-		//distance
-		float dist = 0.0;
-		 
 		//compute distance used in fog equations
-		dist = length(ViewDir);		 
+		float dist  = length(ViewVec);		
+		float fogFactor = 0.0;    
 		 
 		if(fogData.linearEnd > 0.0)//linear fog
 		{
@@ -114,7 +104,5 @@ void main( void )
 		color.a = color.a + fogFactor; 	 
 	}
      
-	glFragColor = color;
-
 	glFragColor = color;
 }
