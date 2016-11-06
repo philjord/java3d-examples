@@ -122,27 +122,27 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 			{
 			case DIMPLE_SHADER:
 				vertexProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/dimple.vert"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/dimple.vert"));
 				fragmentProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/dimple.frag"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/dimple.frag"));
 				break;
 			case BRICK_SHADER:
 				vertexProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/aabrick.vert"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/aabrick.vert"));
 				fragmentProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/aabrick.frag"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/aabrick.frag"));
 				break;
 			case WOOD_SHADER:
 				vertexProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/wood.vert"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/wood.vert"));
 				fragmentProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/wood.frag"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/wood.frag"));
 				break;
 			case POLKADOT3D_SHADER:
 				vertexProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/polkadot3d.vert"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/polkadot3d.vert"));
 				fragmentProgram = StringIO.readFully(
-						new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/polkadot3d.frag"));
+						new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/polkadot3d.frag"));
 				break;
 			default:
 			}

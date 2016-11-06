@@ -94,9 +94,9 @@ public class SamplerTestGLSL extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/multitex.vert"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/multitex.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/multitex.frag"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/multitex.frag"));
 		}
 		catch (IOException e)
 		{

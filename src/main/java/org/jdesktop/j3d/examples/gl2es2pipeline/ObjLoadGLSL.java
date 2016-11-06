@@ -138,9 +138,9 @@ public class ObjLoadGLSL extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(new File(
-					System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".vert"));
+					System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".vert"));
 			fragmentProgram = StringIO.readFully(new File(
-					System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".frag"));
+					System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".frag"));
 		}
 		catch (IOException e)
 		{

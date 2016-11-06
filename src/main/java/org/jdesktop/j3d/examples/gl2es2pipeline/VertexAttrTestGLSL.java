@@ -188,9 +188,9 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame
 				try
 				{
 					vertexProgram = StringIO.readFully(new File(
-							System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/vertexshader.vert"));
+							System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/vertexshader.vert"));
 					fragmentProgram = StringIO.readFully(new File(
-							System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/vertexshader.frag"));
+							System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/vertexshader.frag"));
 				}
 				catch (IOException e)
 				{

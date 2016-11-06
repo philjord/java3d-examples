@@ -75,7 +75,7 @@ public class Resources
 			{
 				File f = new File(System.getProperty("user.dir") + "/src/" + filename);
 				if (!f.exists())
-					f = new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/" + filename);
+					f = new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/" + filename);
 
 				url = f.toURL();
 			}

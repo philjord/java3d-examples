@@ -137,9 +137,9 @@ public class PhongShadingGLSL extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/gouraud.vert"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/gouraud.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/gouraud.frag"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/gouraud.frag"));
 		}
 		catch (IOException e)
 		{
@@ -153,9 +153,9 @@ public class PhongShadingGLSL extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/phong.vert"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/phong.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/phong.frag"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/phong.frag"));
 		}
 		catch (IOException e)
 		{

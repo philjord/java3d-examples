@@ -113,9 +113,9 @@ public class SphereMotionGLSL_FFP extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/sphere_motion/phong_ffp.vert"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/sphere_motion/phong_ffp.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/sphere_motion/phong_ffp.frag"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/sphere_motion/phong_ffp.frag"));
 		}
 		catch (IOException e)
 		{

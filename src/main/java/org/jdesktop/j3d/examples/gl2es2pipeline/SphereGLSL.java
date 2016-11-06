@@ -125,9 +125,9 @@ public class SphereGLSL extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/simple.vert"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/simple.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/gl2es2pipeline/simple.frag"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/simple.frag"));
 		}
 		catch (IOException e)
 		{

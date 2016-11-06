@@ -114,9 +114,9 @@ public class SphereMotionGL2ES2 extends javax.swing.JFrame
 		try
 		{
 			vertexProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/sphere_motion/phong_gl2es2.vert"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/sphere_motion/phong_gl2es2.vert"));
 			fragmentProgram = StringIO.readFully(
-					new File(System.getProperty("user.dir") + "/src/classes/org/jdesktop/j3d/examples/sphere_motion/phong_gl2es2.frag"));
+					new File(System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/sphere_motion/phong_gl2es2.frag"));
 		}
 		catch (IOException e)
 		{
