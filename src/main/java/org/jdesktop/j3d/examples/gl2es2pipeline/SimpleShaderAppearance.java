@@ -129,8 +129,8 @@ public class SimpleShaderAppearance extends ShaderAppearance
 			vertexProgram += " 	float shininess;\n";
 			vertexProgram += "};\n";
 			vertexProgram += "uniform material glFrontMaterial;\n";
+			vertexProgram += "struct lightSource\n";
 			vertexProgram += "	{\n";
-			vertexProgram += "	  int enabled;\n";
 			vertexProgram += "	  vec4 position;\n";
 			vertexProgram += "	  vec4 diffuse;\n";
 			vertexProgram += "	  vec4 specular;\n";
