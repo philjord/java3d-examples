@@ -75,7 +75,7 @@ public class TextureControlPanel extends JDialog implements ChangeListener,
     /** renderer for lightMap, with support for mouse interaction **/
     private MyCanvas canvas = null;
     /** file name for light mask */
-    private String maskFileName = "resources/images/mask.png";
+    private String maskFileName = "main/resources/images/mask.png";
     /** a slider to change Z light direction, i.e, blue channel */
     private JSlider sliderZ = new JSlider(JSlider.HORIZONTAL, 1, 255, 142);
     /** target demo instance to be controled **/

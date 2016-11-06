@@ -67,7 +67,7 @@ import org.jogamp.vecmath.Point3d;
 
 public class TextureImage extends Applet {
 
-    private static final String defaultFileName = "resources/images/stone.jpg";
+    private static final String defaultFileName = "main/resources/images/stone.jpg";
     private java.net.URL texImage = null;
 
     private SimpleUniverse u = null;

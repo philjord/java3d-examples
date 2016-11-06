@@ -122,16 +122,16 @@ implements ItemListener, ActionListener, ChangeListener {
   // image files used for the Texture animation for the applet,
   // or if no parameters are passed in for the application
   public static final String[] defaultFiles = {
-    "resources/images/animation1.gif",
-    "resources/images/animation2.gif",
-    "resources/images/animation3.gif",
-    "resources/images/animation4.gif",
-    "resources/images/animation5.gif",
-    "resources/images/animation6.gif",
-    "resources/images/animation7.gif",
-    "resources/images/animation8.gif",
-    "resources/images/animation9.gif",
-    "resources/images/animation10.gif"};
+    "main/resources/images/animation1.gif",
+    "main/resources/images/animation2.gif",
+    "main/resources/images/animation3.gif",
+    "main/resources/images/animation4.gif",
+    "main/resources/images/animation5.gif",
+    "main/resources/images/animation6.gif",
+    "main/resources/images/animation7.gif",
+    "main/resources/images/animation8.gif",
+    "main/resources/images/animation9.gif",
+    "main/resources/images/animation10.gif"};
 
   private java.net.URL[] urls = null;
 

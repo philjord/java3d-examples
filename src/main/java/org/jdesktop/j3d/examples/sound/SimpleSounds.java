@@ -210,21 +210,21 @@ public class SimpleSounds extends Applet {
         Canvas3D c = new Canvas3D(config);
 	add("Center", c);
 
-        url[0] = Resources.getResource("resources/audio/techno_machine.au");
+        url[0] = Resources.getResource("main/resources/audio/techno_machine.au");
         if (url == null) {
-            System.err.println("resources/audio/techno_machine.au not found");
+            System.err.println("main/resources/audio/techno_machine.au not found");
             System.exit(1);
         }
             
-         url[1] = Resources.getResource("resources/audio/hello_universe.au");
+         url[1] = Resources.getResource("main/resources/audio/hello_universe.au");
         if (url == null) {
-            System.err.println("resources/audio/hello_universe.au not found");
+            System.err.println("main/resources/audio/hello_universe.au not found");
             System.exit(1);
         }
          
-        url[2] = Resources.getResource("resources/audio/roar.au");
+        url[2] = Resources.getResource("main/resources/audio/roar.au");
         if (url == null) {
-            System.err.println("resources/audio/roar.au not found");
+            System.err.println("main/resources/audio/roar.au not found");
             System.exit(1);
         }         
                                       

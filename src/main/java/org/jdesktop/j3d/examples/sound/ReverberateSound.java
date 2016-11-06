@@ -155,9 +155,9 @@ public class ReverberateSound extends Applet {
     }
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
-            url = Resources.getResource("resources/audio/hello_universe.au");
+            url = Resources.getResource("main/resources/audio/hello_universe.au");
             if (url == null) {
-                System.err.println("resources/audio/hello_universe.au not found");
+                System.err.println("main/resources/audio/hello_universe.au not found");
                 System.exit(1);
             }
 

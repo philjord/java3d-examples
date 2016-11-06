@@ -248,9 +248,9 @@ public class PrintCanvas3D extends javax.swing.JFrame {
     public PrintCanvas3D(String args[]) {
         
         if (args.length == 0) {
-            filename = Resources.getResource("resources/geometry/beethoven.obj");
+            filename = Resources.getResource("main/resources/geometry/beethoven.obj");
             if (filename == null) {
-                System.err.println("resources/geometry/beethoven.obj not found");
+                System.err.println("main/resources/geometry/beethoven.obj not found");
                 System.exit(1);
             }
         } else {

@@ -132,8 +132,8 @@ public class Dot3Demo extends JFrame {
     ImageComponent2D imageLightMap;
     
     // default texture names used
-    String  textureColorName= "resources/images/wood.jpg";
-    String textureDOT3NormalMapName = "resources/images/Java3Ddot3.jpg";
+    String  textureColorName= "main/resources/images/wood.jpg";
+    String textureDOT3NormalMapName = "main/resources/images/Java3Ddot3.jpg";
     
     /**
      * Constructor.

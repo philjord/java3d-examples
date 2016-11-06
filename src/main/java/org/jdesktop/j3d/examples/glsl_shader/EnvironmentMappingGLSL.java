@@ -100,7 +100,7 @@ public class EnvironmentMappingGLSL extends javax.swing.JFrame {
 	objRoot.addChild(objTrans);
 
         // Create texture object
-        textureURL = Resources.getResource("resources/images/duke-gears.jpg");
+        textureURL = Resources.getResource("main/resources/images/duke-gears.jpg");
         Texture tex = new TextureLoader(textureURL, this).getTexture();
         // Create the shader program
 	String vertexProgram = null;

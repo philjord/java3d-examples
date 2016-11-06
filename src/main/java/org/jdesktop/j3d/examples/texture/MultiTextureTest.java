@@ -230,17 +230,17 @@ public class MultiTextureTest extends Applet implements ItemListener{
   public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
       if (stoneImage == null) {
           // the path to the image for an applet
-          stoneImage = Resources.getResource("resources/images/stone.jpg");
+          stoneImage = Resources.getResource("main/resources/images/stone.jpg");
           if (stoneImage == null) {
-              System.err.println("resources/images/stone.jpg not found");
+              System.err.println("main/resources/images/stone.jpg not found");
               System.exit(1);
           }
           
           if (skyImage == null) {
               // the path to the image for an applet
-              skyImage = Resources.getResource("resources/images/bg.jpg");
+              skyImage = Resources.getResource("main/resources/images/bg.jpg");
               if (skyImage == null) {
-                  System.err.println("resources/images/bg.jpg not found");
+                  System.err.println("main/resources/images/bg.jpg not found");
                   System.exit(1);
               }
           }
@@ -326,15 +326,15 @@ public class MultiTextureTest extends Applet implements ItemListener{
       java.net.URL skyURL = null;
       // the path to the image for an application
       
-      stoneURL = Resources.getResource("resources/images/stone.jpg");
+      stoneURL = Resources.getResource("main/resources/images/stone.jpg");
       if (stoneURL == null) {
-          System.err.println("resources/images/stone.jpg not found");
+          System.err.println("main/resources/images/stone.jpg not found");
           System.exit(1);
       }
       
-      skyURL = Resources.getResource("resources/images/bg.jpg");
+      skyURL = Resources.getResource("main/resources/images/bg.jpg");
       if (skyURL == null) {
-          System.err.println("resources/images/bg.jpg not found");
+          System.err.println("main/resources/images/bg.jpg not found");
           System.exit(1);
       }
       

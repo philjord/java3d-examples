@@ -245,9 +245,9 @@ public class Morphing extends javax.swing.JFrame {
         
         objFiles = new java.net.URL[3];
         for(int i=0; i<3; i++) {
-            objFiles[i] = Resources.getResource("resources/geometry/hand" + (i+1) + ".obj");
+            objFiles[i] = Resources.getResource("main/resources/geometry/hand" + (i+1) + ".obj");
             if (objFiles[i] == null) {
-                System.err.println("resources/geometry/hand" + (i+1) + ".obj not found");
+                System.err.println("main/resources/geometry/hand" + (i+1) + ".obj not found");
                 System.exit(1);
             }
         }

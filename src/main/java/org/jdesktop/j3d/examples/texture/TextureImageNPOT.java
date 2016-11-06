@@ -71,7 +71,7 @@ import org.jogamp.vecmath.Point3d;
 
 public class TextureImageNPOT extends Applet {
   
-    private static final String defaultFileName = "resources/images/Java3d.jpg";
+    private static final String defaultFileName = "main/resources/images/Java3d.jpg";
     private java.net.URL texImage = null;
 
     private SimpleUniverse u = null;

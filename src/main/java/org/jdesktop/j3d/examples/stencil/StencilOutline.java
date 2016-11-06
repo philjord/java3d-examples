@@ -453,10 +453,10 @@ public class StencilOutline extends javax.swing.JFrame
 
 		if (filename == null)
 		{
-			filename = Resources.getResource("resources/geometry/galleon.obj");
+			filename = Resources.getResource("main/resources/geometry/galleon.obj");
 			if (filename == null)
 			{
-				System.err.println("resources/geometry/galleon.obj not found");
+				System.err.println("main/resources/geometry/galleon.obj not found");
 				System.exit(1);
 			}
 		}

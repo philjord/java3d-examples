@@ -59,8 +59,8 @@ import org.jogamp.vecmath.Point3d;
 public class SamplerTestGLSL extends javax.swing.JFrame
 {
 
-	private static String cloudTexName = "resources/images/bg.jpg";
-	private static String earthTexName = "resources/images/earth.jpg";
+	private static String cloudTexName = "main/resources/images/bg.jpg";
+	private static String earthTexName = "main/resources/images/earth.jpg";
 
 	private URL cloudURL = null;
 	private URL earthURL = null;

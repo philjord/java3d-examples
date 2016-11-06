@@ -217,9 +217,9 @@ public class BackgroundGeometry extends javax.swing.JFrame {
 
         if (bgImage == null) {
 	    // the path to the image for an applet
-	    bgImage = Resources.getResource("resources/images/bg.jpg");
+	    bgImage = Resources.getResource("main/resources/images/bg.jpg");
 	    if (bgImage == null) {
-	      System.err.println("resources/images/bg.jpg not found");
+	      System.err.println("main/resources/images/bg.jpg not found");
 	      System.exit(1);
             }            
 	}

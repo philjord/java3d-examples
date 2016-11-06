@@ -371,15 +371,15 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
 	// create textures
-        texImage1 = Resources.getResource("resources/images/bg.jpg");
+        texImage1 = Resources.getResource("main/resources/images/bg.jpg");
         if (texImage1 == null) {
-            System.err.println("resources/images/bg.jpg not found");
+            System.err.println("main/resources/images/bg.jpg not found");
             System.exit(1);
         }
 
-        texImage2 = Resources.getResource("resources/images/one.jpg");
+        texImage2 = Resources.getResource("main/resources/images/one.jpg");
         if (texImage2 == null) {
-            System.err.println("resources/images/one.jpg not found");
+            System.err.println("main/resources/images/one.jpg not found");
             System.exit(1);
         }
         
@@ -453,15 +453,15 @@ public class InterleavedNIOBuffer extends JApplet implements ActionListener {
         java.net.URL texURL1 = null;
         java.net.URL texURL2 = null;
         // the path to the image for an application
-        texURL1 = Resources.getResource("resources/images/bg.jpg");
+        texURL1 = Resources.getResource("main/resources/images/bg.jpg");
         if (texURL1 == null) {
-            System.err.println("resources/images/bg.jpg not found");
+            System.err.println("main/resources/images/bg.jpg not found");
             System.exit(1);
         }
 
-        texURL2 = Resources.getResource("resources/images/one.jpg");
+        texURL2 = Resources.getResource("main/resources/images/one.jpg");
         if (texURL2 == null) {
-            System.err.println("resources/images/one.jpg not found");
+            System.err.println("main/resources/images/one.jpg not found");
             System.exit(1);
         }
 

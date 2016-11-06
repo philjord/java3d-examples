@@ -263,9 +263,9 @@ public class PointSoundTest extends javax.swing.JFrame {
         // Initialize the GUI components
         initComponents();
         
-        url = Resources.getResource("resources/audio/magic_bells.wav");
+        url = Resources.getResource("main/resources/audio/magic_bells.wav");
         if (url == null) {
-            System.err.println("resources/audio/magic_bells.wav not found");
+            System.err.println("main/resources/audio/magic_bells.wav not found");
             System.exit(1);
         }
         

@@ -462,18 +462,18 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
 
         if (bgImage == null) {
             // the path to the image for an applet
-            bgImage = Resources.getResource("resources/images/bg.jpg");
+            bgImage = Resources.getResource("main/resources/images/bg.jpg");
             if (bgImage == null) {
-                System.err.println("resources/images/bg.jpg not found");
+                System.err.println("main/resources/images/bg.jpg not found");
                 System.exit(1);
             }
         }
 	
 	if (texImage == null) {
             // the path to the image for an applet
-            texImage = Resources.getResource("resources/images/stone.jpg");
+            texImage = Resources.getResource("main/resources/images/stone.jpg");
             if (texImage == null) {
-                System.err.println("resources/images/stone.jpg not found");
+                System.err.println("main/resources/images/stone.jpg not found");
                 System.exit(1);
             }
         }

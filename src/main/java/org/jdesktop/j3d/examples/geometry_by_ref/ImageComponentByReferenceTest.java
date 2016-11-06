@@ -266,9 +266,9 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
         
-        texImage = Resources.getResource("resources/images/one.jpg");
+        texImage = Resources.getResource("main/resources/images/one.jpg");
         if (texImage == null) {
-            System.err.println("resources/images/one.jpg not found");
+            System.err.println("main/resources/images/one.jpg not found");
             System.exit(1);
         }
         
@@ -296,9 +296,9 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
     public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.net.URL url = null;
         // the path to the image file for an application
-        url = Resources.getResource("resources/images/one.jpg");
+        url = Resources.getResource("main/resources/images/one.jpg");
         if (url == null) {
-            System.err.println("resources/images/one.jpg not found");
+            System.err.println("main/resources/images/one.jpg not found");
             System.exit(1);
         }
         

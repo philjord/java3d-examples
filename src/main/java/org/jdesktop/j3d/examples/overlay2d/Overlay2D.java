@@ -87,7 +87,7 @@ public class Overlay2D extends javax.swing.JFrame
 		ap.setPolygonAttributes(pa);
 
 		// Add a transformed texture to the cube, for interest sake					
-		URL earthURL = Resources.getResource("resources/images/earth.jpg");
+		URL earthURL = Resources.getResource("main/resources/images/earth.jpg");
 		Texture earthTex = new TextureLoader(earthURL, this).getTexture();
 		ap.setTexture(earthTex);
 

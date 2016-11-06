@@ -62,7 +62,7 @@ import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
 
-public class SphereMotionGL2ES3_Texture extends javax.swing.JFrame
+public class SphereMotionGL2ES2_Texture extends javax.swing.JFrame
 {
 
 	private SimpleUniverse univ = null;
@@ -141,7 +141,7 @@ public class SphereMotionGL2ES3_Texture extends javax.swing.JFrame
 
 		
 		a.setMaterial(m);
-		Texture txtr = new TextureLoader(Resources.getResource("resources/images/earth.jpg"), this).getTexture();
+		Texture txtr = new TextureLoader(Resources.getResource("main/resources/images/earth.jpg"), this).getTexture();
 		a.setTexture(txtr);
 		Sphere sph = new Sphere(1.0f, Sphere.GENERATE_NORMALS | Sphere.GENERATE_TEXTURE_COORDS, 200, a);
 		objScale.addChild(sph);
@@ -280,7 +280,7 @@ public class SphereMotionGL2ES3_Texture extends javax.swing.JFrame
 	/**
 	 * Creates new form SphereMotion
 	 */
-	public SphereMotionGL2ES3_Texture(final String[] args)
+	public SphereMotionGL2ES2_Texture(final String[] args)
 	{
 
 		// Parse the Input Arguments
@@ -363,7 +363,7 @@ public class SphereMotionGL2ES3_Texture extends javax.swing.JFrame
 			@Override
 			public void run()
 			{
-				SphereMotionGL2ES3_Texture sphereMotion = new SphereMotionGL2ES3_Texture(args);
+				SphereMotionGL2ES2_Texture sphereMotion = new SphereMotionGL2ES2_Texture(args);
 				sphereMotion.setVisible(true);
 			}
 		});

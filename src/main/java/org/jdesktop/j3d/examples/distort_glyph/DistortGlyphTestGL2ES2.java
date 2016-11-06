@@ -125,7 +125,7 @@ public class DistortGlyphTestGL2ES2 extends javax.swing.JFrame
 		Color3f objColor = new Color3f(1.0f, 0.7f, 0.8f);
 		Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
 		app.setMaterial(new Material(objColor, black, objColor, black, 80.0f));
-		Texture txtr = new TextureLoader(Resources.getResource("resources/images/gold.jpg"), this).getTexture();
+		Texture txtr = new TextureLoader(Resources.getResource("main/resources/images/gold.jpg"), this).getTexture();
 		app.setTexture(txtr);
 		// done in shader see makeShaderAppearance() below
 		//TexCoordGeneration tcg = new TexCoordGeneration(TexCoordGeneration.SPHERE_MAP, TexCoordGeneration.TEXTURE_COORDINATE_2);

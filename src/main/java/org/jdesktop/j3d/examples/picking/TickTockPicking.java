@@ -432,9 +432,9 @@ public class TickTockPicking extends javax.swing.JFrame {
     public TickTockPicking() {
         
         // the path to the image for an applet
-        texImage = Resources.getResource("resources/images/stone.jpg");
+        texImage = Resources.getResource("main/resources/images/stone.jpg");
         if (texImage == null) {
-            System.err.println("resources/images/stone.jpg not found");
+            System.err.println("main/resources/images/stone.jpg not found");
             System.exit(1);
         }
         // Initialize the GUI components

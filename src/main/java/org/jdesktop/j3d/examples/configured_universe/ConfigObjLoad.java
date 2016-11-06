@@ -195,9 +195,9 @@ public class ConfigObjLoad {
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	if (filename == null) {
-            filename = Resources.getResource("resources/geometry/galleon.obj");
+            filename = Resources.getResource("main/resources/geometry/galleon.obj");
             if (filename == null) {
-                System.err.println("resources/geometry/galleon.obj not found");
+                System.err.println("main/resources/geometry/galleon.obj not found");
                 System.exit(1);
             }
         }
