@@ -24,7 +24,6 @@ package org.jdesktop.j3d.examples.hello_universe;
 
 import java.awt.GraphicsConfiguration;
 
-import org.jdesktop.j3d.examples.gl2es2pipeline.Cube;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -32,6 +31,7 @@ import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.shader.Cube;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Point3d;
 

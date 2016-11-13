@@ -23,7 +23,6 @@ package org.jdesktop.j3d.examples.collision;
 
 import java.awt.GraphicsConfiguration;
 
-import org.jdesktop.j3d.examples.gl2es2pipeline.Cube;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
@@ -37,6 +36,7 @@ import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.shader.Cube;
 import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
@@ -146,7 +146,7 @@ public class TickTockCollisionGL2ES2 extends javax.swing.JFrame
 
 		// Create a new ColoringAttributes object for the shape's
 		// appearance and make it writable at runtime.
-		Appearance app = new SimpleShaderAppearance();
+		Appearance app = new SimpleShaderAppearance(null,false,false);
 		shape.setAppearance(app);
 		RenderingAttributes ra = new RenderingAttributes();
 		ra.setIgnoreVertexColors(true);
