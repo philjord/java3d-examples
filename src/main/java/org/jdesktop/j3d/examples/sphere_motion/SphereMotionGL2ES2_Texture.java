@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.jdesktop.j3d.examples.Resources;
-import org.jdesktop.j3d.examples.gl2es2pipeline.SimpleShaderAppearance;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
 import org.jogamp.java3d.Appearance;
@@ -54,6 +53,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;

@@ -25,7 +25,6 @@ package org.jdesktop.j3d.examples.background;
 import java.awt.GraphicsConfiguration;
 
 import org.jdesktop.j3d.examples.Resources;
-import org.jdesktop.j3d.examples.gl2es2pipeline.SimpleShaderAppearance;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
@@ -41,6 +40,7 @@ import org.jogamp.java3d.utils.behaviors.mouse.MouseZoom;
 import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;

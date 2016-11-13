@@ -25,7 +25,6 @@ package org.jdesktop.j3d.examples.depth_func;
 import java.awt.GraphicsConfiguration;
 
 import org.jdesktop.j3d.examples.gl2es2pipeline.Cube;
-import org.jdesktop.j3d.examples.gl2es2pipeline.SimpleShaderAppearance;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
@@ -42,6 +41,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;

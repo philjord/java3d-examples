@@ -34,7 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import org.jdesktop.j3d.examples.gl2es2pipeline.SimpleShaderAppearance;
 import org.jogamp.java3d.AlternateAppearance;
 import org.jogamp.java3d.AmbientLight;
 import org.jogamp.java3d.Appearance;
@@ -48,6 +47,7 @@ import org.jogamp.java3d.Group;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
