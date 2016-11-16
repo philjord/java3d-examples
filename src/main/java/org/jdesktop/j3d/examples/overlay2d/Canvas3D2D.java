@@ -22,10 +22,18 @@
 
 package org.jdesktop.j3d.examples.overlay2d;
 
+import java.awt.Color;
 import java.awt.GraphicsConfiguration;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+
+import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.J3DGraphics2D;
+import org.jogamp.java3d.utils.image.ImageException;
 
 /**
  * This is an extension to the Canvas3D with the postRender method overridden to draw some things on the 
@@ -33,25 +41,54 @@ import org.jogamp.java3d.J3DGraphics2D;
  */
 public class Canvas3D2D extends Canvas3D
 {
+	private URL bgImage = null;
+	private BufferedImage bufferedImage;
 
 	public Canvas3D2D(GraphicsConfiguration gc)
 	{
 		super(gc);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void postRender()
 	{
 		J3DGraphics2D g = getGraphics2D();
 
+		g.setColor(new Color(1.0f, 1.0f, 1.0f));
+		g.drawString("This is an example String", 50, 20);
+
+		if (bufferedImage == null)
+		{
+			// the path to the image for an applet
+			bgImage = Resources.getResource("main/resources/images/bg.jpg");
+			if (bgImage == null)
+			{
+				System.err.println("main/resources/images/bg.jpg not found");
+				System.exit(1);
+			}
+
+			bufferedImage = (BufferedImage) java.security.AccessController.doPrivileged(new java.security.PrivilegedAction() {
+				@Override
+				public Object run()
+				{
+					try
+					{
+						return ImageIO.read(bgImage);
+					}
+					catch (IOException e)
+					{
+						throw new ImageException(e);
+					}
+				}
+			});
+		}
+		g.drawImage(bufferedImage, 10, 50, null);
+
+		g.setColor(new Color(1.0f, 0f, 0f));
 		// draw a cross hair
 		g.drawLine((this.getWidth() / 2) - 5, (this.getHeight() / 2), (this.getWidth() / 2) + 5, (this.getHeight() / 2));
 		g.drawLine((this.getWidth() / 2), (this.getHeight() / 2) - 5, (this.getWidth() / 2), (this.getHeight() / 2) + 5);
-
-		g.drawString("This is an example String", 50, 20);
-
-		// etc e.g.
-		//g.drawImage(getBufferedImage(), 10, 50, null);
 
 		g.flush(false);
 
