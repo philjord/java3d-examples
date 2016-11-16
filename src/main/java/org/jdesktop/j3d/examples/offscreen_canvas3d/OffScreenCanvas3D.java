@@ -71,16 +71,16 @@ class OffScreenCanvas3D extends Canvas3D {
         printing = true;
 
     BufferedImage bImage = new BufferedImage(
-                                200, 200 , BufferedImage.TYPE_INT_ARGB);
+                                200, 200 , BufferedImage.TYPE_3BYTE_BGR);
 
     ImageComponent2D buffer = new ImageComponent2D(
-                                ImageComponent.FORMAT_RGBA, bImage, true, true);
+                                ImageComponent.FORMAT_RGB, bImage, true, true);
     buffer.setCapability(ImageComponent2D.ALLOW_IMAGE_READ);
 
     this.setOffScreenBuffer(buffer);
     this.renderOffScreenBuffer();
 
-    if (toWait) {
+   if (toWait) {
 	this.waitForOffScreenRendering();
 	drawOffScreenBuffer();
     }
@@ -99,7 +99,7 @@ class OffScreenCanvas3D extends Canvas3D {
 
     BufferedImage bImage = this.getOffScreenBuffer().getImage();
     ImageComponent2D newImageComponent = new ImageComponent2D(
-	    ImageComponent.FORMAT_RGBA, bImage, true, true);
+	    ImageComponent.FORMAT_RGB, bImage, true, true);
 
     drawRaster.setImage(newImageComponent);
   }

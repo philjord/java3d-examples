@@ -95,7 +95,7 @@ public class OffScreenTest extends javax.swing.JFrame {
 
 	//Create a raster 
 	BufferedImage bImage = new BufferedImage(200, 200 ,
-						 BufferedImage.TYPE_INT_ARGB);        
+						 BufferedImage.TYPE_4BYTE_ABGR);        
 	ImageComponent2D buffer =
 	    new ImageComponent2D(ImageComponent.FORMAT_RGBA, bImage, true, true);
 	buffer.setCapability(ImageComponent2D.ALLOW_IMAGE_READ);

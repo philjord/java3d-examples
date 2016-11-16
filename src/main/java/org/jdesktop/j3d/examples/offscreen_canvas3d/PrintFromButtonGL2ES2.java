@@ -71,7 +71,7 @@ import org.jogamp.vecmath.Vector3d;
 /**
  * PrintFromButton programs with simple UI.
  */
-public class PrintFromButton extends javax.swing.JFrame {
+public class PrintFromButtonGL2ES2 extends javax.swing.JFrame {
 
     private SimpleUniverse univ = null;
     private BranchGroup scene = null;
@@ -159,7 +159,7 @@ public class PrintFromButton extends javax.swing.JFrame {
     /**
      * Creates new form PrintFromButton
      */
-    public PrintFromButton() {
+    public PrintFromButtonGL2ES2() {
         // Initialize the GUI components
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
         initComponents();
@@ -268,7 +268,7 @@ public class PrintFromButton extends javax.swing.JFrame {
     public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrintFromButton().setVisible(true);
+                new PrintFromButtonGL2ES2().setVisible(true);
             }
         });
     }
