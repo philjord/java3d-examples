@@ -11,7 +11,7 @@
 
 	<licenses>
 		<license>
-			<name>The GNU General Public License (GPL)</name>
+			<name>Simplified BSD License</name>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
@@ -20,9 +20,14 @@
 		<developer>
 			<id>philjord</id>
 			<name>Philip Jordan</name>
+			<email>philjord@ihug.co.nz</email>
 			<url>https://github.com/philjord</url>
 			<organization>JogAmp</organization>
 			<organizationUrl>http://jogamp.org/</organizationUrl>
+			<roles>
+				<role>maintainer</role>
+			</roles>
+			<timezone>+12</timezone>
 		</developer>		
 	</developers>
 	<contributors>
