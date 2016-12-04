@@ -35,29 +35,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
 
 import javax.swing.JOptionPane;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.DirectionalLight;
 import org.jogamp.java3d.GLSLShaderProgram;
-import org.jogamp.java3d.Group;
-import org.jogamp.java3d.Material;
-import org.jogamp.java3d.Node;
 import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Shader;
 import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.ShaderError;
 import org.jogamp.java3d.ShaderErrorListener;
 import org.jogamp.java3d.ShaderProgram;
-import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.SourceCodeShader;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
@@ -112,12 +108,40 @@ public class ObjLoadGLSL extends javax.swing.JFrame
 		objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		objScale.addChild(objTrans);
 
+		// Set vertex and fragment shader program for all Shape3D nodes in scene
+		String vertexProgram = null;
+		String fragmentProgram = null;
+		try
+		{
+			vertexProgram = StringIO.readFully(new File(
+					System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".vert"));
+			fragmentProgram = StringIO.readFully(new File(
+					System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".frag"));
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		Shader[] shaders = new Shader[2];
+		shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL, Shader.SHADER_TYPE_VERTEX, vertexProgram);
+		shaders[1] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL, Shader.SHADER_TYPE_FRAGMENT, fragmentProgram);
+		final ShaderProgram shaderProgram = new GLSLShaderProgram();
+		shaderProgram.setShaders(shaders);
+
 		int flags = ObjectFile.RESIZE;
 		if (!noTriangulate)
 			flags |= ObjectFile.TRIANGULATE;
 		if (!noStripify)
 			flags |= ObjectFile.STRIPIFY;
-		ObjectFile f = new ObjectFile(flags, (float) (creaseAngle * Math.PI / 180.0));
+		ObjectFile f = new ObjectFile(flags, (float) (creaseAngle * Math.PI / 180.0)) {
+			@Override
+			public Appearance createAppearance()
+			{
+				ShaderAppearance sa = new ShaderAppearance();
+				sa.setShaderProgram(shaderProgram);
+				return sa;
+			}
+		};
 		Scene s = null;
 		try
 		{
@@ -138,27 +162,6 @@ public class ObjLoadGLSL extends javax.swing.JFrame
 			System.err.println(e);
 			System.exit(1);
 		}
-
-		// Set vertex and fragment shader program for all Shape3D nodes in scene
-		String vertexProgram = null;
-		String fragmentProgram = null;
-		try
-		{
-			vertexProgram = StringIO.readFully(new File(
-					System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".vert"));
-			fragmentProgram = StringIO.readFully(new File(
-					System.getProperty("user.dir") + "/src/main/java/org/jdesktop/j3d/examples/gl2es2pipeline/" + shaderName + ".frag"));
-		}
-		catch (IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		Shader[] shaders = new Shader[2];
-		shaders[0] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL, Shader.SHADER_TYPE_VERTEX, vertexProgram);
-		shaders[1] = new SourceCodeShader(Shader.SHADING_LANGUAGE_GLSL, Shader.SHADER_TYPE_FRAGMENT, fragmentProgram);
-		ShaderProgram shaderProgram = new GLSLShaderProgram();
-		shaderProgram.setShaders(shaders);
-		setShaderProgram(s.getSceneGroup(), shaderProgram);
 
 		objTrans.addChild(s.getSceneGroup());
 
@@ -261,35 +264,7 @@ public class ObjLoadGLSL extends javax.swing.JFrame
 		System.exit(0);
 	} // End of usage
 
-	// Set shader program for all nodes in specified branch graph
-	private void setShaderProgram(BranchGroup g, ShaderProgram shaderProgram)
-	{
-		ShaderAppearance myApp = new ShaderAppearance();
-		Material mat = new Material();
-		myApp.setShaderProgram(shaderProgram);
-		myApp.setMaterial(mat);
-		setShaderProgram(g, myApp);
-	}
-
-	// Recursively set shader program for all children of specified group
-	private void setShaderProgram(Group g, ShaderAppearance myApp)
-	{
-
-		Enumeration<?> e = g.getAllChildren();
-		while (e.hasMoreElements())
-		{
-			Node n = (Node) (e.nextElement());
-			if (n instanceof Group)
-			{
-				setShaderProgram((Group) n, myApp);
-			}
-			else if (n instanceof Shape3D)
-			{
-				Shape3D s = (Shape3D) n;
-				s.setAppearance(myApp);
-			}
-		}
-	}
+	  
 
 	/**
 	 * Creates new form ObjLoadGLSL
@@ -413,7 +388,7 @@ public class ObjLoadGLSL extends javax.swing.JFrame
 	public static void main(final String args[])
 	{
 		System.setProperty("sun.awt.noerasebackground", "true");
-		System.setProperty("j3d.rend","jogl2es2");
+		System.setProperty("j3d.rend", "jogl2es2");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()
