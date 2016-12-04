@@ -154,7 +154,7 @@ public class TickTockCollisionGL2ES2 extends javax.swing.JFrame
 
 		// Create a new ColoringAttributes object for the shape's
 		// appearance and make it writable at runtime.
-		Appearance app = new SimpleShaderAppearance(null,false,false);
+		Appearance app = new SimpleShaderAppearance();
 		shape.setAppearance(app);
 		RenderingAttributes ra = new RenderingAttributes();
 		ra.setIgnoreVertexColors(true);
