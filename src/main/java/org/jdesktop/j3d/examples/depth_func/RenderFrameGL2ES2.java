@@ -46,6 +46,7 @@ import org.jogamp.java3d.ScaleInterpolator;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
+import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.shader.Cube;
 import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
@@ -124,16 +125,15 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 		objectsTGTrans.addChild(objectsTGRot);
 		lampsBG.addChild(objectsTGTrans);
 
-		//adding a sphere as backgroung so there is something else than flat black, and cut cube removal as an other implication. (seeing through)
-		Appearance globalSphereAppearance = new SimpleShaderAppearance(true, false);
+		//adding a sphere as background so there is something else than flat black, and cut cube removal as an other implication. (seeing through)
+		Appearance globalSphereAppearance = new SimpleShaderAppearance();
 		PolygonAttributes globalSpherePA = new PolygonAttributes();
 		globalSpherePA.setCullFace(PolygonAttributes.CULL_FRONT);// so that interior of the sphere is visible.
 		Material globalSphereMaterial = new Material();
 		globalSphereMaterial.setEmissiveColor(.25f, .3f, .35f);
 		globalSphereAppearance.setMaterial(globalSphereMaterial);
 		globalSphereAppearance.setPolygonAttributes(globalSpherePA);
-		Sphere globalSphere = new Sphere(6.0f);
-		globalSphere.setAppearance(globalSphereAppearance);
+		Sphere globalSphere = new Sphere(6.0f, globalSphereAppearance);
 		globalSphere.setBounds(bounds);
 		oGroup.addChild(globalSphere);
 
@@ -169,7 +169,7 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 			rotBoxScaleInt.setSchedulingBounds(bounds);
 			rotBoxScaleInt.setBounds(bounds);
 
-			Appearance rotBoxApp = new SimpleShaderAppearance(false, false);
+			SimpleShaderAppearance rotBoxApp = new SimpleShaderAppearance();
 			Material rotBoxMat = new Material();
 			rotBoxMat.setDiffuseColor(.4f, .4f, .4f);
 			rotBoxApp.setMaterial(rotBoxMat);
@@ -196,8 +196,9 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 
 		//adding static back face wireframe cube
 		{
+			
+			SimpleShaderAppearance staticWFBoxApp = new SimpleShaderAppearance();
 			Cube staticWFBoxBack = new Cube();
-			Appearance staticWFBoxApp = new SimpleShaderAppearance(false, false);
 			Material staticWFBoxMat = new Material();
 			staticWFBoxMat.setDiffuseColor(0.f, 0.f, 0.f);
 			staticWFBoxMat.setEmissiveColor(0.f, .4f, 0.f);
@@ -217,8 +218,14 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 
 		//adding static front face wireframe cube
 		{
+			
+			Appearance staticWFBoxApp = new SimpleShaderAppearance();
+			
+			// TODO: if not geometry not shared then appearance shared what????
+			//Box staticWFBox = new Box(1,1,1, Box.GENERATE_NORMALS | Box.GEOMETRY_NOT_SHARED, staticWFBoxApp);
 			Cube staticWFBox = new Cube();
-			Appearance staticWFBoxApp = new SimpleShaderAppearance(false, false);
+			staticWFBox.setAppearance(staticWFBoxApp);
+			
 			Material staticWFBoxMat = new Material();
 			staticWFBoxMat.setDiffuseColor(0.f, 0.f, 0.f);
 			staticWFBoxMat.setEmissiveColor(0.f, 1.f, 0.f);
@@ -226,7 +233,6 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 			PolygonAttributes staticWFBoxPA = new PolygonAttributes(PolygonAttributes.POLYGON_LINE, PolygonAttributes.CULL_BACK, 0.0f);
 			staticWFBoxApp.setPolygonAttributes(staticWFBoxPA);
 			staticWFBoxApp.setRenderingAttributes(staticWFBoxRA);
-			staticWFBox.setAppearance(staticWFBoxApp);
 			staticWFBox.setBounds(bounds);
 			staticObjectOG.addChild(staticWFBox);
 		}
@@ -244,9 +250,9 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 
 		// adding static flat cube
 		{
-			Cube staticBox = new Cube();
+			SimpleShaderAppearance boxApp = new SimpleShaderAppearance();
+			Box staticBox = new Box(1, 1, 1,Box.GENERATE_NORMALS | Box.GEOMETRY_NOT_SHARED, boxApp);
 			staticBox.setBounds(bounds);
-			Appearance boxApp = new SimpleShaderAppearance(false, false);
 			Material boxMat = new Material();
 			boxMat.setDiffuseColor(.7f, .7f, .7f);
 			boxApp.setMaterial(boxMat);
@@ -256,7 +262,6 @@ public class RenderFrameGL2ES2 extends javax.swing.JFrame
 			staticBoxRA.setDepthTestFunction(RenderingAttributes.LESS);
 			staticBoxRA.setDepthBufferWriteEnable(false);
 			boxApp.setRenderingAttributes(staticBoxRA);
-			staticBox.setAppearance(boxApp);
 			staticObjectOG.addChild(staticBox);
 		}
 		oGroup.addChild(rotObjectBG);

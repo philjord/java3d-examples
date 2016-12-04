@@ -100,7 +100,7 @@ public class BackgroundTextureGL2ES2 extends javax.swing.JFrame
 
 		float scaleZ[] = { 0.3f, 0.2f, 0.1f, 0.1f, 0.3f, 0.2f, 0.1f, 0.3f, 0.3f, 0.2f, 0.1f, 0.3f, 0.3f, 0.2f, 0.1f, 0.2f };
 
-		Appearance a1 = new SimpleShaderAppearance(true, false);
+		Appearance a1 = new SimpleShaderAppearance();
 
 		Color3f eColor = new Color3f(0.0f, 0.0f, 0.0f);
 		Color3f sColor = new Color3f(0.5f, 0.5f, 1.0f);

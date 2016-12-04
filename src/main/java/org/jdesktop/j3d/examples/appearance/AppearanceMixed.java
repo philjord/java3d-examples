@@ -422,8 +422,8 @@ public class AppearanceMixed extends javax.swing.JFrame {
 	spinTg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 
 	// Create a simple shape leaf node and set the appearance
-	Shape3D shape = new Tetrahedron();
-	shape.setAppearance(app);
+	Shape3D shape = new Tetrahedron(app);
+
 
 	// add it to the scene graph.
 	spinTg.addChild(shape);

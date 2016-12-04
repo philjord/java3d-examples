@@ -184,8 +184,8 @@ public class SphereMotionGL2ES2_Texture extends javax.swing.JFrame
 		ColoringAttributes caL2 = new ColoringAttributes();
 		caL1.setColor(lColor1);
 		caL2.setColor(lColor2);
-		Appearance appL1 = new SimpleShaderAppearance(false, false);
-		Appearance appL2 = new SimpleShaderAppearance(false, false);
+		Appearance appL1 = new SimpleShaderAppearance();
+		Appearance appL2 = new SimpleShaderAppearance();
 		appL1.setColoringAttributes(caL1);
 		appL2.setColoringAttributes(caL2);
 		l1Trans.addChild(new Sphere(0.05f, appL1));

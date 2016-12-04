@@ -143,7 +143,7 @@ public class AlternateAppearanceBoundsTestGL2ES2 extends JApplet implements Acti
 		BranchGroup objRoot = new BranchGroup();
 
 		// Create an alternate appearance
-		otherApp = new SimpleShaderAppearance(true, false);
+		otherApp = new SimpleShaderAppearance();
 		//otherApp = new Appearance();
 		altMat = new Material();
 		altMat.setCapability(Material.ALLOW_COMPONENT_WRITE);
@@ -158,7 +158,7 @@ public class AlternateAppearanceBoundsTestGL2ES2 extends JApplet implements Acti
 		objRoot.addChild(altApp);
 
 		// Build foreground geometry
-		Appearance app1 = new SimpleShaderAppearance(true, false);
+		Appearance app1 = new SimpleShaderAppearance();
 		//Appearance app1 = new Appearance();
 		mat1 = new Material();
 		mat1.setCapability(Material.ALLOW_COMPONENT_WRITE);

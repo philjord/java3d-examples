@@ -79,7 +79,7 @@ public class Tetrahedron extends Shape3D {
         new TexCoord2f(0.5f, sqrt3 / 2.0f),
     };
 
-    public Tetrahedron() {
+    public Tetrahedron(Appearance app) {
 	int i;
 
 	TriangleArray tetra = new TriangleArray(12, TriangleArray.COORDINATES |
@@ -108,6 +108,6 @@ public class Tetrahedron extends Shape3D {
 	    }
 	}
 	this.setGeometry(tetra);
-	this.setAppearance(new Appearance());
+	this.setAppearance(app);
     }
 }

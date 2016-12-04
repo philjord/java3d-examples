@@ -146,7 +146,7 @@ public class JInternalWorldGL2ES2 extends JInternalFrame {
 			     new Point3f( -2.3f, -0.5f, 0.f));
 
         Shape3D sh = new Shape3D();
-	Appearance app = new SimpleShaderAppearance(false,false);
+	Appearance app = new SimpleShaderAppearance();
 	Material mm = new Material();
 	mm.setLightingEnable(true);
 	app.setMaterial(mm);

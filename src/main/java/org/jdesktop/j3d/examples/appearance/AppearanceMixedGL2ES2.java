@@ -34,7 +34,6 @@ import java.awt.GraphicsConfiguration;
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -174,7 +173,7 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
 	    gc = getGraphicsContext3D();
 
 	    // Create the appearance for the triangle fan
-	    Appearance app =  new SimpleShaderAppearance(true, false);
+	    SimpleShaderAppearance app =  new SimpleShaderAppearance();
 	    Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
 	    Color3f white = new Color3f(1.0f, 1.0f, 1.0f);
 	    Color3f objColor = new Color3f(0.0f, 0.0f, 0.8f);
@@ -222,7 +221,7 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
 	// into the scene graph.
 
 	int row, col;
-	Appearance[][] app = new    SimpleShaderAppearance [3][3];
+	SimpleShaderAppearance[][] app = new    SimpleShaderAppearance [3][3];
 
 	for (row = 0; row < 3; row++)
 	    for (col = 0; col < 3; col++)
@@ -243,8 +242,8 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
     }
 
 
-    private Appearance createAppearance(int idx) {
-	Appearance app = new SimpleShaderAppearance(true, false);;
+    private SimpleShaderAppearance createAppearance(int idx) {
+    	SimpleShaderAppearance app = new SimpleShaderAppearance();
 
 	// Globally used colors
 	Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
@@ -314,7 +313,7 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
 
 	// Texture mapped, lit solid
 	case 4:
-	    {app = new SimpleShaderAppearance(true, true);;
+	    {
 		// Set up the texture map
 		TextureLoader tex = new TextureLoader(texImage, this);
 		app.setTexture(tex.getTexture());
@@ -393,7 +392,7 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
     }
 
 
-    private Group createObject(Appearance app, double scale,
+    private Group createObject(SimpleShaderAppearance app, double scale,
 			       double xpos, double ypos) {
 
 	// Create a transform group node to scale and position the object.
@@ -408,8 +407,7 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
 	spinTg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 
 	// Create a simple shape leaf node and set the appearance
-	Shape3D shape = new Tetrahedron();
-	shape.setAppearance(app);
+	Shape3D shape = new Tetrahedron(app);
 
 	// add it to the scene graph.
 	spinTg.addChild(shape);

@@ -81,13 +81,14 @@ public class BackgroundGeometryGL2ES2 extends javax.swing.JFrame {
     
         Background bg = new Background();
         bg.setApplicationBounds(bounds);
-	BranchGroup backGeoBranch = new BranchGroup();
+        BranchGroup backGeoBranch = new BranchGroup();
+        Appearance backgroundApp = new SimpleShaderAppearance(); 
         Sphere sphereObj = new Sphere(1.0f, Sphere.GENERATE_NORMALS |
                 Sphere.GENERATE_NORMALS_INWARD |
                 Sphere.GENERATE_TEXTURE_COORDS |
-                Sphere.GENERATE_TEXTURE_COORDS_Y_UP, 45);        
-        Appearance backgroundApp = new   SimpleShaderAppearance(true, false);//sphereObj.getAppearance();
-        sphereObj.setAppearance(backgroundApp);
+                Sphere.GENERATE_TEXTURE_COORDS_Y_UP, 45, backgroundApp);       
+        
+       
         backGeoBranch.addChild(sphereObj);
         bg.setGeometry(backGeoBranch);
         objTrans.addChild(bg);
@@ -121,7 +122,7 @@ public class BackgroundGeometryGL2ES2 extends javax.swing.JFrame {
                            0.3f, 0.2f, 0.1f, 0.3f,
                            0.3f, 0.2f, 0.1f, 0.2f};
 
-        Appearance a1 =  new   SimpleShaderAppearance(true, false); 
+        Appearance a1 =  new SimpleShaderAppearance(); 
      
         Color3f eColor    = new Color3f(0.0f, 0.0f, 0.0f);
         Color3f sColor    = new Color3f(0.5f, 0.5f, 1.0f);
