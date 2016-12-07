@@ -321,7 +321,8 @@ public class ConfigObjLoad {
       init();
     }
 
-    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true");     
+    System.setProperty("j3d.configURL","file:src/main/java/org/jdesktop/j3d/examples/configured_universe/j3d1x1-behavior.cfg");
       new ConfigObjLoad(args);
     }
 }
