@@ -46,7 +46,7 @@ package org.jdesktop.j3d.examples.four_by_four;
 
 import java.awt.AWTEvent;
 import java.awt.event.MouseEvent;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Behavior;
@@ -120,7 +120,8 @@ public class PickDragBehavior extends Behavior {
       parallel = true;
    }
 
-   public void initialize() {
+   @Override
+public void initialize() {
       x = 0;
       y = 0;
       x_last = 0;
@@ -137,14 +138,15 @@ public class PickDragBehavior extends Behavior {
       wakeupOn (mouseCriterion);
    }
 
-   public void processStimulus (Enumeration criteria) {
+   @Override
+public void processStimulus (Iterator<WakeupCriterion> criteria) {
       WakeupCriterion wakeup;
       AWTEvent[] event;
       int id;
       int dx, dy;
 
-      while (criteria.hasMoreElements()) {
-         wakeup = (WakeupCriterion) criteria.nextElement();
+      while (criteria.hasNext()) {
+         wakeup = criteria.next();
          if (wakeup instanceof WakeupOnAWTEvent) {
             event = ((WakeupOnAWTEvent)wakeup).getAWTEvent();
             for (int i=0; i<event.length; i++) { 

@@ -46,7 +46,7 @@ package org.jdesktop.j3d.examples.oriented_shape3d;
 
 import java.awt.AWTEvent;
 import java.awt.event.MouseEvent;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.WakeupCriterion;
@@ -103,7 +103,8 @@ public class MouseRotateY extends MouseBehavior {
       super(flags);
    }
 
-  public void initialize() {
+  @Override
+public void initialize() {
     super.initialize();
     y_angle = 0;
     y_factor = .03;
@@ -123,14 +124,15 @@ public class MouseRotateY extends MouseBehavior {
   }
   
 
-  public void processStimulus (Enumeration criteria) {
+  @Override
+public void processStimulus (Iterator<WakeupCriterion> criteria) {
       WakeupCriterion wakeup;
       AWTEvent[] event;
       int id;
       int  dx;
 
-      while (criteria.hasMoreElements()) {
-         wakeup = (WakeupCriterion) criteria.nextElement();
+      while (criteria.hasNext()) {
+         wakeup = criteria.next();
          if (wakeup instanceof WakeupOnAWTEvent) {
             event = ((WakeupOnAWTEvent)wakeup).getAWTEvent();
             for (int i=0; i<event.length; i++) { 

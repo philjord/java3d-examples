@@ -34,7 +34,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -287,10 +287,10 @@ public class StencilOutline extends javax.swing.JFrame
 	private void setShaderProgram(Group g, ShaderAppearance myApp)
 	{
 
-		Enumeration<Node> e = g.getAllChildren();
-		while (e.hasMoreElements())
+		Iterator<Node> e = g.getAllChildren();
+		while (e.hasNext())
 		{
-			Node n = e.nextElement();
+			Node n = e.next();
 			if (n instanceof Group)
 			{
 				setShaderProgram((Group) n, myApp);
@@ -310,10 +310,10 @@ public class StencilOutline extends javax.swing.JFrame
 	private void setOutline(Group g)
 	{
 
-		Enumeration<Node> e = g.getAllChildren();
-		while (e.hasMoreElements())
+		Iterator<Node> e = g.getAllChildren();
+		while (e.hasNext())
 		{
-			Node n = e.nextElement();
+			Node n = e.next();
 			if (n instanceof Group)
 			{
 				setOutline((Group) n);

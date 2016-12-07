@@ -33,7 +33,7 @@ import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.image.BufferedImage;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.BoundingSphere;
@@ -47,6 +47,7 @@ import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.shader.Cube;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
@@ -208,7 +209,7 @@ public class ReadRasterGL2ES2 extends Applet
 		}
 
 		@Override
-		public void processStimulus(Enumeration criteria)
+		public void processStimulus(Iterator<WakeupCriterion> criteria)
 		{
 
 			synchronized (readRaster)

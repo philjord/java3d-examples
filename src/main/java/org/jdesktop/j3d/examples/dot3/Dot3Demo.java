@@ -50,7 +50,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.image.BufferedImage;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -74,6 +74,7 @@ import org.jogamp.java3d.Texture;
 import org.jogamp.java3d.Texture2D;
 import org.jogamp.java3d.TextureAttributes;
 import org.jogamp.java3d.TextureUnitState;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnElapsedFrames;
 import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
 import org.jogamp.java3d.utils.geometry.GeometryInfo;
@@ -511,7 +512,8 @@ public class Dot3Demo extends JFrame {
      */
     public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 new Dot3Demo();
             }
         });
@@ -529,11 +531,13 @@ public class Dot3Demo extends JFrame {
             setSchedulingBounds(bounds);
         }
         
-        public void initialize() {
+        @Override
+		public void initialize() {
             wakeupOn(wakeup);
         }
         
-        public void processStimulus(Enumeration e) {
+        @Override
+		public void processStimulus(Iterator<WakeupCriterion> e) {
             // check if there are a new light map ready to use
             if (ctrlPanel.hasTextureImageReady()) {
                 updateLighMap(ctrlPanel.getTextureImage());

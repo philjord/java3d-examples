@@ -45,7 +45,7 @@
 package org.jdesktop.j3d.examples.texture_by_ref;
 
 import java.awt.image.BufferedImage;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Behavior;
@@ -132,7 +132,7 @@ public class AnimateTexturesBehavior extends Behavior {
   }
 
   // procesStimulus changes the ImageComponent of the texture
-  public void processStimulus(Enumeration criteria) {
+  public void processStimulus(Iterator<WakeupCriterion> criteria) {
     //    ImageOps.printType(images[current].getImage());
     texture.setImage(0, images[current]);
     appearance.setTexture(texture);

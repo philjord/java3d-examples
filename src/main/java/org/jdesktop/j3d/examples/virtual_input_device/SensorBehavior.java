@@ -44,12 +44,13 @@
 
 package org.jdesktop.j3d.examples.virtual_input_device;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Behavior;
 import org.jogamp.java3d.Sensor;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnElapsedFrames;
 
 public class SensorBehavior extends Behavior {
@@ -64,11 +65,13 @@ public class SensorBehavior extends Behavior {
 	this.sensor = sensor;
     }
 
-    public void initialize() {
+    @Override
+	public void initialize() {
 	wakeupOn( conditions );
     }
 
-    public void processStimulus( Enumeration criteria ) {
+    @Override
+	public void processStimulus( Iterator<WakeupCriterion> criteria ) {
 	sensor.getRead( transform );
 	transformGroup.setTransform( transform );
 	wakeupOn( conditions );

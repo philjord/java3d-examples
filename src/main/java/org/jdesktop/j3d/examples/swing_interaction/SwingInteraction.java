@@ -45,7 +45,7 @@
 package org.jdesktop.j3d.examples.swing_interaction;
 
 import java.awt.GraphicsConfiguration;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.swing.JPopupMenu;
 
@@ -151,13 +151,15 @@ public class SwingInteraction extends javax.swing.JFrame {
         }
 
         // initialize behavior to wakeup on a behavior post with id = ROTATE
-        public void initialize() {
+        @Override
+		public void initialize() {
             criterion = new WakeupOnBehaviorPost(this, ROTATE);
             wakeupOn(criterion);
         }
 
         // processStimulus to rotate the cube
-        public void processStimulus(Enumeration criteria) {
+        @Override
+		public void processStimulus(Iterator<WakeupCriterion> criteria) {
             angle += Math.toRadians(10.0);
             trans.rotY(angle);
             transformGroup.setTransform(trans);
@@ -194,7 +196,8 @@ public class SwingInteraction extends javax.swing.JFrame {
 
         rotateButton.setText("Rotate");
         rotateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rotateButtonActionPerformed(evt);
             }
         });
@@ -214,7 +217,8 @@ public class SwingInteraction extends javax.swing.JFrame {
         fileMenu.setText("File");
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitMenuItemActionPerformed(evt);
             }
         });
@@ -241,7 +245,8 @@ public class SwingInteraction extends javax.swing.JFrame {
      */
     public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 new SwingInteraction().setVisible(true);
             }
         });

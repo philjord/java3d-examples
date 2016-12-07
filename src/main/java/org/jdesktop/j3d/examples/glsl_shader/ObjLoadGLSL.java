@@ -49,7 +49,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -289,9 +289,9 @@ public class ObjLoadGLSL extends javax.swing.JFrame {
     private void setShaderProgram(Group g,
 				  ShaderAppearance myApp) {
 
-	Enumeration e = g.getAllChildren();
-	while (e.hasMoreElements()) {
-	    Node n = (Node)(e.nextElement());
+    	Iterator<Node> e = g.getAllChildren();
+	while (e.hasNext()) {
+	    Node n = e.next();
 	    if (n instanceof Group) {
 		setShaderProgram((Group)n, myApp);
 	    }

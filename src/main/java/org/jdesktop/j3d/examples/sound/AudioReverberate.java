@@ -45,12 +45,13 @@
 package org.jdesktop.j3d.examples.sound;
 
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.AuralAttributes;
 import org.jogamp.java3d.Behavior;
 import org.jogamp.java3d.MediaContainer;
 import org.jogamp.java3d.PointSound;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnBehaviorPost;
 import org.jogamp.java3d.WakeupOnElapsedTime;
 import org.jogamp.vecmath.Point3f;
@@ -98,6 +99,7 @@ public class AudioReverberate extends Behavior {
         int                  loopCount = 0;
         
 	// Override Behavior's initialize method to setup wakeup criteria
+	@Override
 	public void initialize() {
             MediaContainer sample  = new MediaContainer();
             sample.setCacheEnable(true);
@@ -114,7 +116,8 @@ public class AudioReverberate extends Behavior {
 	}
 
 	// Override Behavior's stimulus method to handle the event
-	public void processStimulus(Enumeration criteria) {
+	@Override
+	public void processStimulus(Iterator<WakeupCriterion> criteria) {
             // time = System.currentTimeMillis();
             if (firstTime)  {
 	        wt = new WakeupOnElapsedTime(10000);

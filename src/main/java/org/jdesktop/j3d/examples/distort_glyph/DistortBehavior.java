@@ -44,7 +44,7 @@
 
 package org.jdesktop.j3d.examples.distort_glyph;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Behavior;
@@ -130,14 +130,16 @@ public class DistortBehavior extends Behavior {
         return m_InitialWakeupCondition;
     }
 
-    public void initialize() {
+    @Override
+	public void initialize() {
         // apply the initial WakeupCriterion
         wakeupOn(m_InitialWakeupCondition);
     }
 
-    public void processStimulus(Enumeration criteria) {
-        while (criteria.hasMoreElements()) {
-            WakeupCriterion wakeUp = (WakeupCriterion) criteria.nextElement();
+    @Override
+	public void processStimulus(Iterator<WakeupCriterion> criteria) {
+        while (criteria.hasNext()) {
+            WakeupCriterion wakeUp = criteria.next();
 
             if (wakeUp instanceof WakeupOnElapsedTime) {
             } else {

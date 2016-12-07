@@ -45,8 +45,10 @@
 package org.jdesktop.j3d.examples.fps_counter;
 
 import java.text.NumberFormat;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Behavior;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnElapsedFrames;
 
 /** This behavior calculates the frame rate and average frame rate of a
@@ -142,7 +144,8 @@ public class FPSCounter extends Behavior {
     /**
      * Called to init the behavior
      */
-    public void initialize() {
+    @Override
+	public void initialize() {
 	// Set the trigger for the behavior to wakeup on every frame rendered
 	wakeupOn(FPSwakeup);
     }
@@ -150,7 +153,8 @@ public class FPSCounter extends Behavior {
     /**
      * Called every time the behavior is activated
      */
-    public void processStimulus(java.util.Enumeration critera) {
+    @Override
+	public void processStimulus(Iterator<WakeupCriterion> critera) {
 	// Apply calibration algorithm to determine number of frames to
 	// wait before computing frames per second.
 	// sampleduration = 10000 -> to run test, pass for 10 seconds.

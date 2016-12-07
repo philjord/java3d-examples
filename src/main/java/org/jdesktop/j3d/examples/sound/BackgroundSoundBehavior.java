@@ -45,7 +45,7 @@
 package org.jdesktop.j3d.examples.sound;
 
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.BackgroundSound;
 import org.jogamp.java3d.Behavior;
@@ -53,6 +53,7 @@ import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.Bounds;
 import org.jogamp.java3d.MediaContainer;
 import org.jogamp.java3d.WakeupCondition;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnElapsedFrames;
 import org.jogamp.vecmath.Point3d;
 
@@ -73,12 +74,14 @@ public class BackgroundSoundBehavior extends Behavior {
         
     }
 
-    public void initialize() {
+    @Override
+	public void initialize() {
         
         wakeupOn(condition);
     }
     
-    public void processStimulus(Enumeration enumeration) {        
+    @Override
+	public void processStimulus(Iterator<WakeupCriterion> criteria) {        
         wakeupOn(condition);
     }
     

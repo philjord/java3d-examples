@@ -44,11 +44,12 @@
 
 package org.jdesktop.j3d.examples.morphing;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.Behavior;
 import org.jogamp.java3d.Morph;
+import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnElapsedFrames;
 
 // User-defined morphing behavior class
@@ -61,7 +62,8 @@ public class MorphingBehavior extends Behavior {
     WakeupOnElapsedFrames w = new WakeupOnElapsedFrames(0);
 
     // Override Behavior's initialize method to setup wakeup criteria
-    public void initialize() {
+    @Override
+	public void initialize() {
 	alpha.setStartTime(System.currentTimeMillis());
 
 	// Establish initial wakeup criteria
@@ -69,7 +71,8 @@ public class MorphingBehavior extends Behavior {
     }
 
     // Override Behavior's stimulus method to handle the event
-    public void processStimulus(Enumeration criteria) {
+    @Override
+	public void processStimulus(Iterator<WakeupCriterion> criteria) {
 
 	// NOTE: This assumes 3 objects.  It should be generalized to
 	// "n" objects.

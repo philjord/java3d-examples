@@ -46,7 +46,7 @@ package org.jdesktop.j3d.examples.text2d;
 
 import java.awt.AWTEvent;
 import java.awt.event.KeyEvent;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import org.jogamp.java3d.Behavior;
 import org.jogamp.java3d.BoundingSphere;
@@ -69,7 +69,8 @@ class MoverBehavior extends Behavior
     TransformGroup viewTransformGroup;
     double rotation = 0.0;		// holds current rotation radians
     
-    public void initialize() {
+    @Override
+	public void initialize() {
 	// Establish initial wakeup criteria
 	wakeupOn(w);
     }
@@ -78,13 +79,14 @@ class MoverBehavior extends Behavior
     /**
      *  Override Behavior's stimulus method to handle the event.
      */
-    public void processStimulus(Enumeration criteria) {
+    @Override
+	public void processStimulus(Iterator<WakeupCriterion> criteria) {
 	WakeupOnAWTEvent ev;
 	WakeupCriterion genericEvt;
 	AWTEvent[] events;
    
-	while (criteria.hasMoreElements()) {
-	    genericEvt = (WakeupCriterion) criteria.nextElement();
+	while (criteria.hasNext()) {
+	    genericEvt = criteria.next();
 	    if (genericEvt instanceof WakeupOnAWTEvent) {
 		ev = (WakeupOnAWTEvent) genericEvt;
 		events = ev.getAWTEvent();
