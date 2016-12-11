@@ -63,6 +63,11 @@
 			<artifactId>j3dutils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jogamp.joal</groupId>
+			<artifactId>joal-main</artifactId>
+			<version>${jogamp.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

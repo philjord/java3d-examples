@@ -47,6 +47,7 @@ import java.awt.GraphicsConfiguration;
 import java.net.URL;
 
 import org.jdesktop.j3d.examples.Resources;
+import org.jdesktop.j3d.examples.sound.audio.JOALMixer;
 import org.jogamp.java3d.AmbientLight;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BackgroundSound;
@@ -81,6 +82,7 @@ import org.jogamp.vecmath.Vector3f;
  */
 public class BackgroundSoundTest extends javax.swing.JFrame {
 
+	private JOALMixer mixer = null;
     private URL url = null;
     private SimpleUniverse univ = null;
     private BranchGroup scene = null;
@@ -210,7 +212,7 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
 
         Viewer viewer = univ.getViewer();        
         
-        viewer.createAudioDevice();
+       
         viewer.getView().setBackClipDistance(1000.0f);
 
         // Ensure at least 50 msec per frame.
@@ -224,6 +226,27 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
         knb.setSchedulingBounds(b);
         bg.addChild(knb);
         univ.addBranchGraph(bg);        
+        
+      //Note if you defined a "j3d.audiodevice" system property and gave it a class then you would call this function
+      		//viewer.createAudioDevice();
+
+      		//Here I use a direct setup
+
+      		//getUserHeadToVworldEnable must be enabled otherwise a restricted access exception occurs
+      		if (mixer == null && viewer.getView().getUserHeadToVworldEnable())
+      		{
+      			// create and adds a joalmixer as the audio device
+      			mixer = new JOALMixer(viewer.getPhysicalEnvironment());
+
+      			boolean success = mixer.initialize();
+
+      			if (!success)
+      			{
+      				System.out.println("Open AL failed to init");
+      				// remove the audio device
+      				viewer.getPhysicalEnvironment().setAudioDevice(null);
+      			}
+      		}
                 
 	return c;
     }
