@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jogamp.java3d</groupId>
-	<artifactId>j3dexamples</artifactId>
+	<artifactId>java3d-examples</artifactId>
 	<version>1.7.0</version>
 
 	<name>Java 3D Examples</name>
@@ -20,7 +20,7 @@
 		<developer>
 			<id>philjord</id>
 			<name>Philip Jordan</name>
-			<email>philjord@ihug.co.nz</email>
+			<email>p.j.nz@outlook.com</email>
 			<url>https://github.com/philjord</url>
 			<organization>JogAmp</organization>
 			<organizationUrl>http://jogamp.org/</organizationUrl>
@@ -34,10 +34,17 @@
 		<contributor>
 			<name>Various from previous project at Java.net</name>
 			<url>https://java.net/projects/j3d-examples</url>
-			<organization></organization>
-			<organizationUrl></organizationUrl>
+			<organization>Java.net</organization>
+			<organizationUrl>https://java.net</organizationUrl>
 		</contributor>		
 	</contributors>
+	
+	<scm>
+		<connection>scm:git:http://github.com/philjord/java3d-examples</connection>
+		<developerConnection></developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/philjord/java3d-examples</url>
+	</scm>
 
 	<properties>
 		<jogamp.version>2.3.2</jogamp.version>
@@ -50,17 +57,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>j3dcore</artifactId>
+			<artifactId>java3d-core</artifactId>
 			<version>${project.version}</version>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>vecmath</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>j3dutils</artifactId>
+			<artifactId>java3d-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -71,13 +73,27 @@
 	</dependencies>
 
 	<build>
+	
+		<defaultGoal>install</defaultGoal>
+
+		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+					<exclude>**/package.html</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.8.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -93,14 +109,13 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
+				<version>3.1.1</version>
 				<configuration>
-					<javadocDirectory>${project.basedir}/src/classes</javadocDirectory>
-					<additionalparam>-Xdoclint:none</additionalparam>
+					<additionalJOption>-Xdoclint:none</additionalJOption>
 					<links>
 						<link>http://docs.oracle.com/javase/8/docs/api/</link>
 					</links>
-				</configuration>
+				</configuration>				
 			</plugin>
 		</plugins>
 	</build>
