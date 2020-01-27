@@ -4,7 +4,7 @@
 
 	<groupId>org.jogamp.java3d</groupId>
 	<artifactId>java3d-examples</artifactId>
-	<version>1.7.0</version>
+	<version>1.7.1</version>
 
 	<name>Java 3D Examples</name>
 	<description>Examples for the Java 3D Graphics API</description>
@@ -47,7 +47,7 @@
 	</scm>
 
 	<properties>
-		<jogamp.version>2.3.2</jogamp.version>
+		<jogamp.version>2.4.0</jogamp.version>
 
 		<!-- NB: Avoid platform encoding warning when copying resources. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
