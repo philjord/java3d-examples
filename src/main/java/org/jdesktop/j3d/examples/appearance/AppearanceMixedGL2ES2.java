@@ -34,6 +34,7 @@ import java.awt.GraphicsConfiguration;
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
+import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -200,10 +201,10 @@ public class AppearanceMixedGL2ES2 extends javax.swing.JFrame {
 	    new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
 	// Set up the background
-	//TextureLoader bgTexture = new TextureLoader(bgImage, this);
-	//Background bg = new Background(bgTexture.getImage());
-	//bg.setApplicationBounds(bounds);
-	//objRoot.addChild(bg);
+	TextureLoader bgTexture = new TextureLoader(bgImage, this);
+	Background bg = new Background(bgTexture.getImage());
+	bg.setApplicationBounds(bounds);
+	objRoot.addChild(bg);
 
 	// Set up the global lights
 	Color3f lColor1 = new Color3f(0.7f, 0.7f, 0.7f);
