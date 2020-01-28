@@ -29,15 +29,32 @@
 
 package org.jdesktop.j3d.examples.overlay2d;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.net.URL;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.GraphicsConfigTemplate3D;
+import org.jogamp.java3d.J3DGraphics2D;
+import org.jogamp.java3d.Locale;
+import org.jogamp.java3d.PhysicalBody;
+import org.jogamp.java3d.PhysicalEnvironment;
 import org.jogamp.java3d.PolygonAttributes;
 import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Shape3D;
@@ -46,24 +63,135 @@ import org.jogamp.java3d.TextureAttributes;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleArray;
+import org.jogamp.java3d.View;
+import org.jogamp.java3d.ViewPlatform;
+import org.jogamp.java3d.VirtualUniverse;
 import org.jogamp.java3d.utils.image.TextureLoader;
-import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.TexCoord2f;
+import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
 
 /**
  * Simple Java 3D example program to show use of the 2DGraphics overlay.
+ * Example provided by Egor Tsinko
+ * https://github.com/philjord/java3d-core/pull/7
  */
-public class Overlay2D extends javax.swing.JFrame
-{
+public class Overlay2D {
+	private static class MyCanvas extends Canvas3D {
 
-	private SimpleUniverse univ = null;
-	private BranchGroup scene = null;
+	    public MyCanvas(GraphicsConfiguration graphicsConfiguration, boolean offScreen) {
+	        super(graphicsConfiguration, offScreen);
+	    }
+	
+	    @Override
+	    public void postRender() {
+	        J3DGraphics2D g = getGraphics2D();
+	
+	//        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+	        g.setColor(Color.WHITE);
+	        g.setFont(g.getFont().deriveFont(25f).deriveFont(Font.BOLD));
+	        final AffineTransform t = new AffineTransform(g.getTransform());
+	        g.drawString("HiDPI Scale X = " + t.getScaleX(), 20, 20);
+	        g.drawString("HiDPI Scale Y = " + t.getScaleY(), 20, 40);
+	        g.drawString("Canvas Width = " + getWidth(), 20, 60);
+	        g.drawString("Canvas Height = " + getHeight(), 20, 80);
+	
+	        g.setStroke(new BasicStroke(1f));
+	//        g.drawRect(1,1, getWidth()-2, getHeight() - 2);
+	//        g.drawLine(1,1, getWidth()-2, getHeight() - 2);
+	//        g.drawLine(1,getHeight() - 2, getWidth()-2, 1);
+	
+	        g.setFont(g.getFont().deriveFont(12f).deriveFont(Font.BOLD));
+	        g.drawString("The following lines should be 1px wide each:", 20, 100);
+	        g.drawString("The following lines should be 2px wide each:", 20, 250);
+	        int x = (int) (g.getTransform().getScaleX() * 290);
+	        int y = (int) (g.getTransform().getScaleY() * 80);
+	        int x2 = (int) (g.getTransform().getScaleX() * 290);
+	        int y2 = (int) (g.getTransform().getScaleY() * 200);
+	        g.setTransform(new AffineTransform());
+	        // These lines should ALWAYS be 1px thick no matter what HiDPI scale is
+	        g.setStroke(new BasicStroke(1f));
+	        g.drawLine(x, y, x, y + 100);
+	        g.drawLine(x + 2, y, x + 2, y + 100);
+	        g.drawLine(x + 4, y, x + 4, y + 100);
+	
+	        // These lines should ALWAYS be 2px thick no matter what HiDPI scale is
+	        g.drawLine(x2, y2, x2, y2 + 100);
+	        g.drawLine(x2 + 1, y2, x2 + 1, y2 + 100);
+	        g.drawLine(x2 + 3, y2, x2 + 3, y2 + 100);
+	        g.drawLine(x2 + 4, y2, x2 + 4, y2 + 100);
+	        g.drawLine(x2 + 6, y2, x2 + 6, y2 + 100);
+	        g.drawLine(x2 + 7, y2, x2 + 7, y2 + 100);
+	
+	        g.flush(true);
+	    }
+	}
+	
+	public static void main(String[] args) {		
+		System.setProperty("sun.awt.noerasebackground", "true");
+		
+	    // Getting graphics device
+	    final GraphicsEnvironment localGraphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice device = localGraphicsEnvironment.getDefaultScreenDevice();
+	
+	    // Creating canvas
+	    MyCanvas canvas = new MyCanvas(device.getBestConfiguration(new GraphicsConfigTemplate3D()), false);
+	    canvas.setSize(500, 300);
+	
+	    // Creating scene + view
+	    final View view = createView();
+	    view.addCanvas3D(canvas);
+	
+	    final JFrame frame = new JFrame();
+	    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    frame.add(canvas);
+	    frame.pack();
+	    SwingUtilities.invokeLater(new Runnable() {
+	        @Override
+	        public void run() {
+	            frame.setVisible(true);
+	        }
+	    });
+	}
+	
+	private static View createView() {
+	    Locale locale = new Locale(new VirtualUniverse());
+	
+	    BranchGroup viewBranchGroup = new BranchGroup();
+	    TransformGroup viewPlatformTransformGroup = new TransformGroup();
+	    viewPlatformTransformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+	    ViewPlatform viewPlatform = new ViewPlatform();
+	    viewBranchGroup.addChild(viewPlatformTransformGroup);
+	    viewPlatformTransformGroup.addChild(viewPlatform);
+	    locale.addBranchGraph(viewBranchGroup);
+	    
+	    BranchGroup scene = createSceneGraph();	    
+	    locale.addBranchGraph(scene);
+	
+	    View view = new View();
+	    view.setPhysicalBody(new PhysicalBody());
+	    view.setPhysicalEnvironment(new PhysicalEnvironment());
+	    view.attachViewPlatform(viewPlatform);
+	    
+	    
+	    // move the view platform back from 0,0,0 a bit
+	    double fieldOfView = view.getFieldOfView();
+	    Transform3D t3d = new Transform3D();
+	    double viewDistance = 1.0/Math.tan(fieldOfView/2.0);
+	    t3d.set(new Vector3d(0.0, 0.0, viewDistance));
+	    viewPlatformTransformGroup.setTransform(t3d);
 
-	public BranchGroup createSceneGraph()
+	    return view;
+	}
+	
+ 
+
+	public static BranchGroup createSceneGraph()
 	{
 		final BranchGroup objRoot = new BranchGroup();
 
@@ -95,7 +223,7 @@ public class Overlay2D extends javax.swing.JFrame
 
 		// Add a transformed texture to the cube, for interest sake					
 		URL earthURL = Resources.getResource("main/resources/images/earth.jpg");
-		Texture earthTex = new TextureLoader(earthURL, this).getTexture();
+		Texture earthTex = new TextureLoader(earthURL, null).getTexture();
 		ap.setTexture(earthTex);
 
 		TextureAttributes textureAttributes = new TextureAttributes();
@@ -125,84 +253,4 @@ public class Overlay2D extends javax.swing.JFrame
 		return objRoot;
 
 	}
-
-	private Canvas3D2D createUniverse()
-	{
-		// Get the preferred graphics configuration for the default screen
-		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
-
-		// Create a Canvas3D using the preferred configuration
-		Canvas3D2D c = new Canvas3D2D(config);
-
-		// Create simple universe with view branch
-		univ = new SimpleUniverse(c);
-
-		// This will move the ViewPlatform back a bit so the
-		// objects in the scene can be viewed.
-		univ.getViewingPlatform().setNominalViewingTransform();
-
-		// Ensure at least 5 msec per frame (i.e., < 200Hz)
-		univ.getViewer().getView().setMinimumFrameCycleTime(5);
-
-		return c;
-	}
-
-	public Overlay2D()
-	{
-		// Initialize the GUI components
-		initComponents();
-
-		// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
-		Canvas3D2D c = createUniverse();
-		drawingPanel.add(c, java.awt.BorderLayout.CENTER);
-
-		// Create the content branch and add it to the universe
-		scene = createSceneGraph();
-		univ.addBranchGraph(scene);
-	}
-
-	// ----------------------------------------------------------------
-
-	/** This method is called from within the constructor to
-	 * initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is
-	 * always regenerated by the Form Editor.
-	 */
-	// <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-	private void initComponents()
-	{
-		drawingPanel = new javax.swing.JPanel();
-
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Overlay2D");
-		drawingPanel.setLayout(new java.awt.BorderLayout());
-
-		drawingPanel.setPreferredSize(new java.awt.Dimension(250, 250));
-		getContentPane().add(drawingPanel, java.awt.BorderLayout.CENTER);
-
-		pack();
-	}// </editor-fold>//GEN-END:initComponents
-
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[])
-	{
-
-		System.setProperty("sun.awt.noerasebackground", "true");
-		//System.setProperty("j3d.rend", "jogl2es2");
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run()
-			{
-				new Overlay2D().setVisible(true);
-			}
-		});
-	}
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JPanel drawingPanel;
-	// End of variables declaration//GEN-END:variables
-
 }
