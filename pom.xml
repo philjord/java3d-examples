@@ -47,7 +47,7 @@
 	</scm>
 
 	<properties>
-		<jogamp.version>2.4.0</jogamp.version>
+		<jogamp.version>2.3.2</jogamp.version>
 
 		<!-- NB: Avoid platform encoding warning when copying resources. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
