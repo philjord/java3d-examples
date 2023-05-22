@@ -84,7 +84,7 @@ public class ObjLoadShadowMap extends JFrame {
 		// appear in the scene.
 		TransformGroup objScale = new TransformGroup();
 		Transform3D t3d = new Transform3D();
-		t3d.setScale(0.3);
+		t3d.setScale(0.4);
 		objScale.setTransform(t3d);
 		objRoot.addChild(objScale);
 
@@ -149,7 +149,7 @@ public class ObjLoadShadowMap extends JFrame {
 		// appear in the scene.
 		TransformGroup objScale = new TransformGroup();
 		Transform3D t3d = new Transform3D();
-		t3d.setScale(0.4);
+		t3d.setScale(0.5);
 		objScale.setTransform(t3d);
 		objRoot.addChild(objScale);
 
@@ -182,7 +182,7 @@ public class ObjLoadShadowMap extends JFrame {
 		Transform3D t3d3 = new Transform3D();
 		t3d3.setTranslation(new Vector3f(-0.2f, 1.5f, 0));
 		objTrans2.setTransform(t3d3);
-		objScale.addChild(objTrans2);
+//		objScale.addChild(objTrans2);
 		TransformGroup objTrans3 = new TransformGroup();
 		objTrans3.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		objTrans3.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
@@ -249,11 +249,12 @@ public class ObjLoadShadowMap extends JFrame {
 
 		// Set up the directional lights
 
-		Color3f light2Color = new Color3f(1.0f, 1.0f, 1.0f);
-		Vector3f light2Direction = new Vector3f(-1.0f, -1.0f, 0.0f);
+		Color3f light2Color = new Color3f(1.0f, 0.0f, 1.0f);
+		Vector3f light2Direction = new Vector3f(1.0f, 0.0f, 0.0f);
 
 		DirectionalLight light2 = new DirectionalLight(light2Color, light2Direction);
 		light2.setInfluencingBounds(bounds);
+		light2.setShadowMap(false);
 		pg.addChild(light2);
 
 		viewingPlatform.setPlatformGeometry(pg);
