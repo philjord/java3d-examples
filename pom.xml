@@ -4,7 +4,7 @@
 
 	<groupId>org.jogamp.java3d</groupId>
 	<artifactId>java3d-examples</artifactId>
-	<version>1.7.1</version>
+	<version>1.7.2</version>
 
 	<name>Java 3D Examples</name>
 	<description>Examples for the Java 3D Graphics API</description>
